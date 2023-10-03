@@ -7,9 +7,11 @@ package com.equipo10.restaurante.AccesoADatos;
 
 import com.equipo10.restaurante.Entidades.Mesero;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,7 +29,7 @@ public class meseroData {
     //●	Cada pedido es cobrado por un mesero y cada mesero cobra muchos pedidos.
       private Connection con = null;
       public meseroData() {
-        con = Conexion1.getConexion();
+        con = Conexion.getConexion();
         }
         public void crearMozo(Mesero mesero) {
 
@@ -42,9 +44,38 @@ public class meseroData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Mesero" + ex.getMessage());
 
-        }
+        }}
+        
+        public List<Mesero> listarMozos() {
+        List<Mesero> meseros = new ArrayList<>();
+                
+        if (con != null) {
+            try {
+                String consulta = "SELECT * FROM mesero";
+                PreparedStatement statement = con.prepareStatement(consulta);
+                ResultSet resultado = statement.executeQuery();
+                while (resultado.next()) {
+                    int idMesero = resultado.getInt("id_mesero");
+                    String nombreApellido = resultado.getString("nombre_apellido");
+  
+                    Mesero mesero = new Mesero(idMesero, nombreApellido, new ArrayList<>(), null);
+                    meseros.add(mesero);
+                }
+                resultado.close();
+                statement.close();
+                con.close();
+            } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, " EXPLOTÓ" + e.getMessage());
 
+            }
+        }
+        return meseros;
     }
+
+
+
+
+  
 
     
     
