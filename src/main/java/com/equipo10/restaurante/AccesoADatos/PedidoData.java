@@ -2,6 +2,7 @@
 package com.equipo10.restaurante.AccesoADatos;
 
 import com.equipo10.restaurante.Entidades.Pedido;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -25,7 +26,7 @@ public class PedidoData {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, pedido.getMesa().getIdMesa());
             ps.setInt(2,pedido.getMesero().getIdMesero());
-            ps.setArray(3, pedido.getProductos());
+            ps.setArray(3, (Array) pedido.getProductos());
             ps.setDouble(4, pedido.getTotalPedido());
             ps.setBoolean(5, pedido.isEntregado());
             ps.setBoolean(6, pedido.isPagado());
