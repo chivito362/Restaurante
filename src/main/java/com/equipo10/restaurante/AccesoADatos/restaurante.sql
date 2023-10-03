@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2023 a las 00:19:08
+-- Tiempo de generación: 03-10-2023 a las 20:28:36
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -101,13 +101,27 @@ CREATE TABLE `reserva` (
 -- Indices de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  ADD PRIMARY KEY (`idMesa`);
+  ADD PRIMARY KEY (`idMesa`),
+  ADD KEY `idMesero` (`idMesero`),
+  ADD KEY `idPedido` (`idPedido`),
+  ADD KEY `idReserva` (`idReserva`);
+
+--
+-- Indices de la tabla `mesero`
+--
+ALTER TABLE `mesero`
+  ADD PRIMARY KEY (`idMesero`),
+  ADD KEY `idPedido` (`idPedido`),
+  ADD KEY `idMesa` (`idMesa`);
 
 --
 -- Indices de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`idPedido`);
+  ADD PRIMARY KEY (`idPedido`),
+  ADD KEY `idMesa` (`idMesa`),
+  ADD KEY `idMesero` (`idMesero`),
+  ADD KEY `idProducto` (`idProducto`);
 
 --
 -- Indices de la tabla `producto`
@@ -132,6 +146,12 @@ ALTER TABLE `mesa`
   MODIFY `idMesa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `mesero`
+--
+ALTER TABLE `mesero`
+  MODIFY `idMesero` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
@@ -148,6 +168,33 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `reserva`
   MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `mesa`
+--
+ALTER TABLE `mesa`
+  ADD CONSTRAINT `mesa_ibfk_1` FOREIGN KEY (`idMesero`) REFERENCES `mesero` (`idMesero`),
+  ADD CONSTRAINT `mesa_ibfk_2` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`idPedido`),
+  ADD CONSTRAINT `mesa_ibfk_3` FOREIGN KEY (`idReserva`) REFERENCES `reserva` (`idReserva`);
+
+--
+-- Filtros para la tabla `mesero`
+--
+ALTER TABLE `mesero`
+  ADD CONSTRAINT `mesero_ibfk_1` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`idPedido`),
+  ADD CONSTRAINT `mesero_ibfk_2` FOREIGN KEY (`idMesa`) REFERENCES `mesa` (`idMesa`);
+
+--
+-- Filtros para la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`idMesa`) REFERENCES `mesa` (`idMesa`),
+  ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`idMesero`) REFERENCES `mesero` (`idMesero`),
+  ADD CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
