@@ -4,10 +4,16 @@
  */
 package com.equipo10.restaurante.AccesoADatos;
 
+import java.sql.Connection;
+
 /**
  *
  * @author Sebastian
  */
 public class Conexion {
+
+    static Connection getConexion(String restaurante) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
