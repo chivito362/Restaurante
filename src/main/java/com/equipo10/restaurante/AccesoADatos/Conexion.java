@@ -1,19 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.equipo10.restaurante.AccesoADatos;
 
+
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Sebastian
- */
+
 public class Conexion {
+    private  static final String url = "jdbc:mariadb://localhost:3306/";
+    private static final String usuario = "root";
+    private static final String contrasenia= "";
+    private static Connection conexion;
 
-    static Connection getConexion(String restaurante) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private Conexion() {
+    } 
+
+       // String db=restaurante;
+        public static Connection getConexion (String db) {
+            
+           
+                
+                try {
+                    Class.forName("org.mariadb.jdbc.Driver");
+                    
+                    //establecer la conexion
+                    
+                    return DriverManager.getConnection(url+db, usuario, contrasenia);
+                            
+                            } catch (ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de driver");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error de conexion");
+                }
+                
+            
+        return null;
+            
     }
-    
+        
 }
