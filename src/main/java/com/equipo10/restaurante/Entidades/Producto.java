@@ -7,34 +7,42 @@ public class Producto {
     private String nombre;
     private int cantidad;
     private double precio;
+    private String categoria;
     private boolean estado;
     
     public Producto() {
     }
 
-    public Producto(String nombre, int cantidad, double precio, boolean estado) {
-        this.nombre = nombre;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.estado = estado;
-    }
-    
-    
-
-    public Producto(int idProducto, String nombre, int cantidad, double precio) {
+    public Producto(int idProducto, String nombre, int cantidad, double precio, String categoria, boolean estado) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precio = precio;
+        this.categoria = categoria;
+        this.estado = estado;
     }
 
-    public Producto(int idProducto, String nombre, int cantidad, double precio, boolean estado) {
-        this.idProducto = idProducto;
+    public Producto(String nombre, int cantidad, double precio, String categoria, boolean estado) {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precio = precio;
+        this.categoria = categoria;
         this.estado = estado;
     }
+
+    
+    
+    
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+   
+    
 
     public boolean isEstado() {
         return estado;
@@ -76,6 +84,12 @@ public class Producto {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" + "idProducto=" + idProducto + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio + ", categoria=" + categoria + ", estado=" + estado + '}';
+    }
+    
     
     
 }
