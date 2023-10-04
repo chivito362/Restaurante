@@ -2,20 +2,21 @@
 package com.equipo10.restaurante.Entidades;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 public class Reserva {
     private int idReserva;
     private String nombreApellido;
-    private String dni;
+    private int dni;
     private LocalDate fecha;
-    private LocalDate hora;
+    private LocalTime hora;
     private boolean vigencia;
 
     public Reserva() {
     }
 
-    public Reserva(int idReserva, String nombreApellido, String dni, LocalDate fecha, LocalDate hora, boolean vigencia) {
+    public Reserva(int idReserva, String nombreApellido, int dni, LocalDate fecha, LocalTime hora, boolean vigencia) {
         this.idReserva = idReserva;
         this.nombreApellido = nombreApellido;
         this.dni = dni;
@@ -26,7 +27,7 @@ public class Reserva {
     
     
     
-    public Reserva(String nombreApellido, String dni, LocalDate fecha, LocalDate hora, boolean vigencia) {
+    public Reserva(String nombreApellido, int dni, LocalDate fecha, LocalTime hora, boolean vigencia) {
         this.nombreApellido = nombreApellido;
         this.dni = dni;
         this.fecha = fecha;
@@ -51,11 +52,11 @@ public class Reserva {
         this.nombreApellido = nombreApellido;
     }
 
-    public String getDni() {
+    public int getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
+    public void setDni(int dni) {
         this.dni = dni;
     }
 
@@ -67,11 +68,11 @@ public class Reserva {
         this.fecha = fecha;
     }
 
-    public LocalDate getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(LocalDate hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 
@@ -82,6 +83,13 @@ public class Reserva {
     public void setVigencia(boolean vigencia) {
         this.vigencia = vigencia;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + idReserva + " NyA: " + nombreApellido + " DNI: " + dni + " Fecha: " 
+                + fecha.toString() + " Hora: " + hora.getHour() + ":" + hora.getMinute() + " Vigencia: " + vigencia ;
+    }
+    
     
     
 }

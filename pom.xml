@@ -11,4 +11,12 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.equipo10.restaurante.Restaurante</exec.mainClass>
     </properties>
+    <dependencies>
+    <dependency>
+        <groupId>org.mariadb.jdbc</groupId>
+        <artifactId>mariadb-java-client</artifactId>
+        <version>3.2.0</version>
+     </dependency>
+     </dependencies>
+
 </project>
