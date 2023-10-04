@@ -10,7 +10,7 @@ public class ProductoData {
    private Connection con;
 
     public ProductoData() {
-        this.con = Conexion.getConexion();
+        this.con = Conexion.getConexion("restaurante");
     }
    
    public void guardarProcuto(Producto prod){
