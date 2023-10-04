@@ -15,6 +15,10 @@ public class Mesa {
     public Mesa() {
     }
 
+    public Mesa(int idMesa) {
+        this.idMesa = idMesa;
+    }
+
     public Mesa(int idMesa, int capacidad) {
         this.idMesa = idMesa;
         this.capacidad = capacidad;
@@ -29,6 +33,7 @@ public class Mesa {
         this.reserva = reserva;
         this.pedidos = pedidos;
     }
+    
 
     public int getIdMesa() {
         return idMesa;

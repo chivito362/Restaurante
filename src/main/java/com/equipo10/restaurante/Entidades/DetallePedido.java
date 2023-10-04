@@ -13,6 +13,10 @@ public class DetallePedido {
  private LocalDate fecha;
  private Mesero mozo;
 
+    public DetallePedido(int idDetalle) {
+        this.idDetalle = idDetalle;
+    }
+
     public DetallePedido(String Cliente, Mesa mesa, List<Producto> productos, LocalDate fecha, Mesero mozo) {
         this.Cliente = Cliente;
         this.mesa = mesa;

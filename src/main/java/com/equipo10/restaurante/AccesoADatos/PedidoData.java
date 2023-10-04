@@ -1,6 +1,9 @@
 
 package com.equipo10.restaurante.AccesoADatos;
 
+import com.equipo10.restaurante.Entidades.DetallePedido;
+import com.equipo10.restaurante.Entidades.Mesa;
+import com.equipo10.restaurante.Entidades.Mesero;
 import com.equipo10.restaurante.Entidades.Pedido;
 import com.equipo10.restaurante.Entidades.Producto;
 import java.sql.Array;
@@ -15,6 +18,9 @@ import javax.swing.JOptionPane;
 
 public class PedidoData {
     private Connection con=null;
+    private Mesa mesa;
+    private Mesero mesero;
+    private Detalle detalle;
 
     public PedidoData() {
         con = Conexion.getConexion("restaurante");
@@ -88,6 +94,35 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, " Error al acceder al pedido");
         }
     }
-  
+  public Pedido buscarPedidoXMesa(int numMesa) {
+        Pedido pedido = null;
+        String sql = "SELECT idPedido, idMesa, idMesero, detalle, entregado, pagado FROM pedido WHERE mesa=?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, numMesa);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+            
+                pedido.setIdPedido(rs.getInt("idPedido"));
+                pedido.setMesa(new Mesa (rs.getInt("idMesa")));
+                pedido.setMesero(new Mesero(rs.getInt("idMesero")));
+                pedido.setDetalle(new DetallePedido(rs.getInt("idDetalle")));
+                pedido.setTotalPedido(rs.getInt("totalPedido"));
+                pedido.setEntregado(rs.getBoolean("entregado"));
+                pedido.setPagado(rs.getBoolean("pagado"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe pedido");
+
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a pedidos");
+        }
+
+        return pedido;
+    }
   }
     
