@@ -18,17 +18,10 @@ import javax.swing.JOptionPane;
  *
  * @author Lucas Cometto
  */
-public class meseroData {
-    /* private int idMesero;
-    private String nombreApellido;
-    private List<Pedido> pedido;
-    private Mesa mesa;
-    */
-    //●	Los meseros pueden listar pedidos cobrados en el día. Anular pedidos. 
-    //●	Listar los pedidos que cobro un mesero en particular en el día.
-    //●	Cada pedido es cobrado por un mesero y cada mesero cobra muchos pedidos.
+public class MeseroData {
+    
       private Connection con = null;
-      public meseroData() {
+      public MeseroData() {
         con = Conexion.getConexion();
         }
         public void crearMozo(Mesero mesero) {
