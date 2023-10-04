@@ -119,19 +119,20 @@ public class ReservaData {
     }
     
     public void actualizarReserva(Reserva res){
-        String sql = "UPDATE reserva SET NombreApellido = ?, DNI = ?, Fecha = ?, Hora = ? Vigencia = ? WHERE idReserva =" + res.getIdReserva();
+        String sql = "UPDATE reserva SET NombreApellido = ?, DNI = ?, Fecha = ?, Hora = ?, Vigencia = ? WHERE idReserva =" +res.getIdReserva();
         try{
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, res.getNombreApellido());
-            ps.setInt(2, res.getDni());
-            ps.setDate(3, Date.valueOf(res.getFecha()));
-            ps.setTime(4, Time.valueOf(res.getHora()));
-            ps.setBoolean(5, res.isVigencia());
-            int end = ps.executeUpdate();
-            if(end == 1){
-                JOptionPane.showMessageDialog(null, "Reserva modificada");
-            }else{
-                JOptionPane.showMessageDialog(null, "No se pudo modificar la Reserva.");
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, res.getNombreApellido());
+                ps.setInt(2, res.getDni());
+                ps.setDate(3, Date.valueOf(res.getFecha()));
+                ps.setTime(4, Time.valueOf(res.getHora()));
+                ps.setBoolean(5, res.isVigencia());
+                int end = ps.executeUpdate();
+                if(end == 1){
+                    JOptionPane.showMessageDialog(null, "Reserva modificada");
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se pudo modificar la Reserva.");
+                }
             }
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al actualizar Reserva: " + ex.getMessage());
