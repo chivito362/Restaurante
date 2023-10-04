@@ -8,19 +8,18 @@ public class Reserva {
     private int idReserva;
     private String nombreApellido;
     private String dni;
-    private LocalDate fecha;
-    private LocalDate hora;
+    private LocalDate fechaHora;
     private boolean vigencia;
 
     public Reserva() {
     }
 
-    public Reserva(int idReserva, String nombreApellido, String dni, LocalDate fecha, LocalDate hora, boolean vigencia) {
+    public Reserva(int idReserva, String nombreApellido, String dni, LocalDate fecha, boolean vigencia) {
         this.idReserva = idReserva;
         this.nombreApellido = nombreApellido;
         this.dni = dni;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaHora = fecha;
+        
         this.vigencia = vigencia;
     }
     
@@ -29,8 +28,7 @@ public class Reserva {
     public Reserva(String nombreApellido, String dni, LocalDate fecha, LocalDate hora, boolean vigencia) {
         this.nombreApellido = nombreApellido;
         this.dni = dni;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaHora = fecha;
         this.vigencia = vigencia;
     }
 
@@ -59,23 +57,15 @@ public class Reserva {
         this.dni = dni;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDate getFechaHora() {
+        return fechaHora;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setFechora(LocalDate fecha) {
+        this.fechaHora = fecha;
     }
 
-    public LocalDate getHora() {
-        return hora;
-    }
-
-    public void setHora(LocalDate hora) {
-        this.hora = hora;
-    }
-
-    public boolean isVigencia() {
+     public boolean isVigencia() {
         return vigencia;
     }
 

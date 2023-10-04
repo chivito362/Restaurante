@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2023 a las 21:39:32
+-- Tiempo de generación: 04-10-2023 a las 22:16:05
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -39,6 +39,7 @@ CREATE TABLE `categorias` (
 --
 
 CREATE TABLE `mesa` (
+  `idMesa` int(11) NOT NULL,
   `nroMesa` int(11) NOT NULL,
   `capacidad` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL,
@@ -55,6 +56,13 @@ CREATE TABLE `mesero` (
   `idMesero` int(11) NOT NULL,
   `NombreyApellido` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mesero`
+--
+
+INSERT INTO `mesero` (`idMesero`, `NombreyApellido`) VALUES
+(7, 'Lucas');
 
 -- --------------------------------------------------------
 
@@ -126,7 +134,8 @@ ALTER TABLE `categorias`
 -- Indices de la tabla `mesa`
 --
 ALTER TABLE `mesa`
-  ADD PRIMARY KEY (`nroMesa`),
+  ADD PRIMARY KEY (`idMesa`),
+  ADD UNIQUE KEY `nroMesa` (`nroMesa`),
   ADD KEY `idReserva` (`idReserva`);
 
 --
@@ -140,16 +149,16 @@ ALTER TABLE `mesero`
 --
 ALTER TABLE `pedido`
   ADD PRIMARY KEY (`idPedido`),
-  ADD KEY `idMesa` (`idMesa`),
-  ADD KEY `idMesero` (`idMesero`);
+  ADD KEY `idMesero` (`idMesero`),
+  ADD KEY `pedido_ibfk_1` (`idMesa`);
 
 --
 -- Indices de la tabla `pedidodetalle`
 --
 ALTER TABLE `pedidodetalle`
   ADD PRIMARY KEY (`idPedidoDetalle`),
-  ADD KEY `idPedido` (`idPedido`),
-  ADD KEY `idProducto` (`idProducto`);
+  ADD KEY `idProducto` (`idProducto`),
+  ADD KEY `idPedido` (`idPedido`);
 
 --
 -- Indices de la tabla `producto`
@@ -169,10 +178,28 @@ ALTER TABLE `reserva`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mesa`
+--
+ALTER TABLE `mesa`
+  MODIFY `idMesa` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `mesero`
 --
 ALTER TABLE `mesero`
-  MODIFY `idMesero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idMesero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidodetalle`
@@ -206,15 +233,15 @@ ALTER TABLE `mesa`
 -- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`idMesa`) REFERENCES `mesa` (`nroMesa`),
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`idMesa`) REFERENCES `mesa` (`idMesa`),
   ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`idMesero`) REFERENCES `mesero` (`idMesero`);
 
 --
 -- Filtros para la tabla `pedidodetalle`
 --
 ALTER TABLE `pedidodetalle`
-  ADD CONSTRAINT `pedidodetalle_ibfk_1` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`idPedido`),
-  ADD CONSTRAINT `pedidodetalle_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`);
+  ADD CONSTRAINT `pedidodetalle_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`),
+  ADD CONSTRAINT `pedidodetalle_ibfk_3` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`idPedido`);
 
 --
 -- Filtros para la tabla `producto`

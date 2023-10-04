@@ -33,7 +33,7 @@ public class meseroData {
         }
         public void crearMozo(Mesero mesero) {
 
-        String sql = "INSERT INTO mesero (nombre) VALUES (?)";
+        String sql = "INSERT INTO mesero (nombreyapellido) VALUES (?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, mesero.getNombreApellido());
