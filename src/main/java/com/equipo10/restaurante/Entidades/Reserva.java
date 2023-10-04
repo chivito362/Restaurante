@@ -2,36 +2,32 @@
 package com.equipo10.restaurante.Entidades;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 
 public class Reserva {
     private int idReserva;
     private String nombreApellido;
     private int dni;
-    private LocalDate fecha;
-    private LocalTime hora;
+    private LocalDate fechaHora;
     private boolean vigencia;
 
     public Reserva() {
     }
 
-    public Reserva(int idReserva, String nombreApellido, int dni, LocalDate fecha, LocalTime hora, boolean vigencia) {
+    public Reserva(int idReserva, String nombreApellido, int dni, LocalDate fechaHora, boolean vigencia) {
         this.idReserva = idReserva;
         this.nombreApellido = nombreApellido;
         this.dni = dni;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaHora = fechaHora;
         this.vigencia = vigencia;
     }
     
     
     
-    public Reserva(String nombreApellido, int dni, LocalDate fecha, LocalTime hora, boolean vigencia) {
+    public Reserva(String nombreApellido, int dni, LocalDate fechaHora, boolean vigencia) {
         this.nombreApellido = nombreApellido;
         this.dni = dni;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaHora = fechaHora;
         this.vigencia = vigencia;
     }
 
@@ -61,19 +57,11 @@ public class Reserva {
     }
 
     public LocalDate getFecha() {
-        return fecha;
+        return fechaHora;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public LocalTime getHora() {
-        return hora;
-    }
-
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
+    public void setFecha(LocalDate fechaHora) {
+        this.fechaHora = fechaHora;
     }
 
     public boolean isVigencia() {
@@ -87,7 +75,7 @@ public class Reserva {
     @Override
     public String toString() {
         return "ID: " + idReserva + " NyA: " + nombreApellido + " DNI: " + dni + " Fecha: " 
-                + fecha.toString() + " Hora: " + hora.getHour() + ":" + hora.getMinute() + " Vigencia: " + vigencia ;
+                + fechaHora.toString() + " Vigencia: " + vigencia ;
     }
     
     

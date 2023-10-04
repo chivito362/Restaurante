@@ -5,37 +5,27 @@ import java.util.List;
 
 
 public class Mesa {
-    private int idMesa;
+    private int nroMesa;
     private int capacidad;
     private boolean estado;
-    private Mesero mesero;
-    private Reserva reserva;
-    private List<Pedido> pedidos;
+    private Reserva idReserva;
 
     public Mesa() {
     }
 
-    public Mesa(int idMesa, int capacidad) {
-        this.idMesa = idMesa;
-        this.capacidad = capacidad;
-        this.estado = false;
-    }
-    
-    public Mesa(int idMesa, int capacidad, boolean estado, Mesero mesero, Reserva reserva, List<Pedido> pedidos) {
-        this.idMesa = idMesa;
+    public Mesa(int nroMesa, int capacidad, boolean estado, Reserva idReserva) {
+        this.nroMesa = nroMesa;
         this.capacidad = capacidad;
         this.estado = estado;
-        this.mesero = mesero;
-        this.reserva = reserva;
-        this.pedidos = pedidos;
+        this.idReserva = idReserva;
     }
 
-    public int getIdMesa() {
-        return idMesa;
+    public int getNroMesa() {
+        return nroMesa;
     }
 
-    public void setIdMesa(int idMesa) {
-        this.idMesa = idMesa;
+    public void setNroMesa(int nroMesa) {
+        this.nroMesa = nroMesa;
     }
 
     public int getCapacidad() {
@@ -54,30 +44,14 @@ public class Mesa {
         this.estado = estado;
     }
 
-    public Mesero getMesero() {
-        return mesero;
+    public Reserva getIdReserva() {
+        return idReserva;
     }
 
-    public void setMesero(Mesero mesero) {
-        this.mesero = mesero;
+    public void setIdReserva(Reserva idReserva) {
+        this.idReserva = idReserva;
     }
 
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-    
     
     
     

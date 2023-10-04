@@ -4,11 +4,8 @@ package com.equipo10.restaurante.AccesoADatos;
 
 import com.equipo10.restaurante.Entidades.Reserva;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -21,15 +18,14 @@ public class ReservaData {
     }
     
     public void guardarReserva(Reserva res){
-        String sql = "INSERT INTO reserva (idReserva, NombreApellido, DNI, Fecha, Hora, Vigencia) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO reserva (idReserva, NombreApellido, DNI, Fecha, Vigencia) VALUES (?,?,?,?,?,?)";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, res.getIdReserva());
             ps.setString(2,res.getNombreApellido());
             ps.setInt(3, res.getDni());
             ps.setDate(4, Date.valueOf(res.getFecha()));
-            ps.setTime(5, Time.valueOf(res.getHora()));
-            ps.setBoolean(6, res.isVigencia());
+            ps.setBoolean(5, res.isVigencia());
             int end = ps.executeUpdate();
             if(end == 1){
                 JOptionPane.showMessageDialog(null, "Reserva Guardada");
@@ -58,7 +54,6 @@ public class ReservaData {
             res.setNombreApellido(rs.getString("NombreApellido"));
             res.setDni(rs.getInt("DNI"));
             res.setFecha(rs.getDate("Fecha").toLocalDate());
-            res.setHora(rs.getTime("Hora").toLocalTime());
             res.setVigencia(true);
             }else {
                 JOptionPane.showMessageDialog(null, "No existe la Reserva");
@@ -119,14 +114,13 @@ public class ReservaData {
     }
     
     public void actualizarReserva(Reserva res){
-        String sql = "UPDATE reserva SET NombreApellido = ?, DNI = ?, Fecha = ?, Hora = ?, Vigencia = ? WHERE idReserva =" +res.getIdReserva();
+        String sql = "UPDATE reserva SET NombreApellido = ?, DNI = ?, Fecha = ?, Vigencia = ? WHERE idReserva =" +res.getIdReserva();
         try{
             try (PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setString(1, res.getNombreApellido());
                 ps.setInt(2, res.getDni());
                 ps.setDate(3, Date.valueOf(res.getFecha()));
-                ps.setTime(4, Time.valueOf(res.getHora()));
-                ps.setBoolean(5, res.isVigencia());
+                ps.setBoolean(4, res.isVigencia());
                 int end = ps.executeUpdate();
                 if(end == 1){
                     JOptionPane.showMessageDialog(null, "Reserva modificada");
