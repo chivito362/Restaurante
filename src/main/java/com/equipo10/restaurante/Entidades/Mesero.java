@@ -13,10 +13,6 @@ public class Mesero {
     public Mesero() {
     }
 
-    public Mesero(int idMesero) {
-        this.idMesero = idMesero;
-    }
-
     public Mesero(int idMesero, String nombreApellido, List<Pedido> pedido, Mesa mesa) {
         this.idMesero = idMesero;
         this.nombreApellido = nombreApellido;
