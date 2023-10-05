@@ -1,8 +1,6 @@
 
 package com.equipo10.restaurante.Entidades;
 
-import java.util.List;
-
 
 public class Mesa {
     private int nroMesa;
@@ -50,6 +48,11 @@ public class Mesa {
 
     public void setIdReserva(Reserva idReserva) {
         this.idReserva = idReserva;
+    }
+
+    @Override
+    public String toString() {
+        return "|Nro: " + nroMesa + " |Capacidad: " + capacidad + " |Estado: " + estado + " |Reserva: " + idReserva.getNombreApellido()+"|";
     }
 
     

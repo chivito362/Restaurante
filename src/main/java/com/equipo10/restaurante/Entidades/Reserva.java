@@ -9,26 +9,26 @@ public class Reserva {
     private String nombreApellido;
     private int dni;
     private LocalDate fechaHora;
-    private boolean vigencia;
+    private boolean estado;
 
     public Reserva() {
     }
 
-    public Reserva(int idReserva, String nombreApellido, int dni, LocalDate fechaHora, boolean vigencia) {
+    public Reserva(int idReserva, String nombreApellido, int dni, LocalDate fechaHora, boolean estado) {
         this.idReserva = idReserva;
         this.nombreApellido = nombreApellido;
         this.dni = dni;
         this.fechaHora = fechaHora;
-        this.vigencia = vigencia;
+        this.estado = estado;
     }
     
     
     
-    public Reserva(String nombreApellido, int dni, LocalDate fechaHora, boolean vigencia) {
+    public Reserva(String nombreApellido, int dni, LocalDate fechaHora, boolean estado) {
         this.nombreApellido = nombreApellido;
         this.dni = dni;
         this.fechaHora = fechaHora;
-        this.vigencia = vigencia;
+        this.estado = estado;
     }
 
     public int getIdReserva() {
@@ -39,7 +39,6 @@ public class Reserva {
         this.idReserva = idReserva;
     }
 
-        
     public String getNombreApellido() {
         return nombreApellido;
     }
@@ -56,26 +55,28 @@ public class Reserva {
         this.dni = dni;
     }
 
-    public LocalDate getFecha() {
+    public LocalDate getFechaHora() {
         return fechaHora;
     }
 
-    public void setFecha(LocalDate fechaHora) {
+    public void setFechaHora(LocalDate fechaHora) {
         this.fechaHora = fechaHora;
     }
 
-    public boolean isVigencia() {
-        return vigencia;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setVigencia(boolean vigencia) {
-        this.vigencia = vigencia;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
+
+    
 
     @Override
     public String toString() {
         return "ID: " + idReserva + " NyA: " + nombreApellido + " DNI: " + dni + " Fecha: " 
-                + fechaHora.toString() + " Vigencia: " + vigencia ;
+                + fechaHora.toString() + " Vigencia: " + estado ;
     }
     
     
