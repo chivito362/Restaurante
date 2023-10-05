@@ -120,7 +120,7 @@ public class PedidoData {
         return pedido;
     }
   
-  public List<Pedido> obtenerPedidosxMesa(int idMesa) {
+  public List<Pedido> obtenerPedidosXidMesa(int idMesa) {
         List<Pedido> pedidos = new ArrayList<>();
         String sql = "SELECT mesa.* FROM pedido JOIN mesa ON (pedido.idMesa=mesa.idmesa) WHERE idmesa=?";
         try {

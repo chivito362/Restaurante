@@ -13,6 +13,10 @@ public class Mesero {
     public Mesero() {
     }
 
+    public Mesero(int idMesero) {
+        this.idMesero = idMesero;
+    }
+
     public Mesero(int idMesero, String nombreApellido, List<Pedido> pedido, Mesa mesa) {
         this.idMesero = idMesero;
         this.nombreApellido = nombreApellido;
@@ -50,6 +54,11 @@ public class Mesero {
 
     public void setMesa(Mesa mesa) {
         this.mesa = mesa;
+    }
+
+    @Override
+    public String toString() {
+        return "Mesero{" + "idMesero=" + idMesero + ", nombreApellido=" + nombreApellido + ", pedido=" + pedido + ", mesa=" + mesa + '}';
     }
     
     

@@ -22,7 +22,7 @@ public class MeseroData {
     
       private Connection con = null;
       public MeseroData() {
-        con = Conexion.getConexion();
+        con = Conexion.getConexion("Restaurante");
         }
         public void crearMozo(Mesero mesero) {
 
