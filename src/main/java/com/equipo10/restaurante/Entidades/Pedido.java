@@ -7,15 +7,20 @@ public class Pedido {
     private int idPedido;
     private Mesa mesa;
     private Mesero mesero;
-    private double totalPedido;
     private boolean entregado;
     private boolean pagado;
 
-    public Pedido(int idPedido, Mesa mesa, Mesero mesero, List<Producto> productos, double totalPedido, boolean entregado, boolean pagado) {
+    public Pedido(Mesa mesa, Mesero mesero, boolean entregado, boolean pagado) {
+        this.mesa = mesa;
+        this.mesero = mesero;
+        this.entregado = entregado;
+        this.pagado = pagado;
+    }
+
+    public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean entregado, boolean pagado) {
         this.idPedido = idPedido;
         this.mesa = mesa;
         this.mesero = mesero;
-        this.totalPedido = totalPedido;
         this.entregado = entregado;
         this.pagado = pagado;
     }
@@ -47,14 +52,6 @@ public class Pedido {
         this.mesero = mesero;
     }
 
-    public double getTotalPedido() {
-        return totalPedido;
-    }
-
-    public void setTotalPedido(double totalPedido) {
-        this.totalPedido = totalPedido;
-    }
-
     public boolean isEntregado() {
         return entregado;
     }
@@ -73,7 +70,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", mesero=" + mesero + ", productos=" + ", totalPedido=" + totalPedido + ", entregado=" + entregado + ", pagado=" + pagado + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", mesero=" + mesero + ", productos=" + ", totalPedido="+ ", entregado=" + entregado + ", pagado=" + pagado + '}';
     }
 
 }
