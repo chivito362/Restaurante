@@ -12,12 +12,17 @@ public class Restaurante {
         
         //Pruebas Producto
         ProductoData p=new ProductoData();
-        Producto prod=new Producto("Milanesa napolitana", 1, 1500, Categoria.MINUTA, true);
+        //Producto prod=new Producto("Milanesa", 2, 1500, Categoria.MINUTA, true);
         
         //Guardar producto
-        p.guardarProcuto(prod);
+        //p.guardarProcuto(prod);
         //System.out.println("Lis");
         //System.out.println(p.listarProductos());
         //System.out.println("-------------");
+        
+        
+        
+        System.out.println(p.listarProductos());
+        
     }
 }

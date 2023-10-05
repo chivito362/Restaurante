@@ -24,25 +24,25 @@ public class ProductoData {
     }
    
    public void guardarProcuto(Producto p){
-    String sql="INSERT INTO producto (Nombre, CantidadenStock, Precio, idCategoria, estado) VALUES (?,?,?,?,?)";
+    String sql="INSERT INTO producto (idCategoria,Nombre, CantidadenStock, Precio, estado) VALUES (?,?,?,?,?)";
         CategoriaData cat=new CategoriaData();
        try {
            PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-           ps.setString(1, p.getNombre());
-           ps.setInt(2, p.getCantidad());
-           ps.setDouble(3, p.getPrecio());
-           ps.setInt(4, cat.obtenerIdCategoriaPorNombre(p.getCategoria().toString()));
+           ps.setInt(1, cat.obtenerIdCategoriaPorNombre(p.getCategoria().toString()));
+           ps.setString(2, p.getNombre());
+           ps.setInt(3, p.getCantidad());
+           ps.setDouble(4, p.getPrecio());          
            ps.setBoolean(5, true);
-           int r=ps.executeUpdate();
-           ResultSet rs=ps.getGeneratedKeys();
-           if(r==1){
+           ps.executeUpdate();
+           ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
                p.setIdProducto(rs.getInt(1));
                JOptionPane.showMessageDialog(null, "Producto cargado");
            }
            ps.close();
            
        } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al Guardar");
+           JOptionPane.showMessageDialog(null, "Error al Guardar"+ex.fillInStackTrace());
        }
 }
    public void eliminarProducto(int id){
@@ -66,7 +66,7 @@ public class ProductoData {
    }
    
    public void actualizarProducto(Producto p){
-       String sql="UPDATE producto SET Nombre=?,Cantidad=?,Precio=?,idCategoria=?,estado=? WHERE idProducto=?";
+       String sql="UPDATE producto SET Nombre=?,CantidadenStock=?,Precio=?,idCategoria=?,estado=? WHERE idProducto=?";
        CategoriaData cat=new CategoriaData();
        try {
            PreparedStatement ps=con.prepareStatement(sql);
@@ -99,6 +99,7 @@ public class ProductoData {
            
            if(rs.next()){
                Producto p=new Producto();
+               p.setIdProducto(id);
                p.setNombre(rs.getString("Nombre"));
                p.setPrecio(rs.getDouble("Precio"));
                p.setCantidad(rs.getInt("CantidadenStock"));
@@ -124,6 +125,7 @@ public class ProductoData {
            
            while(rs.next()){
                Producto p=new Producto();
+               p.setIdProducto(rs.getInt("idProducto"));
                p.setNombre(rs.getString("Nombre"));
                p.setPrecio(rs.getDouble("Precio"));
                p.setCantidad(rs.getInt("CantidadenStock"));
