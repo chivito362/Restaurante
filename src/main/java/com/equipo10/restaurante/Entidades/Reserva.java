@@ -7,31 +7,28 @@ import java.time.LocalDate;
 public class Reserva {
     private int idReserva;
     private String nombreApellido;
-    private String dni;
-    private LocalDate fecha;
-    private LocalDate hora;
-    private boolean vigencia;
+    private int dni;
+    private LocalDate fechaHora;
+    private boolean estado;
 
     public Reserva() {
     }
 
-    public Reserva(int idReserva, String nombreApellido, String dni, LocalDate fecha, LocalDate hora, boolean vigencia) {
+    public Reserva(int idReserva, String nombreApellido, int dni, LocalDate fechaHora, boolean estado) {
         this.idReserva = idReserva;
         this.nombreApellido = nombreApellido;
         this.dni = dni;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.vigencia = vigencia;
+        this.fechaHora = fechaHora;
+        this.estado = estado;
     }
     
     
     
-    public Reserva(String nombreApellido, String dni, LocalDate fecha, LocalDate hora, boolean vigencia) {
+    public Reserva(String nombreApellido, int dni, LocalDate fechaHora, boolean estado) {
         this.nombreApellido = nombreApellido;
         this.dni = dni;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.vigencia = vigencia;
+        this.fechaHora = fechaHora;
+        this.estado = estado;
     }
 
     public int getIdReserva() {
@@ -42,7 +39,6 @@ public class Reserva {
         this.idReserva = idReserva;
     }
 
-        
     public String getNombreApellido() {
         return nombreApellido;
     }
@@ -51,37 +47,37 @@ public class Reserva {
         this.nombreApellido = nombreApellido;
     }
 
-    public String getDni() {
+    public int getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
+    public void setDni(int dni) {
         this.dni = dni;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDate getFechaHora() {
+        return fechaHora;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setFechaHora(LocalDate fechaHora) {
+        this.fechaHora = fechaHora;
     }
 
-    public LocalDate getHora() {
-        return hora;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setHora(LocalDate hora) {
-        this.hora = hora;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
-    public boolean isVigencia() {
-        return vigencia;
-    }
+    
 
-    public void setVigencia(boolean vigencia) {
-        this.vigencia = vigencia;
+    @Override
+    public String toString() {
+        return "ID: " + idReserva + " NyA: " + nombreApellido + " DNI: " + dni + " Fecha: " + fechaHora.toString() + " Vigencia: " + estado ;
     }
+    
     
     
 }

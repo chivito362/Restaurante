@@ -1,37 +1,36 @@
-
 package com.equipo10.restaurante.Entidades;
 
-import java.util.List;
-
-
 public class Mesa {
+
     private int idMesa;
+    private int nroMesa;
     private int capacidad;
     private boolean estado;
-    private Mesero mesero;
-    private Reserva reserva;
-    private List<Pedido> pedidos;
+    private Reserva idReserva = new Reserva();
 
+    /*                            IMPORTANTE
+    *       AL CREAR UNA MESA SE PUEDE AGREGAR UNA RESERVA Y SI NO
+    *       LO REQUIERE SE DEBE AGREGAR null EN LUGAR DE LA RESERVA" 
+    */
+    
     public Mesa() {
     }
 
-    public Mesa(int idMesa) {
+    public Mesa(int idMesa, int nroMesa, int capacidad, boolean estado, Reserva idReserva) {
         this.idMesa = idMesa;
-    }
-
-    public Mesa(int idMesa, int capacidad) {
-        this.idMesa = idMesa;
-        this.capacidad = capacidad;
-        this.estado = false;
-    }
-    
-    public Mesa(int idMesa, int capacidad, boolean estado, Mesero mesero, Reserva reserva, List<Pedido> pedidos) {
-        this.idMesa = idMesa;
+        this.nroMesa = nroMesa;
         this.capacidad = capacidad;
         this.estado = estado;
-        this.mesero = mesero;
-        this.reserva = reserva;
-        this.pedidos = pedidos;
+        this.idReserva = idReserva;
+
+    }
+
+    public Mesa(int nroMesa, int capacidad, boolean estado, Reserva idReserva) {
+        this.idMesa = -1;
+        this.nroMesa = nroMesa;
+        this.capacidad = capacidad;
+        this.estado = estado;
+        this.idReserva = idReserva;
     }
 
     public int getIdMesa() {
@@ -40,6 +39,14 @@ public class Mesa {
 
     public void setIdMesa(int idMesa) {
         this.idMesa = idMesa;
+    }
+
+    public int getNroMesa() {
+        return nroMesa;
+    }
+
+    public void setNroMesa(int nroMesa) {
+        this.nroMesa = nroMesa;
     }
 
     public int getCapacidad() {
@@ -58,32 +65,21 @@ public class Mesa {
         this.estado = estado;
     }
 
-    public Mesero getMesero() {
-        return mesero;
+    public Reserva getIdReserva() {
+        return idReserva;
     }
 
-    public void setMesero(Mesero mesero) {
-        this.mesero = mesero;
+    public void setIdReserva(Reserva idReserva) {
+        this.idReserva = idReserva;
     }
 
-    public Reserva getReserva() {
-        return reserva;
+    @Override
+    public String toString() {
+        if (idReserva != null) {
+            return"|ID: " + idMesa + "|Nro: " + nroMesa + "|Capacidad: " + capacidad + "|Estado: " + estado + "|Reserva: " + idReserva.getNombreApellido() + "|";
+        }else{
+            return"|ID: " + idMesa + "|Nro: " + nroMesa + "|Capacidad: " + capacidad + "|Estado: " + estado + "|Reserva: NO TIENE|";
+        }
     }
 
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-    
-    
-    
-    
-    
 }

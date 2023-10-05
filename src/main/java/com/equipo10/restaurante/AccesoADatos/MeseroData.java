@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package com.equipo10.restaurante.AccesoADatos;
 
 import com.equipo10.restaurante.Entidades.Mesero;
@@ -19,17 +18,14 @@ import javax.swing.JOptionPane;
  * @author Lucas Cometto
  */
 public class MeseroData {
-    
-      private Connection con = null;
-      public MeseroData() {
 
-        con = Conexion.getConexion("Restaurante");
+    private Connection con = null;
 
-        this.con = Conexion.getConexion("restaurante");  
-        
+    public MeseroData() {
+        con = Conexion.getConexion();
+    }
 
-        }
-        public void crearMozo(Mesero mesero) {
+    public void crearMozo(Mesero mesero) {
 
         String sql = "INSERT INTO mesero (nombreyapellido) VALUES (?)";
         try {
@@ -42,11 +38,12 @@ public class MeseroData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Mesero" + ex.getMessage());
 
-        }}
-        
-        public List<Mesero> listarMozos() {
+        }
+    }
+
+    public List<Mesero> listarMozos() {
         List<Mesero> meseros = new ArrayList<>();
-                
+
         if (con != null) {
             try {
                 String consulta = "SELECT * FROM mesero";
@@ -63,20 +60,11 @@ public class MeseroData {
                 statement.close();
                 con.close();
             } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(null, " EXPLOTÓ" + e.getMessage());
+                JOptionPane.showMessageDialog(null, " EXPLOTÓ" + e.getMessage());
 
             }
         }
         return meseros;
     }
 
-
-
-
-  
-
-    
-    
-    
-    
 }

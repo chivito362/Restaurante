@@ -21,9 +21,10 @@ import javax.swing.JOptionPane;
 
 public class PedidoData {
     private Connection con=null;
-
+    private final MesaData md = new MesaData();
+    
   public PedidoData() {
-        con = Conexion.getConexion("restaurante");
+        con = Conexion.getConexion();
     }
 
   public void agregarPedido(Pedido pedido) {
@@ -103,7 +104,7 @@ public class PedidoData {
             if (rs.next()) {
             
                 pedido.setIdPedido(rs.getInt("idPedido"));
-                pedido.setMesa(new Mesa (rs.getInt("idMesa")));
+                pedido.setMesa(md.buscarMesa(rs.getInt("idMesa")));
                 pedido.setMesero(new Mesero(rs.getInt("idMesero")));
                 pedido.setEntregado(rs.getBoolean("entregado"));
                 pedido.setPagado(rs.getBoolean("pagado"));
@@ -131,7 +132,7 @@ public class PedidoData {
             while(rs.next()){
                 Pedido pedido=new Pedido();
                 pedido.setIdPedido(rs.getInt("idPedido"));
-                pedido.setMesa(new Mesa(rs.getInt("idMesa")));
+                pedido.setMesa(md.buscarMesa(rs.getInt("idMesa")));
                 pedido.setMesero(new Mesero(rs.getInt("idMesero")));
                 pedido.setEntregado(rs.getBoolean("entregado"));
                 pedido.setPagado(rs.getBoolean("pagado"));
@@ -156,7 +157,7 @@ public class PedidoData {
             Pedido pedido=new Pedido();
             
             pedido.setIdPedido(rs.getInt("idPedido"));
-            pedido.setMesa(new Mesa(rs.getInt("idMesa")));
+            pedido.setMesa(md.buscarMesa(rs.getInt("idMesa")));
             pedido.setMesero(new Mesero(rs.getInt("idMesero")));
             pedido.setEntregado(rs.getBoolean("Entregado"));
             pedido.setPagado(rs.getBoolean("Entregado"));
