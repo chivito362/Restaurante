@@ -7,13 +7,13 @@ public class Producto {
     private String nombre;
     private int cantidad;
     private double precio;
-    private String categoria;
+    private Categoria categoria;
     private boolean estado;
     
     public Producto() {
     }
 
-    public Producto(int idProducto, String nombre, int cantidad, double precio, String categoria, boolean estado) {
+    public Producto(int idProducto, String nombre, int cantidad, double precio, Categoria categoria, boolean estado) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.cantidad = cantidad;
@@ -22,7 +22,7 @@ public class Producto {
         this.estado = estado;
     }
 
-    public Producto(String nombre, int cantidad, double precio, String categoria, boolean estado) {
+    public Producto(String nombre, int cantidad, double precio, Categoria categoria, boolean estado) {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precio = precio;
@@ -30,18 +30,15 @@ public class Producto {
         this.estado = estado;
     }
 
-    
-    
-    
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+    
 
-   
     
 
     public boolean isEstado() {
