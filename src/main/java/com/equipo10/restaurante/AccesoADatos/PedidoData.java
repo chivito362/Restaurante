@@ -1,4 +1,3 @@
-
 package com.equipo10.restaurante.AccesoADatos;
 
 import com.equipo10.restaurante.Entidades.DetallePedido;
@@ -15,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -28,14 +29,13 @@ public class PedidoData {
   public void agregarPedido(Pedido pedido) {
       Producto producto= new Producto();
 
-        String sql = "INSERT INTO pedido (idMesa, idMesero, totalPedido, Entregado, Pagado) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pedido (idMesa, idMesero, Entregado, Pagado) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, pedido.getMesa().getIdMesa());
             ps.setInt(2,pedido.getMesero().getIdMesero());
-            ps.setDouble(3, pedido.getTotalPedido());
-            ps.setBoolean(4, pedido.isEntregado());
-            ps.setBoolean(6, pedido.isPagado());
+            ps.setBoolean(3, pedido.isEntregado());
+            ps.setBoolean(4, pedido.isPagado());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -52,16 +52,15 @@ public class PedidoData {
     }
   
   public void editarPedido(Pedido pedido){
-  String sql = "UPDATE alumno SET mesa = ? , mesero = ?, detalle = ?, totalPedido = ?, entregado= ?, pagado= ? WHERE idPedido = ?";
+  String sql = "UPDATE alumno SET mesa = ? , mesero = ?, detalle = ?, entregado= ?, pagado= ? WHERE idPedido = ?";
         PreparedStatement ps = null;
 
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, pedido.getMesa().getIdMesa());
             ps.setInt(2, pedido.getMesero().getIdMesero());
-            ps.setDouble(3, pedido.getTotalPedido());
-            ps.setBoolean(4, pedido.isEntregado());
-            ps.setBoolean(5, pedido.isPagado());
+            ps.setBoolean(3, pedido.isEntregado());
+            ps.setBoolean(4, pedido.isPagado());
             int exito = ps.executeUpdate();
 
             if (exito == 1) {
@@ -106,7 +105,6 @@ public class PedidoData {
                 pedido.setIdPedido(rs.getInt("idPedido"));
                 pedido.setMesa(new Mesa (rs.getInt("idMesa")));
                 pedido.setMesero(new Mesero(rs.getInt("idMesero")));
-                pedido.setTotalPedido(rs.getInt("totalPedido"));
                 pedido.setEntregado(rs.getBoolean("entregado"));
                 pedido.setPagado(rs.getBoolean("pagado"));
 
@@ -135,7 +133,6 @@ public class PedidoData {
                 pedido.setIdPedido(rs.getInt("idPedido"));
                 pedido.setMesa(new Mesa(rs.getInt("idMesa")));
                 pedido.setMesero(new Mesero(rs.getInt("idMesero")));
-                pedido.setTotalPedido(rs.getInt("totalPedido"));
                 pedido.setEntregado(rs.getBoolean("entregado"));
                 pedido.setPagado(rs.getBoolean("pagado"));
                 pedidos.add(pedido);
@@ -151,9 +148,28 @@ public class PedidoData {
   List<Pedido> pedidos=new ArrayList<>();
   String sql="SELEC * FROM pedido WHERE entregado=1";
   
-  PreparedStatement ps = con.prepareStatement(sql);
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+            Pedido pedido=new Pedido();
+            
+            pedido.setIdPedido(rs.getInt("idPedido"));
+            pedido.setMesa(new Mesa(rs.getInt("idMesa")));
+            pedido.setMesero(new Mesero(rs.getInt("idMesero")));
+            pedido.setEntregado(rs.getBoolean("Entregado"));
+            pedido.setPagado(rs.getBoolean("Entregado"));
+            
+            pedidos.add(pedido);
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a pedidos.");
+        }
   
-  
+  return pedidos;
   }
-  }
-    
+}
+
+ 
