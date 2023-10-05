@@ -22,8 +22,12 @@ public class MeseroData {
     
       private Connection con = null;
       public MeseroData() {
+
+        con = Conexion.getConexion("Restaurante");
+
         this.con = Conexion.getConexion("restaurante");  
         
+
         }
         public void crearMozo(Mesero mesero) {
 

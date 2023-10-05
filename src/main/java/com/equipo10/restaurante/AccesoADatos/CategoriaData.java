@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.equipo10.restaurante.AccesoADatos;
 
 import com.equipo10.restaurante.Entidades.Categoria;
@@ -16,9 +13,19 @@ import javax.swing.JOptionPane;
  * @author Sebastian
  */
 public class CategoriaData {
-    private Connection con;
 
-    public CategoriaData() {
+   
+      private Connection con = null;
+      public CategoriaData() {
+
+        con = Conexion.getConexion("Restaurante");
+
+         this.con = Conexion.getConexion("restaurante");
+
+        }
+        public void crearCategoria(Categoria categoria) {
+
+
         con=Conexion.getConexion("restaurante");
     }
     

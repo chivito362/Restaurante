@@ -8,11 +8,19 @@ public class Mesero {
     private int idMesero;
     private String nombreApellido;
     private boolean estado;
-
+    
+    
     public Mesero() {
     }
 
+
+    public Mesero(int idMesero) {
+        this.idMesero = idMesero;
+    }
+
+
     public Mesero(int idMesero, String nombreApellido, boolean estado) {
+
         this.idMesero = idMesero;
         this.nombreApellido = nombreApellido;
         this.estado=estado;
@@ -34,6 +42,11 @@ public class Mesero {
         this.nombreApellido = nombreApellido;
     }
 
-   
+    @Override
+    public String toString() {
+        return "Mesero{" + "idMesero=" + idMesero + ", nombreApellido=" + nombreApellido + ", pedido=" + ", mesa=" + '}';
+    }
+    
+
     
 }

@@ -10,6 +10,7 @@ public class Restaurante {
 
     public static void main(String[] args) {
         
+
         //Pruebas Producto
         ProductoData p=new ProductoData();
         //Producto prod=new Producto("Milanesa", 2, 1500, Categoria.MINUTA, true);
@@ -24,5 +25,6 @@ public class Restaurante {
         
         System.out.println(p.listarProductos());
         
+
     }
 }
