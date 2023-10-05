@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
@@ -22,7 +24,7 @@ public class PedidoData {
     private Mesero mesero;
     private Detalle detalle;
 
-    public PedidoData() {
+  public PedidoData() {
         con = Conexion.getConexion("restaurante");
     }
 
@@ -94,6 +96,7 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, " Error al acceder al pedido");
         }
     }
+  
   public Pedido buscarPedidoXMesa(int numMesa) {
         Pedido pedido = null;
         String sql = "SELECT idPedido, idMesa, idMesero, detalle, entregado, pagado FROM pedido WHERE mesa=?";
@@ -123,6 +126,32 @@ public class PedidoData {
         }
 
         return pedido;
+    }
+  
+  public List<Pedido> obtenerPedidosxMesa(int idMesa) {
+        List<Pedido> pedidos = new ArrayList<>();
+        String sql = "SELECT mesa.* FROM pedido JOIN mesa ON (pedido.idMesa=mesa.idmesa) WHERE idmesa=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMesa);
+            ResultSet rs=ps.executeQuery();
+            
+            while(rs.next()){
+                Pedido pedido=new Pedido();
+                pedido.setIdPedido(rs.getInt("idPedido"));
+                pedido.setMesa(new Mesa(rs.getInt("idMesa")));
+                pedido.setMesero(new Mesero(rs.getInt("idMesero")));
+                pedido.setDetalle(new DetallePedido(rs.getInt("idDetalle")));
+                pedido.setTotalPedido(rs.getInt("totalPedido"));
+                pedido.setEntregado(rs.getBoolean("entregado"));
+                pedido.setPagado(rs.getBoolean("pagado"));
+                pedidos.add(pedido);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Inscripcion");
+        }
+        return pedidos;
     }
   }
     
