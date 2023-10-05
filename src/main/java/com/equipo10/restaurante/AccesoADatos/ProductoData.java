@@ -1,6 +1,7 @@
 
 package com.equipo10.restaurante.AccesoADatos;
 
+import com.equipo10.restaurante.Entidades.Categoria;
 import com.equipo10.restaurante.Entidades.Producto;
 import com.equipo10.restaurante.Entidades.Producto;
 import java.sql.Connection;
@@ -23,14 +24,14 @@ public class ProductoData {
     }
    
    public void guardarProcuto(Producto p){
-    String sql="INSERT INTO producto (Nombre, Cantidad, Precio, categoria, estado) VALUES (?,?,?,?,?)";
-    
+    String sql="INSERT INTO producto (Nombre, CantidadenStock, Precio, idCategoria, estado) VALUES (?,?,?,?,?)";
+        CategoriaData cat=new CategoriaData();
        try {
            PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
            ps.setString(1, p.getNombre());
            ps.setInt(2, p.getCantidad());
            ps.setDouble(3, p.getPrecio());
-           ps.setString(4, p.getCategoria());
+           ps.setInt(4, cat.obtenerIdCategoriaPorNombre(p.getCategoria().toString()));
            ps.setBoolean(5, true);
            int r=ps.executeUpdate();
            ResultSet rs=ps.getGeneratedKeys();
@@ -65,13 +66,14 @@ public class ProductoData {
    }
    
    public void actualizarProducto(Producto p){
-       String sql="UPDATE producto SET Nombre=?,Cantidad=?,Precio=?,categoria=?,estado=? WHERE idProducto=?";
+       String sql="UPDATE producto SET Nombre=?,Cantidad=?,Precio=?,idCategoria=?,estado=? WHERE idProducto=?";
+       CategoriaData cat=new CategoriaData();
        try {
            PreparedStatement ps=con.prepareStatement(sql);
            ps.setString(1, p.getNombre());
            ps.setInt(2, p.getCantidad());
            ps.setDouble(3, p.getPrecio());
-           ps.setString(4, p.getCategoria());
+           ps.setInt(4, cat.obtenerIdCategoriaPorNombre(p.getCategoria().toString()));
            ps.setBoolean(5, p.isEstado());
            ps.setInt(6, p.getIdProducto());
            int r=ps.executeUpdate();
@@ -89,6 +91,7 @@ public class ProductoData {
    }
    public Producto TraerProducto(int id){
        String sql="SELECT producto.*, categorias.nombre AS CateNom FROM producto, categorias WHERE producto.idCategoria = categorias.idCategoria and idProducto=?";
+       CategoriaData cat=new CategoriaData();
        try {
            PreparedStatement ps=con.prepareStatement(sql);
            ps.setInt(1, id);
@@ -100,7 +103,7 @@ public class ProductoData {
                p.setPrecio(rs.getDouble("Precio"));
                p.setCantidad(rs.getInt("CantidadenStock"));
                p.setEstado(true);
-               p.setCategoria(rs.getString("CateNom"));
+               p.setCategoria(Categoria.valueOf(cat.obtenerNombreCategoriaPorId(rs.getInt("idCategoria"))));
                return p;
            }else{
                JOptionPane.showMessageDialog(null, "No existe el producto");
@@ -114,7 +117,8 @@ public class ProductoData {
    public List<Producto> listarProductos(){
        ArrayList<Producto> productos=new ArrayList<>();
        String sql="SELECT producto.*, categorias.nombre AS CateNom FROM producto, categorias WHERE producto.idCategoria = categorias.idCategoria";
-      try {
+     CategoriaData cat=new CategoriaData();
+       try {
            PreparedStatement ps=con.prepareStatement(sql);
            ResultSet rs=ps.executeQuery();
            
@@ -124,7 +128,7 @@ public class ProductoData {
                p.setPrecio(rs.getDouble("Precio"));
                p.setCantidad(rs.getInt("CantidadenStock"));
                p.setEstado(true);
-               p.setCategoria(rs.getString("CateNom"));
+               p.setCategoria(Categoria.valueOf(cat.obtenerNombreCategoriaPorId(rs.getInt("idCategoria"))));
                productos.add(p);
            }
            return productos;
