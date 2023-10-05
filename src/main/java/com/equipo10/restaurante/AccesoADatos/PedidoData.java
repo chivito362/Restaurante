@@ -20,9 +20,6 @@ import javax.swing.JOptionPane;
 
 public class PedidoData {
     private Connection con=null;
-    private Mesa mesa;
-    private Mesero mesero;
-    private Detalle detalle;
 
   public PedidoData() {
         con = Conexion.getConexion("restaurante");
@@ -31,14 +28,13 @@ public class PedidoData {
   public void agregarPedido(Pedido pedido) {
       Producto producto= new Producto();
 
-        String sql = "INSERT INTO pedido (idMesa, idMesero, idDetalle, totalPedido, Entregado, Pagado) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pedido (idMesa, idMesero, totalPedido, Entregado, Pagado) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, pedido.getMesa().getIdMesa());
             ps.setInt(2,pedido.getMesero().getIdMesero());
-            ps.setInt(3, pedido.getDetalle().getIdDetalle());
-            ps.setDouble(4, pedido.getTotalPedido());
-            ps.setBoolean(5, pedido.isEntregado());
+            ps.setDouble(3, pedido.getTotalPedido());
+            ps.setBoolean(4, pedido.isEntregado());
             ps.setBoolean(6, pedido.isPagado());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -63,10 +59,9 @@ public class PedidoData {
             ps = con.prepareStatement(sql);
             ps.setInt(1, pedido.getMesa().getIdMesa());
             ps.setInt(2, pedido.getMesero().getIdMesero());
-            ps.setInt(3, pedido.getDetalle().getIdDetalle());
-            ps.setDouble(4, pedido.getTotalPedido());
-            ps.setBoolean(5, pedido.isEntregado());
-            ps.setBoolean(6, pedido.isPagado());
+            ps.setDouble(3, pedido.getTotalPedido());
+            ps.setBoolean(4, pedido.isEntregado());
+            ps.setBoolean(5, pedido.isPagado());
             int exito = ps.executeUpdate();
 
             if (exito == 1) {
@@ -99,7 +94,7 @@ public class PedidoData {
   
   public Pedido buscarPedidoXMesa(int numMesa) {
         Pedido pedido = null;
-        String sql = "SELECT idPedido, idMesa, idMesero, detalle, entregado, pagado FROM pedido WHERE mesa=?";
+        String sql = "SELECT idPedido, idMesa, idMesero, entregado, pagado FROM pedido WHERE mesa=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -111,7 +106,6 @@ public class PedidoData {
                 pedido.setIdPedido(rs.getInt("idPedido"));
                 pedido.setMesa(new Mesa (rs.getInt("idMesa")));
                 pedido.setMesero(new Mesero(rs.getInt("idMesero")));
-                pedido.setDetalle(new DetallePedido(rs.getInt("idDetalle")));
                 pedido.setTotalPedido(rs.getInt("totalPedido"));
                 pedido.setEntregado(rs.getBoolean("entregado"));
                 pedido.setPagado(rs.getBoolean("pagado"));
@@ -141,7 +135,6 @@ public class PedidoData {
                 pedido.setIdPedido(rs.getInt("idPedido"));
                 pedido.setMesa(new Mesa(rs.getInt("idMesa")));
                 pedido.setMesero(new Mesero(rs.getInt("idMesero")));
-                pedido.setDetalle(new DetallePedido(rs.getInt("idDetalle")));
                 pedido.setTotalPedido(rs.getInt("totalPedido"));
                 pedido.setEntregado(rs.getBoolean("entregado"));
                 pedido.setPagado(rs.getBoolean("pagado"));
@@ -153,5 +146,14 @@ public class PedidoData {
         }
         return pedidos;
     }
+  
+  public List<Pedido> listarPedido(){
+  List<Pedido> pedidos=new ArrayList<>();
+  String sql="SELEC * FROM pedido WHERE entregado=1";
+  
+  PreparedStatement ps = con.prepareStatement(sql);
+  
+  
+  }
   }
     

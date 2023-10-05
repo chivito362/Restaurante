@@ -7,7 +7,6 @@ public class Pedido {
     private int idPedido;
     private Mesa mesa;
     private Mesero mesero;
-    private DetallePedido detalle;
     private double totalPedido;
     private boolean entregado;
     private boolean pagado;
@@ -16,7 +15,6 @@ public class Pedido {
         this.idPedido = idPedido;
         this.mesa = mesa;
         this.mesero = mesero;
-        this.detalle = detalle;
         this.totalPedido = totalPedido;
         this.entregado = entregado;
         this.pagado = pagado;
@@ -49,14 +47,6 @@ public class Pedido {
         this.mesero = mesero;
     }
 
-    public DetallePedido getDetalle() {
-        return detalle;
-    }
-
-    public void setDetalle(DetallePedido detalle) {
-        this.detalle = detalle;
-    }
-
     public double getTotalPedido() {
         return totalPedido;
     }
@@ -83,7 +73,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", mesero=" + mesero + ", productos=" + detalle + ", totalPedido=" + totalPedido + ", entregado=" + entregado + ", pagado=" + pagado + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", mesero=" + mesero + ", productos=" + ", totalPedido=" + totalPedido + ", entregado=" + entregado + ", pagado=" + pagado + '}';
     }
 
 }
