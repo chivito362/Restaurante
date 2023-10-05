@@ -22,7 +22,7 @@ public class CategoriaData {
    
       private Connection con = null;
       public CategoriaData() {
-        con = Conexion.getConexion();
+         this.con = Conexion.getConexion("restaurante");
         }
         public void crearCategoria(Categoria categoria) {
 

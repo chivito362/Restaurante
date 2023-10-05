@@ -22,7 +22,8 @@ public class MeseroData {
     
       private Connection con = null;
       public MeseroData() {
-        con = Conexion.getConexion();
+        this.con = Conexion.getConexion("restaurante");  
+        
         }
         public void crearMozo(Mesero mesero) {
 
@@ -50,8 +51,8 @@ public class MeseroData {
                 while (resultado.next()) {
                     int idMesero = resultado.getInt("id_mesero");
                     String nombreApellido = resultado.getString("nombre_apellido");
-  
-                    Mesero mesero = new Mesero(idMesero, nombreApellido, new ArrayList<>(), null);
+                    boolean estado = resultado.getBoolean("estado");
+                    Mesero mesero = new Mesero(idMesero, nombreApellido, estado);
                     meseros.add(mesero);
                 }
                 resultado.close();
