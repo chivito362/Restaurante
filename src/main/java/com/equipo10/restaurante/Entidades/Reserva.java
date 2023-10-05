@@ -75,8 +75,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "ID: " + idReserva + " NyA: " + nombreApellido + " DNI: " + dni + " Fecha: " 
-                + fechaHora.toString() + " Vigencia: " + estado ;
+        return "ID: " + idReserva + " NyA: " + nombreApellido + " DNI: " + dni + " Fecha: " + fechaHora.toString() + " Vigencia: " + estado ;
     }
     
     
