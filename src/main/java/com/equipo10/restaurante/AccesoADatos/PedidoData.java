@@ -1,6 +1,6 @@
 package com.equipo10.restaurante.AccesoADatos;
 
-import com.equipo10.restaurante.Entidades.DetallePedido;
+
 import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.Entidades.Mesero;
 import com.equipo10.restaurante.Entidades.Pedido;
