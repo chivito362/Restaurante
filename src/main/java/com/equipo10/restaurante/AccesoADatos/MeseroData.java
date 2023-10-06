@@ -24,22 +24,25 @@ public class MeseroData {
     public MeseroData() {
         con = Conexion.getConexion();
     }
-public void crearMozo(Mesero mesero) {
+
+    public void crearMozo(Mesero mesero) {
 
         String sql = "INSERT INTO mesero (nombreyapellido, estado) VALUES (?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, mesero.getNombreApellido());
-            ps.setBoolean(2,mesero.getEstado());
+            ps.setBoolean(2, mesero.getEstado());
             int fila = ps.executeUpdate();
-            if(fila ==1){
-            JOptionPane.showMessageDialog(null, "Mesero Agregado");
-            }else {
-            JOptionPane.showMessageDialog(null, "Algo salió mal");
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, "Mesero Agregado");
+            } else {
+                JOptionPane.showMessageDialog(null, "Algo salió mal");
             }
-            }catch (SQLException ex) {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Mesero" + ex.getMessage());
-            }}
+        }
+    }
+
     public void modificarMozo(Mesero mozo) {
         String consulta = "UPDATE mesero SET nombreyapellido=?,estado=? WHERE idMesero=?;";
         if (con != null) {
