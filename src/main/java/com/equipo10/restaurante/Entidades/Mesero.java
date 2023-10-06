@@ -42,6 +42,14 @@ public class Mesero {
         this.nombreApellido = nombreApellido;
     }
 
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
         return "Mesero{" + "idMesero=" + idMesero + ", nombreApellido=" + nombreApellido + ", pedido=" + ", mesa=" + '}';
