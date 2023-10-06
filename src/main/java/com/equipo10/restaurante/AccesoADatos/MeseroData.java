@@ -68,7 +68,7 @@ public class MeseroData {
 
     public Mesero buscarMozoxId(int idMozo) {
         Mesero mozo = null;
-        String consulta = "SELECT * FROM `mesero` WHERE idMesero=?";
+        String consulta = "SELECT * FROM `mesero` WHERE idMesero=? AND estado=1";
         if (con != null) {
             try {
                 PreparedStatement ps = con.prepareStatement(consulta);
