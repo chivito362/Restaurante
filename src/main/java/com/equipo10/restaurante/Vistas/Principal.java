@@ -34,11 +34,6 @@ public class Principal extends javax.swing.JFrame {
         IconoEsquina.setIcon(escaladoIcon(25, 25, "/img/app_icon.png"));
     }
 
-    @Override
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/app_icon.png"));
-        return retValue;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -142,6 +137,7 @@ public class Principal extends javax.swing.JFrame {
         jLminimizar.setForeground(new java.awt.Color(0, 0, 0));
         jLminimizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLminimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minimizar.png"))); // NOI18N
+        jLminimizar.setOpaque(true);
         jLminimizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLminimizarMouseClicked(evt);
@@ -159,6 +155,7 @@ public class Principal extends javax.swing.JFrame {
         jLexit.setForeground(new java.awt.Color(0, 0, 0));
         jLexit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLexit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/exit.png"))); // NOI18N
+        jLexit.setOpaque(true);
         jLexit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLexitMouseClicked(evt);
@@ -171,7 +168,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jLexit, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, 40, 30));
-        jPanel2.add(IconoEsquina, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 30));
+        jPanel2.add(IconoEsquina, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 30));
 
