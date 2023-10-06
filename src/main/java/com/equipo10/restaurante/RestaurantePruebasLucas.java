@@ -35,7 +35,13 @@ public class RestaurantePruebasLucas {
    listaMozo=md.listarMozos();
    for(Mesero mozo :listaMozo){
        System.out.println("Nombre: " + mozo.getNombreApellido());
-   }
+   }}
+   private static void modificarMozo(int idMozo){
+       MeseroData md = new MeseroData();
+       Mesero mozo = new Mesero();
+       mozo=md.buscarMozoxId(idMozo);
+       
+       md.modificarMozo(mozo);
    }
    
    private static void crearCategoria(String nombreCat){
