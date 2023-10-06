@@ -62,18 +62,30 @@ public class MesaData {
         }
     }
 
-    //Retorna todas las mesas activas e inactivas
-    public List<Mesa> obtenerMesas() {
+    //Si el parametro ingreado es == 1, retornará un List de Mesas Activas.
+    //Si el parametro ingreado es == 0, retornará un List de Mesas Inactivas.
+    public List<Mesa> obtenerMesas(int num) {
         List<Mesa> lista = new ArrayList<>();
         Mesa mesa = new Mesa();
         try {
-            String sql = "SELECT * FROM mesa";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                mesa = buscarMesa(rs.getInt(1));
+            if (num == 1) {
+                String sql = "SELECT * FROM mesa WHERE estado = 1";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    mesa = buscarMesa(rs.getInt(1));
 
-                lista.add(mesa);
+                    lista.add(mesa);
+                }
+            } else if (num == 0) {
+                String sql = "SELECT * FROM mesa WHERE estado = 0";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    mesa = buscarMesa(rs.getInt(1));
+
+                    lista.add(mesa);
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener las Mesas: " + ex.getMessage());
@@ -94,7 +106,7 @@ public class MesaData {
                 ps.setObject(4, null);
             }
             ps.setInt(5, mesa.getIdMesa());
-            
+
             int end = ps.executeUpdate();
             if (end == 1) {
                 JOptionPane.showMessageDialog(null, "Mesa actualizada.");

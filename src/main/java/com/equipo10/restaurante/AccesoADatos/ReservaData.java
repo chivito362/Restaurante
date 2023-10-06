@@ -50,7 +50,7 @@ public class ReservaData {
                 res.setNombreApellido(rs.getString("nombreApellido"));
                 res.setDni(rs.getInt("dni"));
                 res.setFechaHora(rs.getDate("fechaHora").toLocalDate());
-                res.setEstado(true);
+                res.setEstado(rs.getBoolean("estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe la Reserva");
                 ps.close();

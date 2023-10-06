@@ -1,30 +1,25 @@
 
 package com.equipo10.restaurante;
 
-import com.equipo10.restaurante.AccesoADatos.ProductoData;
-import com.equipo10.restaurante.Entidades.Categoria;
-import com.equipo10.restaurante.Entidades.Producto;
+import com.equipo10.restaurante.AccesoADatos.*;
+import com.equipo10.restaurante.Entidades.*;
+import java.time.LocalDate;
 
 
 public class Restaurante {
 
+    static private ReservaData rd = new ReservaData();
     public static void main(String[] args) {
         
-
-        //Pruebas Producto
-        ProductoData p=new ProductoData();
-        //Producto prod=new Producto("Milanesa", 2, 1500, Categoria.MINUTA, true);
+        Reserva res1 = new Reserva(3,"Jesús Soria",43876390,LocalDate.of(2023,7,25),true);
         
-        //Guardar producto
-        //p.guardarProcuto(prod);
-        //System.out.println("Lis");
-        //System.out.println(p.listarProductos());
-        //System.out.println("-------------");
-        
-        
-        
-        System.out.println(p.listarProductos());
+        //rd.guardarReserva(res1);
+//        for(Reserva cada : rd.obtenerReservas(1)){
+//            System.out.println(cada.toString());
+//        }
         
 
+        
+        
     }
 }
