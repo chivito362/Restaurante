@@ -13,7 +13,7 @@ public class MesaData {
     private Connection con = null;
 
     public MesaData() {
-        con = Conexion.getConexion();
+        con = Conexion.getConexion("restaurante");
     }
 
     public void guardarMesa(Mesa mesa) {

@@ -11,7 +11,7 @@ public class ReservaData {
     private Connection con;
 
     public ReservaData() {
-        con = Conexion.getConexion();
+        con = Conexion.getConexion("restaurante");
     }
 
     public void guardarReserva(Reserva res) {

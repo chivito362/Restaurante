@@ -25,7 +25,7 @@ public class PedidoData {
     private MeseroData me=new MeseroData();
     
   public PedidoData() {
-        con = Conexion.getConexion();
+        con = Conexion.getConexion("restaurante");
     }
 
   public void agregarPedido(Pedido pedido) {

@@ -16,11 +16,12 @@ public class CategoriaData {
 
    
       private Connection con = null;
+      
       public CategoriaData() {
-        con = Conexion.getConexion();
+        con = Conexion.getConexion("restaurante");
         }
         public void crearCategoria(Categoria categoria) {
-        con=Conexion.getConexion();
+        con=Conexion.getConexion("restaurante");
     }
     
     public int obtenerIdCategoriaPorNombre(String nombreCategoria) {
