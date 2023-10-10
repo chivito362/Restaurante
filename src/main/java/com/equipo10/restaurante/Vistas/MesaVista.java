@@ -1,37 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.equipo10.restaurante.Vistas;
 
+import com.equipo10.restaurante.AccesoADatos.MesaData;
+import com.equipo10.restaurante.Entidades.Mesa;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
-/**
- *
- * @author Sebastian
- */
 public class MesaVista extends javax.swing.JFrame {
- private int numeroMesa = 1;
- int cantMesa = 0;
-    /**
-     * Creates new form Mesas
-     */
+    Mesa mesa = new Mesa();
+    private int numeroMesa = 1;
+    int cantMesa = 0;
+    private MesaData mesaData;
+    
     public MesaVista() {
         initComponents();
-        jPmesas.setLayout(new GridLayout(10, 3)); // 0 filas y 3 columnas
-        
-        
+        jPmesas.setLayout(new GridLayout(9, 9)); // 0 filas y 3 columnas
+        mesaData = new MesaData();
     }
 
     @SuppressWarnings("unchecked")
@@ -50,11 +41,11 @@ public class MesaVista extends javax.swing.JFrame {
         jPmesas.setLayout(jPmesasLayout);
         jPmesasLayout.setHorizontalGroup(
             jPmesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 450, Short.MAX_VALUE)
         );
         jPmesasLayout.setVerticalGroup(
             jPmesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
+            .addGap(0, 250, Short.MAX_VALUE)
         );
 
         jBagregarMesa.setText("Agregar");
@@ -77,7 +68,6 @@ public class MesaVista extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPmesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
@@ -86,6 +76,10 @@ public class MesaVista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBagregarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(135, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPmesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,58 +88,25 @@ public class MesaVista extends javax.swing.JFrame {
                     .addComponent(jBagregarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTcantMesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(13, 13, 13)
-                .addComponent(jPmesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPmesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBagregarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBagregarMesaActionPerformed
-    cantMesa=Integer.parseInt(jTcantMesas.getText());
-        for (int i = 0; i<=cantMesa;i++){    
-        
- JButton mesaButtonManual = new JButton("Mesa " + numeroMesa);
- mesaButtonManual.setBackground(Color.red);
-  mesaButtonManual.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    if(mesaButtonManual.getBackground().equals(Color.green)){//abierta
-                    // Cambia el color del botón a rojo
-                    mesaButtonManual.setBackground(Color.red);
-                     JOptionPane.showMessageDialog(null, mesaButtonManual.getText() + " mesa cerrada");
-                }else{ mesaButtonManual.setBackground(Color.green);
-                     JOptionPane.showMessageDialog(null, mesaButtonManual.getText() + " mesa abierta");}
-            }}
-        });
- 
-    mesaButtonManual.setPreferredSize(new Dimension(150, 50));
-    mesaButtonManual.setMaximumSize(new Dimension(150, 50));
-    
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.add(mesaButtonManual);
-    
-    // Agrega el panel del botón al panel de mesas
-    jPmesas.add(buttonPanel);
-    
-    // Vuelve a validar y repintar el panel de mesas
-    jPmesas.revalidate();
-    jPmesas.repaint();
-    numeroMesa++;
-  
-    }
+        agregarMesa();
     }//GEN-LAST:event_jBagregarMesaActionPerformed
 
     private void jTcantMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTcantMesasActionPerformed
-    
-    cantMesa=Integer.parseInt(jTcantMesas.getText());
+
+  
     }//GEN-LAST:event_jTcantMesasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-       
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -179,4 +140,80 @@ public class MesaVista extends javax.swing.JFrame {
     private javax.swing.JPanel jPmesas;
     private javax.swing.JTextField jTcantMesas;
     // End of variables declaration//GEN-END:variables
+
+public void abrirMesa(int numeroMesa) {
+    
+    mesa = mesaData.buscarMesaxNRO(numeroMesa);
+    //JOptionPane.showMessageDialog(null, mesa.getNroMesa());
+    if (mesa != null && !mesa.isEstado()) {
+        mesa.setEstado(true);
+        mesaData.actualizarMesa(mesa);
+                JOptionPane.showMessageDialog(null, "Mesa " + numeroMesa + " abierta");
+    }
+}
+public void cerrarMesa(int numeroMesa){
+  mesa = mesaData.buscarMesaxNRO(numeroMesa);
+  //JOptionPane.showMessageDialog(null, mesa.getNroMesa());
+    
+    //if (mesa != null && mesa.isEstado()) {
+        mesa.setEstado(false);
+        mesaData.actualizarMesa(mesa);
+                JOptionPane.showMessageDialog(null, "Mesa " + numeroMesa + " cerrada");
+  //  }
+};
+
+    private void agregarMesa() {
+        cantMesa = Integer.parseInt(jTcantMesas.getText());
+        for (int i = 0; i < cantMesa; i++) {
+
+            JButton mesaButtonManual = new JButton(""+numeroMesa);
+            Font font = new Font("Segoe UI", Font.BOLD, 12); 
+            mesaButtonManual.setFont(font);
+            mesaButtonManual.setBackground(Color.red);//rojo cerradas
+             //guardarMesa String sql = "INSERT INTO mesa (nroMesa, capacidad, estado, idReserva) VALUES (?, ?, ?, ?)";
+             mesa.setCapacidad(4);
+             mesa.setEstado(false);
+             mesa.setNroMesa(numeroMesa);
+             mesa.setIdReserva(null);
+             crearMesa(mesa); 
+           
+             mesaButtonManual.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2) {
+                        if (mesaButtonManual.getBackground().equals(Color.green)) {//abierta
+                            // Cambia el color del botón a rojo y cierra la mesa
+                              mesaButtonManual.setBackground(Color.red);
+                            //JOptionPane.showMessageDialog(null, mesaButtonManual.getText() + " mesa cerrada");
+                            cerrarMesa(Integer.parseInt(mesaButtonManual.getText()));   
+                        } else {
+                            mesaButtonManual.setBackground(Color.green);
+                           // JOptionPane.showMessageDialog(null, mesaButtonManual.getText() + " mesa abierta");
+                             abrirMesa(Integer.parseInt(mesaButtonManual.getText()));                        }
+                    }
+                }
+            });
+
+            mesaButtonManual.setPreferredSize(new Dimension(50, 50));
+            mesaButtonManual.setMaximumSize(new Dimension(30, 30));
+
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.add(mesaButtonManual);
+
+            // Agrega el panel del botón al panel de mesas
+            jPmesas.add(buttonPanel);
+
+            // Vuelve a validar y repintar el panel de mesas
+            jPmesas.revalidate();
+            jPmesas.repaint();
+            numeroMesa++;
+
+        }
+    }
+
+    private void crearMesa(Mesa mesaPasada) {
+       mesa=mesaPasada;
+       mesaData.guardarMesa(mesa);
+    }
+
+
 }
