@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,6 +25,7 @@ public class MesaVista extends javax.swing.JFrame {
         initComponents();
         jPmesas.setLayout(new GridLayout(9, 9)); // 0 filas y 3 columnas
         mesaData = new MesaData();
+        agregarMesasAbiertasDesdeBaseDeDatos();// con este las levanto
     }
 
     @SuppressWarnings("unchecked")
@@ -97,7 +100,8 @@ public class MesaVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBagregarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBagregarMesaActionPerformed
-        agregarMesa();
+    agregarMesa();// con esto las creo
+       
     }//GEN-LAST:event_jBagregarMesaActionPerformed
 
     private void jTcantMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTcantMesasActionPerformed
@@ -161,7 +165,50 @@ public void cerrarMesa(int numeroMesa){
                 JOptionPane.showMessageDialog(null, "Mesa " + numeroMesa + " cerrada");
   //  }
 };
+private void agregarMesasAbiertasDesdeBaseDeDatos() {
+  
+    //List<Mesa> mesasAbiertas = mesaData.obtenerMesas(1); // Mesas abiertas
+    //List<Mesa> mesasCerradas = mesaData.obtenerMesas(0); // Mesas cerradas
+    //List<Mesa> mesasTodas = new ArrayList<>();
+    List<Mesa> mesasTodas = mesaData.obtenerTodasMesas();
 
+    for (Mesa mesa : mesasTodas) {
+        JButton mesaButton = new JButton(Integer.toString(mesa.getNroMesa()));
+        Font font = new Font("Segoe UI", Font.BOLD, 12);
+        mesaButton.setFont(font);
+
+        // Establecer el color del botón según el estado de la mesa
+        if (mesa.isEstado()) {
+            mesaButton.setBackground(Color.green); // Verde para mesas abiertas
+        } else {
+            mesaButton.setBackground(Color.red); // Rojo para mesas cerradas
+        }
+
+        mesaButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    // Cambiar el color del botón y actualizar el estado de la mesa en la base de datos
+                    if (mesaButton.getBackground().equals(Color.green)) {
+                        mesaButton.setBackground(Color.red);
+                        cerrarMesa(mesa.getNroMesa());
+                    } else {
+                        mesaButton.setBackground(Color.green);
+                        abrirMesa(mesa.getNroMesa());
+                    }
+                }
+            }
+        });
+
+        mesaButton.setPreferredSize(new Dimension(50, 50));
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(mesaButton);
+        jPmesas.add(buttonPanel);
+    }
+        // Vuelve a validar y repintar el panel de mesas
+    jPmesas.revalidate();
+    jPmesas.repaint();
+}
     private void agregarMesa() {
         cantMesa = Integer.parseInt(jTcantMesas.getText());
         for (int i = 0; i < cantMesa; i++) {

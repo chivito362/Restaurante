@@ -92,7 +92,23 @@ public class MesaData {
         }
         return lista;
     }
-
+    public List<Mesa> obtenerTodasMesas() {
+        List<Mesa> lista = new ArrayList<>();
+        Mesa mesa = new Mesa();
+        try {
+                String sql = "SELECT * FROM mesa";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    mesa = buscarMesa(rs.getInt(1));
+                    lista.add(mesa);
+                }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener las Mesas: " + ex.getMessage());
+        }
+        return lista;
+    }
     public void actualizarMesa(Mesa mesa) {
         try {
             String sql = "UPDATE mesa SET nroMesa = ?, capacidad = ?, estado = ?, idReserva = ? WHERE idMesa = ?";
