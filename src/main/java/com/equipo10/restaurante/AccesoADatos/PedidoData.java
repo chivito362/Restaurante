@@ -283,6 +283,21 @@ public class PedidoData {
   return pedidos;
   }
     
+    public void agregarProductoAlPedido(int idPedido,int idProducto,int cantidad){
+        String sql="INSERT INTO pedidodetalle (idPedido,idProducto,cantidad) Values (?,?,?)";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ps.setInt(2, idProducto);
+            ps.setInt(3, cantidad);
+            int r=ps.executeUpdate();
+            if(r==1){
+                JOptionPane.showMessageDialog(null, "Producto Añadido");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error en sql");
+        }
+    }
 }
 
  
