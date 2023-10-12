@@ -298,6 +298,22 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, "error en sql");
         }
     }
+public double calcularTotalPedido(int idPedido){
+    int total=0;
+    String sql="";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                total=rs.getInt("total");
+                return total;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error consulta sql al traer total");
+        }
+return total;
 }
-
- 
+}
+    
+    
