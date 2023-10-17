@@ -25,6 +25,10 @@ public class Mesa {
 
     }
 
+    public Mesa(int idMesa) {
+        this.idMesa = idMesa;
+    }
+
     public Mesa(int nroMesa, int capacidad, boolean estado, Reserva idReserva) {
         this.idMesa = -1;
         this.nroMesa = nroMesa;

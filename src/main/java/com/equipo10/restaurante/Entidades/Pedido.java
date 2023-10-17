@@ -10,6 +10,16 @@ public class Pedido {
     private Mesero mesero;
     private boolean entregado;
     private boolean pagado;
+    private boolean estado;
+
+    public Pedido(int idPedido, Mesa mesa, Mesero mesero, boolean entregado, boolean pagado, boolean estado) {
+        this.idPedido = idPedido;
+        this.mesa = mesa;
+        this.mesero = mesero;
+        this.entregado = entregado;
+        this.pagado = pagado;
+        this.estado = estado;
+    }
 
     public Pedido(Mesa mesa, Mesero mesero, boolean entregado, boolean pagado) {
         this.mesa = mesa;
@@ -39,6 +49,14 @@ public class Pedido {
 
     public Mesa getMesa() {
         return mesa;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public void setMesa(Mesa mesa) {
