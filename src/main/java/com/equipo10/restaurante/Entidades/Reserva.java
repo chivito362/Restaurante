@@ -1,10 +1,9 @@
-
 package com.equipo10.restaurante.Entidades;
 
 import java.time.LocalDate;
 
-
 public class Reserva {
+
     private int idReserva;
     private String nombreApellido;
     private int dni;
@@ -21,9 +20,7 @@ public class Reserva {
         this.fechaHora = fechaHora;
         this.estado = estado;
     }
-    
-    
-    
+
     public Reserva(String nombreApellido, int dni, LocalDate fechaHora, boolean estado) {
         this.nombreApellido = nombreApellido;
         this.dni = dni;
@@ -71,13 +68,13 @@ public class Reserva {
         this.estado = estado;
     }
 
-    
-
     @Override
     public String toString() {
-        return "||ID: " + idReserva + "|Nombre: " + nombreApellido + "|DNI: " + dni + "|Fecha: " + fechaHora.toString() + "|Vigencia: " + estado+"||";
+        if (estado) {
+            return "|ID: " + idReserva + " | " + nombreApellido + " | " + fechaHora.toString() + " |Activo";
+        } else {
+            return "|ID: " + idReserva + " | " + nombreApellido + " | " + fechaHora.toString() + " |Inactivo";
+        }
     }
-    
-    
-    
+
 }

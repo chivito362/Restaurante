@@ -102,7 +102,7 @@ public class ReservaData {
         List<Reserva> listaRes = new ArrayList<>();
         Reserva res = null;
         try {
-            String sql = "SELECT * FROM reserva WHERE dni = ? AND estado = 1";
+            String sql = "SELECT * FROM reserva WHERE dni = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
@@ -154,6 +154,29 @@ public class ReservaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar Reserva: " + ex.getMessage());
         }
+    }
+
+    public List<Reserva> todas() {
+        List<Reserva> listaRes = new ArrayList<>();
+        Reserva res = null;
+
+        try {
+
+            String sql = "SELECT * FROM reserva";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res = buscarReserva(rs.getInt("idReserva"));
+                listaRes.add(res);
+            }
+            ps.close();
+            rs.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener Reservas: " + ex.getMessage());
+        }
+
+        return listaRes;
     }
 
 }
