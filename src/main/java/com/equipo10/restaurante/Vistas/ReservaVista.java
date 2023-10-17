@@ -4,41 +4,59 @@
  */
 package com.equipo10.restaurante.Vistas;
 
+import com.equipo10.restaurante.AccesoADatos.Conexion;
 import com.equipo10.restaurante.AccesoADatos.ReservaData;
 import com.equipo10.restaurante.Entidades.Reserva;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Facua
  */
-public class ReservaVista extends javax.swing.JPanel {
+public class ReservaVista extends javax.swing.JPanel implements ActionListener {
 
+    private static JPopupMenu popupmenu = new JPopupMenu();
     private static DefaultTableModel modelo;
-    private static DefaultListCellRenderer dlcr = new DefaultListCellRenderer();
+    private static DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
     private static ReservaData rd = new ReservaData();
+    private static boolean siDocumento;
+    private static boolean siNombre;
     public static int dniEscrito = -1;
+    public static LocalDate fecha;
 
     /**
      * Creates new form ReservaVista2
      */
     public ReservaVista() {
         initComponents();
+        siDocumento = (!jTdocumento.getText().equals("Documento")) || (!jTdocumento.getText().equals(""));
+        siNombre = (!jTnya.getText().equals("Nombre y Apellido")) || (!jTnya.getText().equals(""));
         opacos();
         modelo = (DefaultTableModel) jTReservas.getModel();
-        combo();
+        tabla();
+        mostrarReservas(3);
         botonesAnimacion();
+        menuClickDerecho();
     }
 
     /**
@@ -51,94 +69,69 @@ public class ReservaVista extends javax.swing.JPanel {
     private void initComponents() {
 
         fondo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jCestado = new javax.swing.JCheckBox();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTReservas = new javax.swing.JTable();
-        jTdocumento = new javax.swing.JTextField();
-        jTidReserva = new javax.swing.JTextField();
-        jTnya = new javax.swing.JTextField();
-        jBactualizar = new javax.swing.JLabel();
-        jBeliminar = new javax.swing.JLabel();
         jBcrear = new javax.swing.JLabel();
         jDCfecha = new com.toedter.calendar.JDateChooser();
-        jCBestados = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
         buscar = new javax.swing.JLabel();
-        filtro = new javax.swing.JLabel();
+        jTdocumento = new javax.swing.JTextField();
+        jTnya = new javax.swing.JTextField();
+        jTDNI = new javax.swing.JTextField();
+        jbPorFecha = new javax.swing.JButton();
+        jbTodas = new javax.swing.JButton();
+        jbActivas = new javax.swing.JButton();
+        jbInactivas = new javax.swing.JButton();
+        jbPorDni = new javax.swing.JButton();
+        jBactualizar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(251, 250, 241));
         setMinimumSize(new java.awt.Dimension(633, 490));
         setPreferredSize(new java.awt.Dimension(633, 490));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        fondo.setBackground(new java.awt.Color(255, 255, 255));
+        fondo.setBackground(new java.awt.Color(251, 250, 241));
         fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ID Reserva:");
-        fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Nombre:");
-        fondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 30));
+        jLabel2.setText("Nombre");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        fondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 10, 162, 20));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Documento:");
-        fondo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, 30));
+        jLabel4.setText("Documento");
+        fondo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 10, 162, 20));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Fecha:");
-        fondo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, 30));
+        jLabel3.setText("Fecha");
+        fondo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 10, 162, 20));
 
-        jCestado.setBackground(new java.awt.Color(255, 255, 255));
-        jCestado.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
-        jCestado.setForeground(new java.awt.Color(0, 0, 0));
-        jCestado.setText("Estado");
-        jCestado.setBorder(null);
-        jCestado.setContentAreaFilled(false);
-        jCestado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCestado.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        fondo.add(jCestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 360, -1));
-
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        fondo.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 190, 10));
-
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        fondo.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 190, 10));
-
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        fondo.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 130, 10));
-
+        jScrollPane1.setBackground(new java.awt.Color(89, 68, 33));
+        jScrollPane1.setForeground(new java.awt.Color(251, 250, 241));
         jScrollPane1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
 
-        jTReservas.setBackground(java.awt.Color.darkGray);
+        jTReservas.setBackground(new java.awt.Color(56, 49, 39));
         jTReservas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTReservas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
-        jTReservas.setForeground(new java.awt.Color(255, 255, 255));
+        jTReservas.setForeground(new java.awt.Color(251, 250, 241));
         jTReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                ""
+                "ID", "Nombre", "Documento", "Fecha", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,144 +141,53 @@ public class ReservaVista extends javax.swing.JPanel {
         jTReservas.setAlignmentX(0.0F);
         jTReservas.setAlignmentY(0.0F);
         jTReservas.setFillsViewportHeight(true);
-        jTReservas.setRowHeight(40);
+        jTReservas.setGridColor(new java.awt.Color(54, 47, 37));
+        jTReservas.setRowHeight(30);
         jTReservas.setRowMargin(2);
-        jTReservas.setSelectionBackground(new java.awt.Color(51, 51, 51));
-        jTReservas.setSelectionForeground(new java.awt.Color(0, 51, 255));
+        jTReservas.setSelectionBackground(new java.awt.Color(57, 137, 111));
+        jTReservas.setSelectionForeground(new java.awt.Color(251, 250, 241));
         jTReservas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTReservas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTReservas.setShowGrid(true);
+        jTReservas.setShowGrid(false);
         jTReservas.getTableHeader().setResizingAllowed(false);
         jTReservas.getTableHeader().setReorderingAllowed(false);
-        jTReservas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTReservasMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTReservas);
         if (jTReservas.getColumnModel().getColumnCount() > 0) {
             jTReservas.getColumnModel().getColumn(0).setResizable(false);
+            jTReservas.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTReservas.getColumnModel().getColumn(1).setResizable(false);
+            jTReservas.getColumnModel().getColumn(2).setResizable(false);
+            jTReservas.getColumnModel().getColumn(3).setResizable(false);
+            jTReservas.getColumnModel().getColumn(3).setPreferredWidth(20);
+            jTReservas.getColumnModel().getColumn(4).setResizable(false);
+            jTReservas.getColumnModel().getColumn(4).setPreferredWidth(15);
         }
 
-        fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 273, 460));
+        fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 633, 290));
 
-        jTdocumento.setBackground(new java.awt.Color(255, 255, 255));
-        jTdocumento.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jTdocumento.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTdocumento.setText("Documento");
-        jTdocumento.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTdocumento.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTdocumentoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTdocumentoFocusLost(evt);
-            }
-        });
-        fondo.add(jTdocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 190, 20));
-
-        jTidReserva.setBackground(new java.awt.Color(255, 255, 255));
-        jTidReserva.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jTidReserva.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTidReserva.setText("ID Reserva");
-        jTidReserva.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTidReserva.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTidReservaFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTidReservaFocusLost(evt);
-            }
-        });
-        fondo.add(jTidReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 130, 20));
-
-        jTnya.setBackground(new java.awt.Color(255, 255, 255));
-        jTnya.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jTnya.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTnya.setText("Nombre y Apellido");
-        jTnya.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTnya.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTnyaFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTnyaFocusLost(evt);
-            }
-        });
-        fondo.add(jTnya, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 190, 20));
-
-        jBactualizar.setBackground(new java.awt.Color(204, 204, 204));
-        jBactualizar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jBactualizar.setForeground(new java.awt.Color(0, 0, 0));
-        jBactualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jBactualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar_icon.png"))); // NOI18N
-        jBactualizar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jBactualizar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Actualizar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        jBactualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBactualizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBactualizarMouseClicked(evt);
-            }
-        });
-        fondo.add(jBactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 80, 50));
-
-        jBeliminar.setBackground(new java.awt.Color(204, 204, 204));
-        jBeliminar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jBeliminar.setForeground(new java.awt.Color(0, 0, 0));
-        jBeliminar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jBeliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar_icon.png"))); // NOI18N
-        jBeliminar.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jBeliminar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Eliminar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        jBeliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBeliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBeliminarMouseClicked(evt);
-            }
-        });
-        fondo.add(jBeliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 80, 50));
-
-        jBcrear.setBackground(new java.awt.Color(204, 204, 204));
+        jBcrear.setBackground(new java.awt.Color(251, 250, 241));
         jBcrear.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jBcrear.setForeground(new java.awt.Color(0, 0, 0));
         jBcrear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jBcrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/crear_icon2.png"))); // NOI18N
-        jBcrear.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jBcrear.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Crear", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jBcrear.setToolTipText("");
+        jBcrear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBcrear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBcrear.setOpaque(true);
         jBcrear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBcrearMouseClicked(evt);
             }
         });
-        fondo.add(jBcrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 80, 50));
+        fondo.add(jBcrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 70, 120, 42));
 
+        jDCfecha.setBackground(new java.awt.Color(251, 250, 241));
+        jDCfecha.setForeground(new java.awt.Color(0, 0, 0));
         jDCfecha.setDateFormatString("y MM d");
-        fondo.add(jDCfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 190, 30));
+        jDCfecha.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        fondo.add(jDCfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 30, 162, 30));
 
-        jCBestados.setBackground(java.awt.Color.darkGray);
-        jCBestados.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
-        jCBestados.setForeground(new java.awt.Color(255, 255, 255));
-        jCBestados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jCBestados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCBestadosActionPerformed(evt);
-            }
-        });
-        fondo.add(jCBestados, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 273, 30));
-
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 2, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reserva_icon.png"))); // NOI18N
-        jLabel5.setText("Reservas");
-        jLabel5.setToolTipText("");
-        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        fondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 80));
-
-        buscar.setBackground(new java.awt.Color(204, 204, 204));
+        buscar.setBackground(new java.awt.Color(251, 250, 241));
         buscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar_icon.png"))); // NOI18N
         buscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -300,12 +202,130 @@ public class ReservaVista extends javax.swing.JPanel {
                 buscarMouseClicked(evt);
             }
         });
-        fondo.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 107, 42, 42));
+        fondo.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 42, 42));
 
-        filtro.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        filtro.setForeground(new java.awt.Color(0, 0, 255));
-        filtro.setText("Filtros --->");
-        fondo.add(filtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
+        jTdocumento.setBackground(new java.awt.Color(251, 250, 241));
+        jTdocumento.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jTdocumento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTdocumento.setText("Documento");
+        jTdocumento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTdocumento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTdocumentoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTdocumentoFocusLost(evt);
+            }
+        });
+        fondo.add(jTdocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 30, 162, 30));
+
+        jTnya.setBackground(new java.awt.Color(251, 250, 241));
+        jTnya.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTnya.setText("Nombre y Apellido");
+        jTnya.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jTnya.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTnyaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTnyaFocusLost(evt);
+            }
+        });
+        fondo.add(jTnya, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 30, 162, 30));
+
+        jTDNI.setBackground(new java.awt.Color(251, 250, 241));
+        jTDNI.setForeground(new java.awt.Color(0, 0, 0));
+        jTDNI.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTDNI.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar ID", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        fondo.add(jTDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 122, 100, 40));
+
+        jbPorFecha.setBackground(new java.awt.Color(56, 49, 39));
+        jbPorFecha.setForeground(new java.awt.Color(251, 250, 241));
+        jbPorFecha.setText("POR FECHA");
+        jbPorFecha.setBorder(null);
+        jbPorFecha.setBorderPainted(false);
+        jbPorFecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbPorFecha.setFocusPainted(false);
+        jbPorFecha.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbPorFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPorFechaActionPerformed(evt);
+            }
+        });
+        fondo.add(jbPorFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(507, 165, 125, 35));
+
+        jbTodas.setBackground(new java.awt.Color(56, 49, 39));
+        jbTodas.setForeground(new java.awt.Color(251, 250, 241));
+        jbTodas.setText("TODAS");
+        jbTodas.setBorder(null);
+        jbTodas.setBorderPainted(false);
+        jbTodas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbTodas.setFocusPainted(false);
+        jbTodas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbTodasActionPerformed(evt);
+            }
+        });
+        fondo.add(jbTodas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 165, 125, 35));
+
+        jbActivas.setBackground(new java.awt.Color(56, 49, 39));
+        jbActivas.setForeground(new java.awt.Color(251, 250, 241));
+        jbActivas.setText("ACTIVAS");
+        jbActivas.setBorder(null);
+        jbActivas.setBorderPainted(false);
+        jbActivas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbActivas.setFocusPainted(false);
+        jbActivas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbActivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActivasActionPerformed(evt);
+            }
+        });
+        fondo.add(jbActivas, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 165, 126, 35));
+
+        jbInactivas.setBackground(new java.awt.Color(56, 49, 39));
+        jbInactivas.setForeground(new java.awt.Color(251, 250, 241));
+        jbInactivas.setText("INACTIVAS");
+        jbInactivas.setBorder(null);
+        jbInactivas.setBorderPainted(false);
+        jbInactivas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbInactivas.setFocusPainted(false);
+        jbInactivas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbInactivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbInactivasActionPerformed(evt);
+            }
+        });
+        fondo.add(jbInactivas, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 165, 125, 35));
+
+        jbPorDni.setBackground(new java.awt.Color(56, 49, 39));
+        jbPorDni.setForeground(new java.awt.Color(251, 250, 241));
+        jbPorDni.setText("POR DNI");
+        jbPorDni.setBorder(null);
+        jbPorDni.setBorderPainted(false);
+        jbPorDni.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbPorDni.setFocusPainted(false);
+        jbPorDni.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbPorDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPorDniActionPerformed(evt);
+            }
+        });
+        fondo.add(jbPorDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 165, 126, 35));
+
+        jBactualizar.setBackground(new java.awt.Color(251, 250, 241));
+        jBactualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar_icon.png"))); // NOI18N
+        jBactualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jBactualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBactualizar.setEnabled(false);
+        jBactualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBactualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBactualizarActionPerformed(evt);
+            }
+        });
+        fondo.add(jBactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 70, 120, 42));
 
         add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 633, 490));
     }// </editor-fold>//GEN-END:initComponents
@@ -314,16 +334,132 @@ public class ReservaVista extends javax.swing.JPanel {
         return fondo;
     }
 
-    private void jTdocumentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTdocumentoFocusGained
-        if (jTdocumento.getText().equals("Documento")) {
-            jTdocumento.setForeground(Color.BLACK);
+    private void jBcrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBcrearMouseClicked
+        if (siNombre && siDocumento) {
+            String nom = jTnya.getText();
+            int docu = Integer.parseInt(jTdocumento.getText());
+            Calendar cal = jDCfecha.getCalendar();
+            LocalDate fecha = LocalDate.of(cal.get(1), cal.get(2) + 1, cal.get(5));
+
+            Reserva rv = new Reserva(cuentaIDs(), nom, docu, fecha, true);
+
+            rd.guardarReserva(rv);
+
+            toTabla(rv);
+
+            jTnya.setText("");
             jTdocumento.setText("");
+            jDCfecha.setCalendar(null);
+            opacos();
+        }
+    }//GEN-LAST:event_jBcrearMouseClicked
+
+    private void buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseClicked
+        Reserva res;
+        try {
+            int id = Integer.parseInt(jTDNI.getText());
+            if (!jTDNI.getText().equals("")) {
+                res = rd.buscarReserva(id);
+
+                modelo.setRowCount(0);
+                modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
+            }
+        } catch (NumberFormatException ex) {
+            jTDNI.setText("");
+        }
+    }//GEN-LAST:event_buscarMouseClicked
+
+    private void jbTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTodasActionPerformed
+        mostrarReservas(3);
+    }//GEN-LAST:event_jbTodasActionPerformed
+
+    private void jbActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActivasActionPerformed
+        mostrarReservas(1);
+    }//GEN-LAST:event_jbActivasActionPerformed
+
+    private void jbInactivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInactivasActionPerformed
+        mostrarReservas(0);
+    }//GEN-LAST:event_jbInactivasActionPerformed
+
+    private void jbPorDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPorDniActionPerformed
+        ElegirDNI ele = new ElegirDNI(null, true);
+        ele.setSize(220, 200);
+        ele.setVisible(true);
+
+        modelo.setRowCount(0);
+        for (Reserva res : rd.obtenerReservasPorDni(dniEscrito)) {
+            modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
+        }
+    }//GEN-LAST:event_jbPorDniActionPerformed
+
+    private void jbPorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPorFechaActionPerformed
+        EleFecha eleF = new EleFecha(null, true);
+        eleF.setSize(220, 200);
+        eleF.setVisible(true);
+
+        modelo.setRowCount(0);
+        for (Reserva res : rd.todas()) {
+            if (res.getFechaHora().toString().equals(fecha.toString())) {
+                modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
+            }
+        }
+    }//GEN-LAST:event_jbPorFechaActionPerformed
+
+    private void jBactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBactualizarActionPerformed
+
+        int fila = jTReservas.getSelectedRow();
+        int id = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+
+        String nom = jTnya.getText();
+        int docu = Integer.parseInt(jTdocumento.getText());
+        Calendar cal = jDCfecha.getCalendar();
+        LocalDate fechaa = LocalDate.of(cal.get(1), cal.get(2) + 1, cal.get(5));
+
+        Reserva rv = rd.buscarReserva(id);
+        rv.setNombreApellido(nom);
+        rv.setDni(docu);
+        rv.setFechaHora(fechaa);
+
+        rd.actualizarReserva(rv);
+        mostrarReservas(3);
+
+        jTnya.setText("");
+        jTdocumento.setText("");
+        jDCfecha.setCalendar(null);
+        opacos();
+
+        jBactualizar.setEnabled(false);
+    }//GEN-LAST:event_jBactualizarActionPerformed
+
+    private void jTnyaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTnyaFocusGained
+        if (jTnya.getText().equals("Nombre y Apellido")) {
+            jTnya.setText("");
+            jTnya.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_jTnyaFocusGained
+
+    private void jTnyaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTnyaFocusLost
+        try{
+            int nom = Integer.parseInt(jTdocumento.getText());
+        }catch(NumberFormatException ex){
+            if(jTnya.getText().equals("Nombre y Apellido") || jTnya.getText().equals("")){
+            jTnya.setForeground(new Color(187, 187, 187));
+            jTnya.setText("Nombre y Apellido");
+            }
+        }
+    }//GEN-LAST:event_jTnyaFocusLost
+
+    private void jTdocumentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTdocumentoFocusGained
+
+        if (jTdocumento.getText().equals("Documento")) {
+            jTdocumento.setText("");
+            jTdocumento.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_jTdocumentoFocusGained
 
     private void jTdocumentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTdocumentoFocusLost
         try {
-            int num = Integer.parseInt(jTdocumento.getText());
+            int docu = Integer.parseInt(jTdocumento.getText());
             if (jTdocumento.getText().equals("")) {
                 jTdocumento.setForeground(new Color(187, 187, 187));
                 jTdocumento.setText("Documento");
@@ -334,171 +470,26 @@ public class ReservaVista extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jTdocumentoFocusLost
 
-    private void jTidReservaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTidReservaFocusGained
-        if (jTidReserva.getText().equals("ID Reserva")) {
-            jTidReserva.setForeground(Color.BLACK);
-            jTidReserva.setText("");
-        }
-    }//GEN-LAST:event_jTidReservaFocusGained
-
-    private void jTidReservaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTidReservaFocusLost
-        try {
-            int num = Integer.parseInt(jTidReserva.getText());
-            if (jTidReserva.getText().equals("")) {
-                jTidReserva.setForeground(new Color(187, 187, 187));
-                jTidReserva.setText("ID Reserva");
-            }
-        } catch (NumberFormatException ex) {
-            jTidReserva.setForeground(new Color(187, 187, 187));
-            jTidReserva.setText("ID Reserva");
-        }
-    }//GEN-LAST:event_jTidReservaFocusLost
-
-    private void jTnyaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTnyaFocusGained
-        if (jTnya.getText().equals("Nombre y Apellido")) {
-            jTnya.setForeground(Color.BLACK);
-            jTnya.setText("");
-        }
-    }//GEN-LAST:event_jTnyaFocusGained
-
-    private void jTnyaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTnyaFocusLost
-        if (jTnya.getText().equals("")) {
-            jTnya.setForeground(new Color(187, 187, 187));
-            jTnya.setText("Nombre y Apellido");
-        }
-    }//GEN-LAST:event_jTnyaFocusLost
-
-    private void jBcrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBcrearMouseClicked
-        if (!jTidReserva.getText().equals("") || !jTidReserva.getText().equals("ID Reserva")) {
-
-            int id = Integer.parseInt(jTidReserva.getText());
-            String nom = jTnya.getText();
-            int docu = Integer.parseInt(jTdocumento.getText());
-            Calendar cal = jDCfecha.getCalendar();
-            LocalDate fecha = LocalDate.of(cal.get(1), cal.get(2) + 1, cal.get(5));
-            boolean estado = jCestado.isSelected();
-
-            Reserva rv = new Reserva(id, nom, docu, fecha, estado);
-
-            rd.guardarReserva(rv);
-            toTabla(rv);
-        } else {
-
-            String nom = jTnya.getText();
-            int docu = Integer.parseInt(jTdocumento.getText());
-            Calendar cal = jDCfecha.getCalendar();
-            LocalDate fecha = LocalDate.of(cal.get(1), cal.get(2) + 1, cal.get(5));
-            boolean estado = jCestado.isSelected();
-
-            Reserva rv = new Reserva(nom, docu, fecha, estado);
-
-            rd.guardarReserva(rv);
-            toTabla(rv);
-        }
-    }//GEN-LAST:event_jBcrearMouseClicked
-
-    private void jTReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTReservasMouseClicked
-        int fila = jTReservas.getSelectedRow();
-        Reserva res;
-        if (fila >= 0) {
-            res = (Reserva) modelo.getValueAt(fila, 0);
-            
-            setBlack();
-            
-            jTidReserva.setText(res.getIdReserva() + "");
-            jTnya.setText(res.getNombreApellido());
-            jTdocumento.setText(res.getDni() + "");
-            jDCfecha.setDate(Date.valueOf(res.getFechaHora()));
-            jCestado.setSelected(res.isEstado());
-        }
-    }//GEN-LAST:event_jTReservasMouseClicked
-
-    private void jCBestadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBestadosActionPerformed
-        filtro.setVisible(false);
-        switch (jCBestados.getSelectedIndex()) {
-            case 1:
-                mostrarReservas(1);
-                break;
-            case 2:
-                mostrarReservas(0);
-                break;
-            case 3:
-                ElegirDNI ele = new ElegirDNI(null, true);
-                ele.setLocationRelativeTo(buscar);
-                ele.setVisible(true);
-
-                modelo.setRowCount(0);
-                for (Reserva cada : rd.obtenerReservasPorDni(dniEscrito)) {
-                    modelo.addRow(new Object[]{cada});
-                }
-                break;
-            default:
-                mostrarReservas(3);
-                break;
-        }
-    }//GEN-LAST:event_jCBestadosActionPerformed
-
-    private void jBactualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBactualizarMouseClicked
-        int id = Integer.parseInt(jTidReserva.getText());
-        String nom = jTnya.getText();
-        int docu = Integer.parseInt(jTdocumento.getText());
-        Calendar cal = jDCfecha.getCalendar();
-        LocalDate fecha = LocalDate.of(cal.get(1), cal.get(2) + 1, cal.get(5));
-        boolean estado = jCestado.isSelected();
-
-        Reserva rv = new Reserva(id, nom, docu, fecha, estado);
-
-        rd.actualizarReserva(rv);
-        jCBestados.setSelectedIndex(0);
-        mostrarReservas(3);
-    }//GEN-LAST:event_jBactualizarMouseClicked
-
-    private void jBeliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBeliminarMouseClicked
-        Reserva res = rd.buscarReserva(Integer.parseInt(jTidReserva.getText()));
-        rd.eliminarReserva(res);
-        jCBestados.setSelectedIndex(0);
-        mostrarReservas(3);
-    }//GEN-LAST:event_jBeliminarMouseClicked
-
-    private void buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseClicked
-        Reserva res;
-        if(!jTidReserva.getText().equals("") || !jTidReserva.getText().equals("ID Reserva")){
-            
-            res = rd.buscarReserva(Integer.parseInt(jTidReserva.getText()));
-            
-            setBlack();
-            jTidReserva.setText(res.getIdReserva() + "");
-            jTnya.setText(res.getNombreApellido());
-            jTdocumento.setText(res.getDni() + "");
-            jDCfecha.setDate(Date.valueOf(res.getFechaHora()));
-            jCestado.setSelected(res.isEstado());
-        }
-    }//GEN-LAST:event_buscarMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel buscar;
-    private javax.swing.JLabel filtro;
     private javax.swing.JPanel fondo;
-    private javax.swing.JLabel jBactualizar;
+    private javax.swing.JButton jBactualizar;
     private javax.swing.JLabel jBcrear;
-    private javax.swing.JLabel jBeliminar;
-    private javax.swing.JComboBox<String> jCBestados;
-    private javax.swing.JCheckBox jCestado;
     private com.toedter.calendar.JDateChooser jDCfecha;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextField jTDNI;
     private javax.swing.JTable jTReservas;
     private javax.swing.JTextField jTdocumento;
-    private javax.swing.JTextField jTidReserva;
     private javax.swing.JTextField jTnya;
+    private javax.swing.JButton jbActivas;
+    private javax.swing.JButton jbInactivas;
+    private javax.swing.JButton jbPorDni;
+    private javax.swing.JButton jbPorFecha;
+    private javax.swing.JButton jbTodas;
     // End of variables declaration//GEN-END:variables
 
     //Se necesita para la funcion -botonesAnimacion-.
@@ -515,6 +506,16 @@ public class ReservaVista extends javax.swing.JPanel {
             public void mouseExited(MouseEvent evt) {
                 label.setSize(label.getWidth() - 2, label.getHeight() - 2);
             }
+            
+            @Override
+            public void mousePressed(MouseEvent evt){
+                jBcrear.setBackground(new Color(57,137,111));
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent evt){
+                jBcrear.setBackground(new Color(251,250,241));
+            }
         });
 
     }
@@ -525,8 +526,6 @@ public class ReservaVista extends javax.swing.JPanel {
 
         lista.add(buscar);
         lista.add(jBcrear);
-        lista.add(jBactualizar);
-        lista.add(jBeliminar);
 
         for (JLabel cada : lista) {
             eventoMouse(cada);
@@ -535,12 +534,10 @@ public class ReservaVista extends javax.swing.JPanel {
 
     //Esto setea los colores iniciales de los jTextField y jSeparator.
     private void opacos() {
-        jTidReserva.setForeground(new Color(187, 187, 187));
         jTnya.setForeground(new Color(187, 187, 187));
         jTdocumento.setForeground(new Color(187, 187, 187));
-        jSeparator1.setForeground(Color.BLACK);
-        jSeparator2.setForeground(Color.BLACK);
-        jSeparator3.setForeground(Color.BLACK);
+        jTnya.setText("Nombre y Apellido");
+        jTdocumento.setText("Documento");
     }
 
     //Ingresa las Reservas al jTable dependiendo del parametro ingresado.
@@ -548,36 +545,104 @@ public class ReservaVista extends javax.swing.JPanel {
     private void mostrarReservas(int num) {
         if (num == 3) {
             modelo.setRowCount(0);
-            for (Reserva cada : rd.todas()) {
-                modelo.addRow(new Object[]{cada});
+            for (Reserva res : rd.todas()) {
+                modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
             }
         } else {
             modelo.setRowCount(0);
-            for (Reserva cada : rd.obtenerReservas(num)) {
-                modelo.addRow(new Object[]{cada});
+            for (Reserva res : rd.obtenerReservas(num)) {
+                modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
             }
         }
     }
 
     //Está al pedo, la uso una vez y nada mas, pero bueno, sirve.
     private void toTabla(Reserva res) {
-        modelo.addRow(new Object[]{res});
+        modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
     }
 
     //Agrega los Items al jComboBo y lo centra.
-    private void combo() {
-        jCBestados.addItem("Reservas");
-        jCBestados.addItem("Reservas Activas");
-        jCBestados.addItem("Reservas Inactivas");
-        jCBestados.addItem("Reservas por DNI");
-        dlcr.setHorizontalAlignment(DefaultListCellRenderer.CENTER);
-        jCBestados.setRenderer(dlcr);
+    private void tabla() {
+        dtcr.setHorizontalAlignment(JLabel.CENTER);
+        jTReservas.getColumnModel().getColumn(0).setCellRenderer(dtcr);
+        jTReservas.getColumnModel().getColumn(1).setCellRenderer(dtcr);
+        jTReservas.getColumnModel().getColumn(2).setCellRenderer(dtcr);
+        jTReservas.getColumnModel().getColumn(3).setCellRenderer(dtcr);
+        jTReservas.getColumnModel().getColumn(4).setCellRenderer(dtcr);
     }
-    
+
     //jTextField letra color negro.
-    private void setBlack(){
-        jTidReserva.setForeground((Color.BLACK));
+    private void setBlack() {
         jTnya.setForeground((Color.BLACK));
         jTdocumento.setForeground((Color.BLACK));
+    }
+
+    private void menuClickDerecho() {
+        JMenuItem item1 = new JMenuItem("Editar");
+        item1.addActionListener(this);
+        item1.setActionCommand("editar");
+        popupmenu.add(item1);
+
+        JMenuItem item2 = new JMenuItem("Eliminar");
+        item2.addActionListener(this);
+        item2.setActionCommand("eliminar");
+        popupmenu.add(item2);
+
+        jTReservas.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    popupmenu.show(jTReservas, e.getX(), e.getY());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String comando = e.getActionCommand();
+
+        switch (comando) {
+            case "editar":
+                Reserva res;
+                int fila = jTReservas.getSelectedRow();
+                if (fila >= 0) {
+                    res = rd.buscarReserva(Integer.parseInt(modelo.getValueAt(fila, 0).toString()));
+
+                    setBlack();
+
+                    jTnya.setText(res.getNombreApellido());
+                    jTdocumento.setText(res.getDni() + "");
+                    jDCfecha.setDate(Date.valueOf(res.getFechaHora()));
+
+                    jBactualizar.setEnabled(true);
+                }
+                break;
+            case "eliminar":
+                int fila2 = jTReservas.getSelectedRow();
+
+                Reserva ress = rd.buscarReserva(Integer.parseInt(modelo.getValueAt(fila2, 0).toString()));
+
+                rd.eliminarReserva(ress);
+                mostrarReservas(0);
+                break;
+        }
+    }
+
+    private int cuentaIDs() {
+        int cont = 0;
+        String sql = "SELECT idReserva FROM reserva";
+        try {
+            PreparedStatement ps = Conexion.getConexion("restaurante").prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                cont += 1;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
+        return cont + 1;
     }
 }

@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 
 public class Principal extends javax.swing.JFrame {
- 
+ private static ReservaVista rv = new ReservaVista();
     public Principal() {
         initComponents();
     }
@@ -33,15 +33,19 @@ public class Principal extends javax.swing.JFrame {
         jPanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Mesas");
+        jButton1.setFocusPainted(false);
         jPanelPrincipal.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 388, 200, 50));
 
         jButton3.setText("Usuarios");
+        jButton3.setFocusPainted(false);
         jPanelPrincipal.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 465, 200, 50));
 
         jButton4.setText("Pedidos");
+        jButton4.setFocusPainted(false);
         jPanelPrincipal.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, 50));
 
         jBreservas.setText("Reservas");
+        jBreservas.setFocusPainted(false);
         jBreservas.setPreferredSize(new java.awt.Dimension(58, 24));
         jBreservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +100,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBreservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBreservasActionPerformed
-        ReservaVista rv = new ReservaVista();
+        
         showPanel(rv.getFondo());
     }//GEN-LAST:event_jBreservasActionPerformed
 

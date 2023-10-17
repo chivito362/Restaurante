@@ -5,18 +5,20 @@
 package com.equipo10.restaurante.Vistas;
 
 import java.awt.Color;
+import java.time.LocalDate;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Facua
  */
-public class ElegirDNI extends javax.swing.JDialog {
+public class EleFecha extends javax.swing.JDialog {
 
     /**
-     * Creates new form ElegirDNI
+     * Creates new form EleFecha
      */
-    public ElegirDNI(java.awt.Frame parent, boolean modal) {
+    public EleFecha(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -31,53 +33,18 @@ public class ElegirDNI extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        escrito = new javax.swing.JTextField();
-        cancelar = new javax.swing.JLabel();
         buscar = new javax.swing.JLabel();
+        cancelar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jDCfecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(java.awt.Color.darkGray);
-        jPanel1.setMinimumSize(new java.awt.Dimension(220, 200));
-        jPanel1.setPreferredSize(new java.awt.Dimension(220, 200));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("INGRESE UN DNI");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 40));
-
-        escrito.setBackground(new java.awt.Color(30, 30, 30));
-        escrito.setFont(new java.awt.Font("Segoe UI Semibold", 0, 20)); // NOI18N
-        escrito.setForeground(new java.awt.Color(255, 255, 255));
-        escrito.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        escrito.setOpaque(true);
-        jPanel1.add(escrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 180, 60));
-
-        cancelar.setBackground(new java.awt.Color(0, 0, 0));
-        cancelar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        cancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cancelar.setText("Cancelar");
-        cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cancelar.setOpaque(true);
-        cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cancelarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cancelarMouseExited(evt);
-            }
-        });
-        jPanel1.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 90, 40));
 
         buscar.setBackground(new java.awt.Color(0, 0, 0));
         buscar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -99,28 +66,70 @@ public class ElegirDNI extends javax.swing.JDialog {
         });
         jPanel1.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 90, 40));
 
+        cancelar.setBackground(new java.awt.Color(0, 0, 0));
+        cancelar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        cancelar.setForeground(new java.awt.Color(255, 255, 255));
+        cancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cancelar.setText("Cancelar");
+        cancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelar.setOpaque(true);
+        cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cancelarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cancelarMouseExited(evt);
+            }
+        });
+        jPanel1.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 90, 40));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("INGRESE LA FECHA");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 40));
+
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("INGRESE UN DNI");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, -1, -1));
+        jLabel2.setText("INGRESE LA FECHA");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 15, -1, -1));
+
+        jDCfecha.setBackground(new java.awt.Color(30, 30, 30));
+        jDCfecha.setForeground(new java.awt.Color(255, 255, 255));
+        jDCfecha.setDateFormatString("y MM d");
+        jDCfecha.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jPanel1.add(jDCfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 180, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseClicked
+        try{
+            Calendar cal = jDCfecha.getCalendar();
+            LocalDate fecha = LocalDate.of(cal.get(1), cal.get(2) + 1, cal.get(5));
+            ReservaVista.fecha = fecha;
+            this.dispose();
+
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Se debe elegir una fecha.");
+        }
+    }//GEN-LAST:event_buscarMouseClicked
 
     private void buscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseEntered
         buscar.setBackground(new Color(15,15,15));
@@ -130,6 +139,10 @@ public class ElegirDNI extends javax.swing.JDialog {
         buscar.setBackground(Color.BLACK);
     }//GEN-LAST:event_buscarMouseExited
 
+    private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_cancelarMouseClicked
+
     private void cancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseEntered
         cancelar.setBackground(new Color(15,15,15));
     }//GEN-LAST:event_cancelarMouseEntered
@@ -138,30 +151,12 @@ public class ElegirDNI extends javax.swing.JDialog {
         cancelar.setBackground(Color.BLACK);
     }//GEN-LAST:event_cancelarMouseExited
 
-    private void buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseClicked
-        try{
-        ReservaVista.dniEscrito = Integer.parseInt(escrito.getText());
-        this.dispose();
-        
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "Solo ingresar números.");
-            ReservaVista.dniEscrito = -1;
-        }
-    }//GEN-LAST:event_buscarMouseClicked
-
-    private void cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelarMouseClicked
-        this.dispose();
-    }//GEN-LAST:event_cancelarMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel buscar;
     private javax.swing.JLabel cancelar;
-    private javax.swing.JTextField escrito;
+    private com.toedter.calendar.JDateChooser jDCfecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
