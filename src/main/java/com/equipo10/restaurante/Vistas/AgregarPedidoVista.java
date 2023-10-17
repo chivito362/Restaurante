@@ -8,7 +8,7 @@ import com.equipo10.restaurante.Entidades.Pedido;
 import javax.swing.JFrame;
 
 
-public class AgregarPedidoVista extends javax.swing.JInternalFrame {
+public class AgregarPedidoVista extends javax.swing.JFrame {
 
   
     public AgregarPedidoVista() {
@@ -131,11 +131,12 @@ public class AgregarPedidoVista extends javax.swing.JInternalFrame {
    int moso=Integer.parseInt(jtPedido.getText());
         Mesa mesa=new Mesa(mesaN);
         Mesero mesero=new Mesero(moso);
-        Pedido pedido=new Pedido(mesa, mesero, false, false);
+        Pedido pedido=new Pedido(mesa, mesero, false, false, true);
         
         PedidoData pd=new PedidoData();
         pd.agregarPedido(pedido);
-   
+        jtMesa.setText("");
+        jtPedido.setText("");
     }//GEN-LAST:event_jbAgregarActionPerformed
 
    

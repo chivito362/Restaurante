@@ -170,7 +170,8 @@ public class PedidoVista extends javax.swing.JFrame {
     modelo.addColumn("ID-Pedido");
     modelo.addColumn("Mesa");
     modelo.addColumn("Mesero");
-    modelo.addColumn("Estado");
+    modelo.addColumn("Entregado");
+    modelo.addColumn("Pagado");
     
     jtTabla1.setModel(modelo);
     }; 
