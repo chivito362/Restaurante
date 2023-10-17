@@ -89,6 +89,11 @@ public class ProductoCargaVista extends javax.swing.JFrame {
         rbtnHabil.setText("Habilitar");
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Al Desabilitar el boton el producto quedara eliminado!!!");
 
@@ -224,6 +229,28 @@ public class ProductoCargaVista extends javax.swing.JFrame {
         bs.setVisible(true);
         bs.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+       if(!txtNombre.getText().isEmpty() && !txtPrecio.getText().isEmpty()&& !txtStock.getText().isEmpty()){
+            pd=new ProductoData();
+            try{
+        String nombre;
+        double precio;
+        int stock,id;
+        Categoria cat;
+        nombre=txtNombre.getText();
+        precio=Double.parseDouble(txtPrecio.getText());
+        stock=Integer.parseInt(txtStock.getText());
+        id=Integer.parseInt(txtId.getText());
+        cat=(Categoria)cbCategoria.getSelectedItem();
+        pd.actualizarProducto(new Producto(id,nombre, stock, precio, cat, rbtnHabil.isSelected()));
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "El campo precio o stock solo deben contener numeros");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Los campos deben estar completos");
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
   
     public static void main(String args[]) {

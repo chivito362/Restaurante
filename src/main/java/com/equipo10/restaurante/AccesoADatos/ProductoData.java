@@ -85,7 +85,7 @@ public class ProductoData {
            }
            ps.close();
        }catch(SQLException ex){
-           JOptionPane.showMessageDialog(null, "error al Actualizar");
+           JOptionPane.showMessageDialog(null, "error al Actualizar SQL");
        }
        
    }
