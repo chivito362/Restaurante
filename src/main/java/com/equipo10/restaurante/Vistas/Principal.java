@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 
 public class Principal extends javax.swing.JFrame {
-
+private static final ReservaVista rv = new ReservaVista();
     public Principal() {
         initComponents();
     }
@@ -30,43 +30,67 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanelPrincipal.setBackground(new java.awt.Color(204, 102, 0));
+        jPanelPrincipal.setBackground(new java.awt.Color(251, 250, 241));
         jPanelPrincipal.setPreferredSize(new java.awt.Dimension(833, 581));
         jPanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnMesas.setBackground(new java.awt.Color(56, 49, 39));
+        btnMesas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
+        btnMesas.setForeground(new java.awt.Color(251, 250, 241));
         btnMesas.setText("Mesas");
+        btnMesas.setBorder(null);
+        btnMesas.setBorderPainted(false);
         btnMesas.setFocusPainted(false);
+        btnMesas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMesas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMesasActionPerformed(evt);
             }
         });
-        jPanelPrincipal.add(btnMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 388, 200, 50));
+        jPanelPrincipal.add(btnMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 388, 196, 50));
 
+        btnUsuarios.setBackground(new java.awt.Color(56, 49, 39));
+        btnUsuarios.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
+        btnUsuarios.setForeground(new java.awt.Color(251, 250, 241));
         btnUsuarios.setText("Usuarios");
+        btnUsuarios.setBorder(null);
+        btnUsuarios.setBorderPainted(false);
         btnUsuarios.setFocusPainted(false);
-        jPanelPrincipal.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 465, 200, 50));
+        btnUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanelPrincipal.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 465, 196, 50));
 
+        btnPedidos.setBackground(new java.awt.Color(56, 49, 39));
+        btnPedidos.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
+        btnPedidos.setForeground(new java.awt.Color(251, 250, 241));
         btnPedidos.setText("Pedidos");
+        btnPedidos.setBorder(null);
+        btnPedidos.setBorderPainted(false);
         btnPedidos.setFocusPainted(false);
+        btnPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPedidosActionPerformed(evt);
             }
         });
-        jPanelPrincipal.add(btnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 200, 50));
+        jPanelPrincipal.add(btnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 320, 196, 50));
 
+        jBreservas.setBackground(new java.awt.Color(56, 49, 39));
+        jBreservas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
+        jBreservas.setForeground(new java.awt.Color(251, 250, 241));
         jBreservas.setText("Reservas");
+        jBreservas.setBorder(null);
+        jBreservas.setBorderPainted(false);
         jBreservas.setFocusPainted(false);
+        jBreservas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBreservas.setPreferredSize(new java.awt.Dimension(58, 24));
         jBreservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBreservasActionPerformed(evt);
             }
         });
-        jPanelPrincipal.add(jBreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
+        jPanelPrincipal.add(jBreservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 250, 196, 50));
 
-        Escritorio.setBackground(new java.awt.Color(56, 49, 39));
+        Escritorio.setBackground(new java.awt.Color(218, 247, 166));
 
         javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
         Escritorio.setLayout(EscritorioLayout);
@@ -81,8 +105,16 @@ public class Principal extends javax.swing.JFrame {
 
         jPanelPrincipal.add(Escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 91, 633, 490));
 
+        jMenuBar1.setBackground(new java.awt.Color(161, 4, 18));
+        jMenuBar1.setBorder(null);
+        jMenuBar1.setForeground(new java.awt.Color(251, 250, 241));
+        jMenuBar1.setBorderPainted(false);
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jMenuBar1.setOpaque(true);
         jMenuBar1.setPreferredSize(new java.awt.Dimension(833, 23));
 
+        jMenu1.setBackground(new java.awt.Color(251, 250, 241));
+        jMenu1.setForeground(new java.awt.Color(251, 250, 241));
         jMenu1.setText("Administracion");
 
         jMenuItem1.setText("Carga Usuarios");
@@ -90,6 +122,8 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setBackground(new java.awt.Color(251, 250, 241));
+        jMenu2.setForeground(new java.awt.Color(251, 250, 241));
         jMenu2.setText("Gestion");
 
         MenuCargaProductos.setText("Carga Productos");
@@ -119,7 +153,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBreservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBreservasActionPerformed
-        ReservaVista rv = new ReservaVista();
+
         showPanel(rv.getFondo());
     }//GEN-LAST:event_jBreservasActionPerformed
 
