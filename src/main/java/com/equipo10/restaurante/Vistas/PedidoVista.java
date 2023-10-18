@@ -185,60 +185,55 @@ public void CargarTabla(){
     if (jcFiltro.getSelectedItem().equals("Pedidos")) {
 limpiarTabla();
 
-Pedido pedido=new Pedido();
 List<Pedido> pedidos=new ArrayList<>();
 PedidoData pd=new PedidoData();
 pedidos = pd.listarPedido();
 
-    for (Pedido pedido1 : pedidos) {
+    for (Pedido pedido : pedidos) {
         modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
     }
 }
   if (jcFiltro.getSelectedItem().equals("Entregados")) {
 limpiarTabla();
 
-Pedido pedido=new Pedido();
 List<Pedido> pedidos=new ArrayList<>();
 PedidoData pd=new PedidoData();
 pedidos = pd.listarPedidoEntregado();
 
-    for (Pedido pedido1 : pedidos) {
+    for (Pedido pedido : pedidos) {
         modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa(), pedido.getMesero(), pedido.isEstado()});
     }
 }  
   if (jcFiltro.getSelectedItem().equals("Pagados")) {
 limpiarTabla();
 
-Pedido pedido=new Pedido();
 List<Pedido> pedidos=new ArrayList<>();
 PedidoData pd=new PedidoData();
 pedidos = pd.listarPedidoPagado();
 
-    for (Pedido pedido1 : pedidos) {
+    for (Pedido pedido : pedidos) {
         modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
     }
 }
     if (jcFiltro.getSelectedItem().equals("No pagados")) {
 limpiarTabla();
 
-Pedido pedido=new Pedido();
 List<Pedido> pedidos=new ArrayList<>();
 PedidoData pd=new PedidoData();
 pedidos = pd.listarPedidoNoPagado();
 
-    for (Pedido pedido1 : pedidos) {
+    for (Pedido pedido : pedidos) {
         modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
     }
 }
   if (jcFiltro.getSelectedItem().equals("No entregados")) {
 limpiarTabla();
 
-Pedido pedido=new Pedido();
 List<Pedido> pedidos=new ArrayList<>();
 PedidoData pd=new PedidoData();
 pedidos = pd.listarPedidoNoEntregados();
 
-    for (Pedido pedido1 : pedidos) {
+    for (Pedido pedido : pedidos) {
         modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEntregado()});
     }
 }  
