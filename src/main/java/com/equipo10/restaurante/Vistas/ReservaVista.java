@@ -178,8 +178,14 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBcrearMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jBcrearMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jBcrearMouseReleased(evt);
+            }
         });
-        fondo.add(jBcrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 70, 120, 42));
+        fondo.add(jBcrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(319, 75, 120, 42));
 
         jDCfecha.setBackground(new java.awt.Color(251, 250, 241));
         jDCfecha.setForeground(new java.awt.Color(0, 0, 0));
@@ -325,7 +331,7 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
                 jBactualizarActionPerformed(evt);
             }
         });
-        fondo.add(jBactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 70, 120, 42));
+        fondo.add(jBactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 75, 120, 42));
 
         add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 633, 490));
     }// </editor-fold>//GEN-END:initComponents
@@ -439,14 +445,11 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
     }//GEN-LAST:event_jTnyaFocusGained
 
     private void jTnyaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTnyaFocusLost
-        try{
-            int nom = Integer.parseInt(jTdocumento.getText());
-        }catch(NumberFormatException ex){
-            if(jTnya.getText().equals("Nombre y Apellido") || jTnya.getText().equals("")){
+       
+            if(jTnya.getText().equals("") || esNumero()){
             jTnya.setForeground(new Color(187, 187, 187));
             jTnya.setText("Nombre y Apellido");
             }
-        }
     }//GEN-LAST:event_jTnyaFocusLost
 
     private void jTdocumentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTdocumentoFocusGained
@@ -469,6 +472,14 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
             jTdocumento.setText("Documento");
         }
     }//GEN-LAST:event_jTdocumentoFocusLost
+
+    private void jBcrearMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBcrearMousePressed
+        jBcrear.setBackground(new Color(57,137,111));
+    }//GEN-LAST:event_jBcrearMousePressed
+
+    private void jBcrearMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBcrearMouseReleased
+        jBcrear.setBackground(new Color(251,250,241));
+    }//GEN-LAST:event_jBcrearMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -505,16 +516,6 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
             @Override
             public void mouseExited(MouseEvent evt) {
                 label.setSize(label.getWidth() - 2, label.getHeight() - 2);
-            }
-            
-            @Override
-            public void mousePressed(MouseEvent evt){
-                jBcrear.setBackground(new Color(57,137,111));
-            }
-            
-            @Override
-            public void mouseReleased(MouseEvent evt){
-                jBcrear.setBackground(new Color(251,250,241));
             }
         });
 
@@ -645,4 +646,13 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         }
         return cont + 1;
     }
+    
+    private boolean esNumero() {
+    try {
+        int id = Integer.parseInt(jTnya.getText());
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
 }
