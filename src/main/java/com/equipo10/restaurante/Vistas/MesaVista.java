@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class MesaVista extends javax.swing.JFrame {
+public class MesaVista extends javax.swing.JInternalFrame {
     Mesa mesa = new Mesa();
     private int numeroMesa = 1;
     int cantMesa = 0;
@@ -38,7 +38,6 @@ public class MesaVista extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(633, 490));
 
         javax.swing.GroupLayout jPmesasLayout = new javax.swing.GroupLayout(jPmesas);
         jPmesas.setLayout(jPmesasLayout);

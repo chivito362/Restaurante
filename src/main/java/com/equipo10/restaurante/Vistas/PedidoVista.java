@@ -11,7 +11,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 
 
-public class PedidoVista extends javax.swing.JFrame {
+public class PedidoVista extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel ();
     private javax.swing.JDesktopPane Escritorio;
