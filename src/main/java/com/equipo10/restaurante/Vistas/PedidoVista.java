@@ -191,7 +191,7 @@ PedidoData pd=new PedidoData();
 pedidos = pd.listarPedido();
 
     for (Pedido pedido1 : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa(), pedido.getMesero(), pedido.isEstado()});
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
     }
 }
   if (jcFiltro.getSelectedItem().equals("Entregados")) {
@@ -215,7 +215,7 @@ PedidoData pd=new PedidoData();
 pedidos = pd.listarPedidoPagado();
 
     for (Pedido pedido1 : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa(), pedido.getMesero(), pedido.isEstado()});
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
     }
 }
     if (jcFiltro.getSelectedItem().equals("No pagados")) {
@@ -227,7 +227,7 @@ PedidoData pd=new PedidoData();
 pedidos = pd.listarPedidoNoPagado();
 
     for (Pedido pedido1 : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa(), pedido.getMesero(), pedido.isEstado()});
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
     }
 }
   if (jcFiltro.getSelectedItem().equals("No entregados")) {
@@ -239,7 +239,7 @@ PedidoData pd=new PedidoData();
 pedidos = pd.listarPedidoNoEntregados();
 
     for (Pedido pedido1 : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa(), pedido.getMesero(), pedido.isEntregado()});
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEntregado()});
     }
 }  
     

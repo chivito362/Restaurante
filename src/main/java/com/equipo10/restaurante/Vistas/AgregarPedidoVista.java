@@ -8,7 +8,7 @@ import com.equipo10.restaurante.Entidades.Pedido;
 import javax.swing.JFrame;
 
 
-public class AgregarPedidoVista extends javax.swing.JFrame {
+public class AgregarPedidoVista extends javax.swing.JInternalFrame {
 
   
     public AgregarPedidoVista() {

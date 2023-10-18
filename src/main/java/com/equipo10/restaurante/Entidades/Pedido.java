@@ -28,6 +28,10 @@ public class Pedido {
         this.pagado = pagado;
         this.estado = estado;
     }
+
+    public Pedido(int idPedido) {
+        this.idPedido = idPedido;
+    }
     
 
     public Pedido(Mesa mesa, Mesero mesero, boolean entregado, boolean pagado) {
