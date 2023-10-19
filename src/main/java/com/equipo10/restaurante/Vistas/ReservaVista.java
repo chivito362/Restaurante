@@ -86,6 +86,7 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         jbInactivas = new javax.swing.JButton();
         jbPorDni = new javax.swing.JButton();
         jBactualizar = new javax.swing.JButton();
+        atras = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(251, 250, 241));
         setMinimumSize(new java.awt.Dimension(633, 490));
@@ -333,6 +334,22 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         });
         fondo.add(jBactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 75, 120, 42));
 
+        atras.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flecha_atras_icon.png"))); // NOI18N
+        atras.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        atras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                atrasMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                atrasMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                atrasMouseReleased(evt);
+            }
+        });
+        fondo.add(atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+
         add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 633, 490));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -481,8 +498,21 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         jBcrear.setBackground(new Color(251,250,241));
     }//GEN-LAST:event_jBcrearMouseReleased
 
+    private void atrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseClicked
+        fondo.setVisible(false);
+    }//GEN-LAST:event_atrasMouseClicked
+
+    private void atrasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMousePressed
+        atras.setLocation(atras.getX()-3,atras.getY());
+    }//GEN-LAST:event_atrasMousePressed
+
+    private void atrasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseReleased
+        atras.setLocation(atras.getX()+3,atras.getY());
+    }//GEN-LAST:event_atrasMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel atras;
     private javax.swing.JLabel buscar;
     private javax.swing.JPanel fondo;
     private javax.swing.JButton jBactualizar;
