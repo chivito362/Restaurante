@@ -34,15 +34,15 @@ public class PedidoData {
         String sql = "INSERT INTO pedido (idMesa, idMesero, Entregado, Pagado,estado) VALUES (?, ?, ?, ?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, pedido.getMesa().getIdMesa());
-            ps.setInt(2,pedido.getMesero().getIdMesero());
+            ps.setInt(1, pedido.getIdMesa());
+            ps.setInt(2,pedido.getIdMesero());
             ps.setBoolean(3, pedido.isEntregado());
             ps.setBoolean(4, pedido.isPagado());
             ps.setBoolean(5, true);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                pedido.setIdPedido(rs.getInt(1));
+                //pedido.setIdPedido(rs.getInt(1));
             //    System.out.println(pedido.getIdpedido());
                 JOptionPane.showMessageDialog(null, "Pedido añadido con exito.");
             }
