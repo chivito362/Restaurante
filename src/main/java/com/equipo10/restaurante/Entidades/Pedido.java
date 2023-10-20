@@ -6,6 +6,10 @@ import java.util.List;
 public class Pedido {
 
     private int idPedido;
+    private int idMesa;
+    private int idMesero;
+    
+    
     private Mesa mesa;
     private Mesero mesero;
     private boolean entregado;
@@ -45,6 +49,14 @@ public class Pedido {
         this.idPedido = idPedido;
         this.mesa = mesa;
         this.mesero = mesero;
+        this.entregado = entregado;
+        this.pagado = pagado;
+    }
+    // este lo agregó Lucas
+     public Pedido(int idPedido, int idMesa, int idMesero, boolean entregado, boolean pagado) {
+        this.idPedido = idPedido;
+        this.idMesa = idMesa;
+        this.idMesero = idMesero;
         this.entregado = entregado;
         this.pagado = pagado;
     }
@@ -104,5 +116,23 @@ public class Pedido {
     public String toString() {
         return "Pedido{" + "idPedido=" + idPedido + ", mesa=" + mesa + ", mesero=" + mesero + ", productos=" + ", totalPedido="+ ", entregado=" + entregado + ", pagado=" + pagado + '}';
     }
+
+    public int getIdMesa() {
+        return idMesa;
+    }
+
+    public void setIdMesa(int idMesa) {
+        this.idMesa = idMesa;
+    }
+
+    public int getIdMesero() {
+        return idMesero;
+    }
+
+    public void setIdMesero(int idMesero) {
+        this.idMesero = idMesero;
+    }
+
+    
 
 }
