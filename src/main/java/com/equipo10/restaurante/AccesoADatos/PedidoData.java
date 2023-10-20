@@ -1,6 +1,7 @@
 package com.equipo10.restaurante.AccesoADatos;
 
 
+import com.equipo10.restaurante.Entidades.Categoria;
 import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.Entidades.Mesero;
 import com.equipo10.restaurante.Entidades.Pedido;
@@ -313,8 +314,74 @@ public double calcularTotalPedido(int idPedido){
         }
 return total;
 }
-
-
+    public ArrayList<Integer> buscarPedidosxIDMesa(Mesa m) {
+        ArrayList<Integer> pedidos = new ArrayList<>();
+        String sql = "SELECT pedido.idPedido FROM pedido where idMesa=? AND estado=1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, m.getIdMesa());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                pedidos.add(rs.getInt("idPedido"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pedidos;
+    }
+    
+    public ArrayList<Integer> buscarPedidosxNumeroMesa(int m) {
+        ArrayList<Integer> pedidos = new ArrayList<>();
+        MesaData me=new MesaData();
+        Mesa mesa=me.buscarMesaxNRO(m);
+        String sql = "SELECT pedido.idPedido FROM pedido where idMesa=? AND estado=1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, mesa.getIdMesa());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                pedidos.add(rs.getInt("idPedido"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pedidos;
+    }
+    
+    public ArrayList<Producto> listarProductosDeLaMesa(int m){
+        ArrayList<Producto> productos=new ArrayList<>();
+        CategoriaData cat=new CategoriaData();
+        for (int id : buscarPedidosxNumeroMesa(m)) {
+            for (Producto p : listarProductosDelPedido(id)) {
+                productos.add(p);
+            }
+        }
+        return productos;
+    }
+    
+    public ArrayList<Producto> listarProductosDelPedido(int idPedido){
+        ArrayList<Producto> productos=new ArrayList<>();
+        CategoriaData cat=new CategoriaData();
+        String sql="Select Producto.*,cantidad FROM Producto JOIN pedidodetalle ON (pedidodetalle.idProducto=Producto.idProducto) WHERE pedidodetalle.idPedido =?";
+        try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, idPedido);
+                ResultSet rs=ps.executeQuery();
+                while(rs.next()){
+                    Producto p=new Producto();
+                    p.setIdProducto(rs.getInt("idProducto"));
+                    p.setNombre(rs.getString("Nombre"));
+                    p.setPrecio(rs.getDouble("Precio"));
+                    p.setCantidad(rs.getInt("cantidad"));
+                    p.setCategoria(Categoria.valueOf(cat.obtenerNombreCategoriaPorId(rs.getInt("idCategoria"))));
+                    p.setEstado(rs.getBoolean("estado"));
+                    productos.add(p);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "error consulta sql");
+            }
+        return productos;
+    }
 }
     
     
