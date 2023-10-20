@@ -1,7 +1,9 @@
 
 package com.equipo10.restaurante.Vistas;
 
+import com.equipo10.restaurante.AccesoADatos.MeseroData;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -30,6 +32,7 @@ public static ReservaVista rv = new ReservaVista();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         MenuCargaProductos = new javax.swing.JMenuItem();
+        btnSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,11 +58,16 @@ public static ReservaVista rv = new ReservaVista();
         btnUsuarios.setBackground(new java.awt.Color(56, 49, 39));
         btnUsuarios.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
         btnUsuarios.setForeground(new java.awt.Color(251, 250, 241));
-        btnUsuarios.setText("Usuarios");
+        btnUsuarios.setText("Check in Mozos");
         btnUsuarios.setBorder(null);
         btnUsuarios.setBorderPainted(false);
         btnUsuarios.setFocusPainted(false);
         btnUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuariosActionPerformed(evt);
+            }
+        });
         jPanelPrincipal.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 465, 191, 50));
 
         btnPedidos.setBackground(new java.awt.Color(56, 49, 39));
@@ -143,7 +151,6 @@ public static ReservaVista rv = new ReservaVista();
         jMenuBar1.setForeground(new java.awt.Color(251, 250, 241));
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jMenuBar1.setOpaque(true);
         jMenuBar1.setPreferredSize(new java.awt.Dimension(833, 23));
 
         jMenu1.setBackground(new java.awt.Color(251, 250, 241));
@@ -168,6 +175,14 @@ public static ReservaVista rv = new ReservaVista();
         jMenu2.add(MenuCargaProductos);
 
         jMenuBar1.add(jMenu2);
+
+        btnSalir.setText("Salir");
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalirMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(btnSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -206,6 +221,20 @@ public static ReservaVista rv = new ReservaVista();
         venta.setVisible(true);
     }//GEN-LAST:event_MenuCargaProductosActionPerformed
 
+    private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
+        CheckInMozos ven=new CheckInMozos();
+        crearVentana(ven);
+    }//GEN-LAST:event_btnUsuariosActionPerformed
+
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+        int r=JOptionPane.showConfirmDialog(null, "Seguro Desea Salir?");
+        if(r==0){
+            MeseroData me=new MeseroData();
+            me.CierreLaboral();
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnSalirMouseClicked
+
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -213,6 +242,7 @@ public static ReservaVista rv = new ReservaVista();
     private javax.swing.JMenuItem MenuCargaProductos;
     private javax.swing.JButton btnMesas;
     private javax.swing.JButton btnPedidos;
+    private javax.swing.JMenu btnSalir;
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JButton jBreservas;
     private javax.swing.JMenu jMenu1;

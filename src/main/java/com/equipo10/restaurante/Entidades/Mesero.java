@@ -6,11 +6,17 @@ import java.util.List;
 
 public class Mesero {
     private int idMesero;
-    private String nombreApellido;
-    private boolean estado;
+    private String nombreApellido,docu;
+    private boolean estado,Ingreso;
     
     
     public Mesero() {
+    }
+
+    public Mesero(int idMesero, String nombreApellido, String docu) {
+        this.idMesero = idMesero;
+        this.nombreApellido = nombreApellido;
+        this.docu = docu;
     }
 
 
@@ -26,6 +32,22 @@ public class Mesero {
         this.estado=estado;
     }
 
+    public String getDocu() {
+        return docu;
+    }
+
+    public void setDocu(String docu) {
+        this.docu = docu;
+    }
+
+    public boolean isIngreso() {
+        return Ingreso;
+    }
+
+    public void setIngreso(boolean Ingreso) {
+        this.Ingreso = Ingreso;
+    }
+    
     public int getIdMesero() {
         return idMesero;
     }

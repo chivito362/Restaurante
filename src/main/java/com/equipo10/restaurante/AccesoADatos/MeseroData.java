@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -138,5 +140,50 @@ public class MeseroData {
         }
         return meseros;
     }
-
+    public ArrayList<Mesero> mozosActivos(){
+        ArrayList<Mesero> meseros = new ArrayList<>();
+        String sql = "SELECT * FROM mesero where Ingreso=1";
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet resultado = statement.executeQuery();
+                while (resultado.next()){
+                    int idMesero = resultado.getInt("idmesero");
+                    String docu=resultado.getString("Documento");
+                    String nombreApellido = resultado.getString("nombreyapellido");
+                    Mesero mesero = new Mesero(idMesero, nombreApellido,docu);
+                    meseros.add(mesero);
+                }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error sql");
+        }
+                return meseros;
+    }
+    public void IngresoMesero(String docu){
+        String sql="Update mesero Set Ingreso=1 where Documento=? AND estado=1";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setString(1, docu);
+            int r=ps.executeUpdate();
+            if(r==1){
+                JOptionPane.showMessageDialog(null, "Bienvenido");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se encuentra ese mesero");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error sql");
+        }   
+    }
+    
+    public void CierreLaboral(){
+        String sql="Update mesero Set Ingreso=0";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            int r=ps.executeUpdate();
+            if(r==1){
+                JOptionPane.showMessageDialog(null, "Hasta la proxima");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error sql");
+        }   
+    }
 }

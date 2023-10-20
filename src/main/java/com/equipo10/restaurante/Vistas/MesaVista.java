@@ -37,7 +37,8 @@ public class MesaVista extends javax.swing.JInternalFrame {
         jTcantMesas = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(633, 490));
 
         javax.swing.GroupLayout jPmesasLayout = new javax.swing.GroupLayout(jPmesas);
         jPmesas.setLayout(jPmesasLayout);
