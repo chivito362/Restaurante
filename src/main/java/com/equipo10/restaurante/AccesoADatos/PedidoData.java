@@ -28,9 +28,10 @@ public class PedidoData {
   public PedidoData() {
         con = Conexion.getConexion("restaurante");
     }
-
+int idPedido;
   public void agregarPedido(Pedido pedido) {
       Producto producto= new Producto();
+      Integer id=0;
 
         String sql = "INSERT INTO pedido (idMesa, idMesero, Entregado, Pagado,estado) VALUES (?, ?, ?, ?,?)";
         try {
@@ -47,13 +48,18 @@ public class PedidoData {
             //    System.out.println(pedido.getIdpedido());
                 JOptionPane.showMessageDialog(null, "Pedido añadido con exito.");
             }
+          
+                 id = rs.getInt(1);
+                 idPedido=id;
             ps.close();
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al ingresar pedido ");
         }
-        
     }
+  public int getIdPedido(){
+  return idPedido;
+  }
+  
   
   public void editarPedido(Pedido pedido){
   String sql = "UPDATE alumno SET mesa = ? , mesero = ?, detalle = ?, entregado= ?, pagado= ? WHERE idPedido = ?";

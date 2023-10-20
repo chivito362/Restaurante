@@ -6,10 +6,12 @@ import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.Entidades.Mesero;
 import com.equipo10.restaurante.Entidades.Pedido;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 
 
 public class AgregarPedidoVista extends javax.swing.JInternalFrame {
-
+private javax.swing.JDesktopPane Escritorio;
+int idPedido;
   
     public AgregarPedidoVista() {
         initComponents();
@@ -137,6 +139,10 @@ public class AgregarPedidoVista extends javax.swing.JInternalFrame {
         pd.agregarPedido(pedido);
         jtMesa.setText("");
         jtPedido.setText("");
+        
+        detalleProductos dt=new detalleProductos();
+        crearVentana(dt);
+        
     }//GEN-LAST:event_jbAgregarActionPerformed
 
    
@@ -159,4 +165,17 @@ public class AgregarPedidoVista extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtMesa;
     private javax.swing.JTextField jtPedido;
     // End of variables declaration//GEN-END:variables
+
+    
+    
+    private void crearVentana(JInternalFrame fi){      
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        fi.setVisible(true);
+        Escritorio.setSize(fi.getWidth(), fi.getHeight());
+        Escritorio.add(fi);
+        Escritorio.moveToFront(fi);
+}
+
+
 }

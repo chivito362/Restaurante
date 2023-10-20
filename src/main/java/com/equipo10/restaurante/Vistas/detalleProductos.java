@@ -8,13 +8,15 @@ import com.equipo10.restaurante.Entidades.Pedido;
 import com.equipo10.restaurante.Entidades.Producto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
-public class detalleProductos extends javax.swing.JFrame {
+public class detalleProductos extends javax.swing.JInternalFrame {
 DefaultTableModel modelo=new DefaultTableModel();
 DefaultTableModel modelo2=new DefaultTableModel();
+private javax.swing.JDesktopPane Escritorio;
 
     public detalleProductos() {
         initComponents();
@@ -136,6 +138,8 @@ DefaultTableModel modelo2=new DefaultTableModel();
         ProductoData pd=new ProductoData();
         List<Producto> productos = new ArrayList<>();
         int[] filaSeleccionada = jtTablaProductos.getSelectedRows();
+        PedidoData ped=new PedidoData();
+        
 
         for (int i = filaSeleccionada.length - 1; i >= 0; i--) {
             int fila = filaSeleccionada[i];
@@ -155,7 +159,10 @@ DefaultTableModel modelo2=new DefaultTableModel();
                 double pre=(double)modelo.getValueAt(fila, j);
                 prod.setPrecio(pre);
                 }
+                   
             }
+            int id=ped.getIdPedido();
+              ped.agregarProductoAlPedido(id, prod.getIdProducto(), prod.getCantidad());
               productos.add(prod);
               pd.guardarProcuto(prod);
 
@@ -233,4 +240,12 @@ private void limpiarTabla(){
         }
 
     }
+    private void crearVentana(JInternalFrame fi){      
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        fi.setVisible(true);
+        Escritorio.setSize(fi.getWidth(), fi.getHeight());
+        Escritorio.add(fi);
+        Escritorio.moveToFront(fi);
+}
 }
