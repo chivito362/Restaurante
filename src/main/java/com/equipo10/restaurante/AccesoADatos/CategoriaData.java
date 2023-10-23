@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -58,5 +61,35 @@ public class CategoriaData {
         }
 
         return nombreCategoria;
+    }
+    
+    public void CargarEnumsABD(){
+        ArrayList<String> nombres=new ArrayList<>();
+        for (Categoria valor : Categoria.values()) {
+            String sql="Select * From Categorias where estado=1";
+            try {
+                PreparedStatement ps=con.prepareStatement(sql);
+                ResultSet rs=ps.executeQuery();
+                while(rs.next()){             
+                    nombres.add(rs.getString("nombre"));
+                }
+                if(!nombres.contains(valor.toString())){
+                    CrearCategoria(valor.toString()); 
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error sql");
+            }
+        }
+    }
+    
+    public void CrearCategoria(String valor){
+        String sql="INSERT INTO Categorias (nombre,estado) VALUES (?,1)";
+          try {
+              PreparedStatement ps=con.prepareStatement(sql);
+              ps.setString(1, valor);
+              ps.executeUpdate();
+          } catch (SQLException ex) {
+              JOptionPane.showMessageDialog(null, "error sql");
+          }
     }
 }

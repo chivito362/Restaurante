@@ -1,6 +1,7 @@
 
 package com.equipo10.restaurante.Vistas;
 
+import com.equipo10.restaurante.AccesoADatos.CategoriaData;
 import com.equipo10.restaurante.AccesoADatos.MeseroData;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -9,9 +10,10 @@ import javax.swing.JPanel;
 
 public class Principal extends javax.swing.JFrame {
 public static ReservaVista rv = new ReservaVista();
-
+CategoriaData ca=new CategoriaData();
     public Principal() {
         initComponents();
+        ca.CargarEnumsABD();
     }
 
  
