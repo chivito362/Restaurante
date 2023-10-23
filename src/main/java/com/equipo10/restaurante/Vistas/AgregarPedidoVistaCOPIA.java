@@ -69,6 +69,7 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 
@@ -110,7 +111,7 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         jtPedido.setOpaque(true);
         fondo.add(jtPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 150, 30));
 
-        jbAgregar.setBackground(new java.awt.Color(124, 180, 144));
+        jbAgregar.setBackground(new java.awt.Color(98, 210, 106));
         jbAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbAgregar.setForeground(new java.awt.Color(255, 255, 255));
         jbAgregar.setText("Agregar");
@@ -219,15 +220,14 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregarMouseEntered
-        jbAgregar.setBackground(new Color(90, 158, 115));
+        jbAgregar.setBackground(new Color(54,190,64));
     }//GEN-LAST:event_jbAgregarMouseEntered
 
     private void jbAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAgregarMouseExited
-        jbAgregar.setBackground(new Color(124, 180, 144));
+        jbAgregar.setBackground(new Color(98,210,106));
     }//GEN-LAST:event_jbAgregarMouseExited
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
