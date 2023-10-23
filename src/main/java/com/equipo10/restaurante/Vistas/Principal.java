@@ -42,9 +42,9 @@ CategoriaData ca=new CategoriaData();
         jPanelPrincipal.setPreferredSize(new java.awt.Dimension(833, 581));
         jPanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnMesas.setBackground(new java.awt.Color(56, 49, 39));
+        btnMesas.setBackground(new java.awt.Color(0, 21, 36));
         btnMesas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
-        btnMesas.setForeground(new java.awt.Color(251, 250, 241));
+        btnMesas.setForeground(new java.awt.Color(255, 255, 255));
         btnMesas.setText("Mesas");
         btnMesas.setBorder(null);
         btnMesas.setBorderPainted(false);
@@ -57,9 +57,9 @@ CategoriaData ca=new CategoriaData();
         });
         jPanelPrincipal.add(btnMesas, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 388, 191, 50));
 
-        btnUsuarios.setBackground(new java.awt.Color(56, 49, 39));
+        btnUsuarios.setBackground(new java.awt.Color(0, 21, 36));
         btnUsuarios.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
-        btnUsuarios.setForeground(new java.awt.Color(251, 250, 241));
+        btnUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         btnUsuarios.setText("Check in Mozos");
         btnUsuarios.setBorder(null);
         btnUsuarios.setBorderPainted(false);
@@ -72,9 +72,9 @@ CategoriaData ca=new CategoriaData();
         });
         jPanelPrincipal.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 465, 191, 50));
 
-        btnPedidos.setBackground(new java.awt.Color(56, 49, 39));
+        btnPedidos.setBackground(new java.awt.Color(0, 21, 36));
         btnPedidos.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
-        btnPedidos.setForeground(new java.awt.Color(251, 250, 241));
+        btnPedidos.setForeground(new java.awt.Color(255, 255, 255));
         btnPedidos.setText("Pedidos");
         btnPedidos.setBorder(null);
         btnPedidos.setBorderPainted(false);
@@ -87,9 +87,9 @@ CategoriaData ca=new CategoriaData();
         });
         jPanelPrincipal.add(btnPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 320, 191, 50));
 
-        jBreservas.setBackground(new java.awt.Color(56, 49, 39));
+        jBreservas.setBackground(new java.awt.Color(0, 21, 36));
         jBreservas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
-        jBreservas.setForeground(new java.awt.Color(251, 250, 241));
+        jBreservas.setForeground(new java.awt.Color(255, 255, 255));
         jBreservas.setText("Reservas");
         jBreservas.setBorder(null);
         jBreservas.setBorderPainted(false);
@@ -153,6 +153,7 @@ CategoriaData ca=new CategoriaData();
         jMenuBar1.setForeground(new java.awt.Color(251, 250, 241));
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jMenuBar1.setOpaque(true);
         jMenuBar1.setPreferredSize(new java.awt.Dimension(833, 23));
 
         jMenu1.setBackground(new java.awt.Color(251, 250, 241));
@@ -178,6 +179,8 @@ CategoriaData ca=new CategoriaData();
 
         jMenuBar1.add(jMenu2);
 
+        btnSalir.setBackground(new java.awt.Color(251, 250, 241));
+        btnSalir.setForeground(new java.awt.Color(251, 250, 241));
         btnSalir.setText("Salir");
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -218,8 +221,8 @@ CategoriaData ca=new CategoriaData();
     }//GEN-LAST:event_btnMesasActionPerformed
 
     private void MenuCargaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCargaProductosActionPerformed
-        ProductoCargaVista venta=new ProductoCargaVista();
-        venta.setLocationRelativeTo(null);
+        ProductoCargaVistaCOPIA venta=new ProductoCargaVistaCOPIA(null,true);
+        venta.setLocationRelativeTo(this);
         venta.setVisible(true);
     }//GEN-LAST:event_MenuCargaProductosActionPerformed
 

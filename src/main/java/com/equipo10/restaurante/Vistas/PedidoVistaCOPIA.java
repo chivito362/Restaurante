@@ -6,8 +6,10 @@ package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
 import com.equipo10.restaurante.Entidades.Pedido;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +22,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     private static PedidoData pd = new PedidoData();
     private DefaultTableModel modelo = new DefaultTableModel();
     private static DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+    private static DefaultListCellRenderer dlcr = new DefaultListCellRenderer();
     public static Pedido pedidoGlobal = new Pedido();
 
     /**
@@ -57,9 +60,9 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         fondo.setBackground(new java.awt.Color(251, 250, 241));
         fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbAgregar.setBackground(new java.awt.Color(56, 49, 39));
+        jbAgregar.setBackground(new java.awt.Color(0, 21, 36));
         jbAgregar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jbAgregar.setForeground(new java.awt.Color(251, 250, 241));
+        jbAgregar.setForeground(new java.awt.Color(255, 255, 255));
         jbAgregar.setText("Agregar");
         jbAgregar.setBorder(null);
         jbAgregar.setBorderPainted(false);
@@ -73,9 +76,9 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         });
         fondo.add(jbAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 83, 80, 35));
 
-        jbEditar.setBackground(new java.awt.Color(56, 49, 39));
+        jbEditar.setBackground(new java.awt.Color(0, 21, 36));
         jbEditar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jbEditar.setForeground(new java.awt.Color(251, 250, 241));
+        jbEditar.setForeground(new java.awt.Color(255, 255, 255));
         jbEditar.setText("Editar");
         jbEditar.setBorder(null);
         jbEditar.setBorderPainted(false);
@@ -90,9 +93,9 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         });
         fondo.add(jbEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 143, 80, 35));
 
-        jbBuscar.setBackground(new java.awt.Color(56, 49, 39));
+        jbBuscar.setBackground(new java.awt.Color(0, 21, 36));
         jbBuscar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jbBuscar.setForeground(new java.awt.Color(251, 250, 241));
+        jbBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(null);
         jbBuscar.setBorderPainted(false);
@@ -112,7 +115,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jScrollPane1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
 
         jtTabla1.setBackground(new java.awt.Color(233, 237, 201));
-        jtTabla1.setForeground(new java.awt.Color(251, 250, 241));
+        jtTabla1.setForeground(new java.awt.Color(35, 32, 31));
         jtTabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -151,9 +154,9 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
 
         fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 83, 533, 407));
 
-        jcFiltro.setBackground(new java.awt.Color(35, 31, 32));
+        jcFiltro.setBackground(new java.awt.Color(0, 21, 36));
         jcFiltro.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jcFiltro.setForeground(new java.awt.Color(251, 250, 241));
+        jcFiltro.setForeground(new java.awt.Color(255, 255, 255));
         jcFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pedidos", "Entregados", "No entregados", "Pagados", "No pagados" }));
         jcFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,9 +165,9 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         });
         fondo.add(jcFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 210, 30));
 
-        jButton1.setBackground(new java.awt.Color(56, 49, 39));
+        jButton1.setBackground(new java.awt.Color(0, 21, 36));
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(251, 250, 241));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Detalle");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
@@ -204,12 +207,14 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         AgregarPedidoVistaCOPIA apv = new AgregarPedidoVistaCOPIA(null,true);
         apv.setSize(452,445);
+        apv.setLocationRelativeTo(this);
         apv.setVisible(true);
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         EditarPedidoVistaCOPIA epv = new EditarPedidoVistaCOPIA(null,true);
         epv.setSize(360,270);
+        epv.setLocationRelativeTo(this);
         epv.setVisible(true);
     }//GEN-LAST:event_jbEditarActionPerformed
 
@@ -252,6 +257,8 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
 
     private void ArmarTabla() {
 
+        dlcr.setHorizontalAlignment(SwingConstants.CENTER);
+        jcFiltro.setRenderer(dlcr);
         dtcr.setHorizontalAlignment(JLabel.CENTER);
         jtTabla1.getColumnModel().getColumn(0).setCellRenderer(dtcr);
         jtTabla1.getColumnModel().getColumn(1).setCellRenderer(dtcr);
