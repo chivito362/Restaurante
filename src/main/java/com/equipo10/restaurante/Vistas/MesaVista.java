@@ -16,7 +16,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class MesaVista extends javax.swing.JInternalFrame {
     Mesa mesa = new Mesa();
-    private int numeroMesa = 1;
+    private int numeroMesa;
     int cantMesa = 0;
     private MesaData mesaData;
     
@@ -212,6 +212,14 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
     jPmesas.repaint();
 }
     private void agregarMesa() {
+        int numeroMasAlto = mesaData.obtenerNumeroMesaMasAlto();
+       // JOptionPane.showMessageDialog(null, numeroMasAlto ); aca lo trae bien
+           if (numeroMasAlto > 0) {
+            numeroMesa = numeroMasAlto + 1;
+             } else {
+            numeroMesa = 1; // Si no hay mesas en la base de datos, comenzar desde 1.
+             }
+           
         cantMesa = Integer.parseInt(jTcantMesas.getText());
         for (int i = 0; i < cantMesa; i++) {
 
@@ -224,6 +232,7 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
              mesa.setEstado(false);
              mesa.setNroMesa(numeroMesa);
              mesa.setIdReserva(null);
+             //aca falla?
              crearMesa(mesa); 
            
              mesaButtonManual.addMouseListener(new MouseAdapter() {

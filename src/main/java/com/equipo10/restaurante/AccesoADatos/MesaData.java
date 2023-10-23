@@ -16,51 +16,50 @@ public class MesaData {
         con = Conexion.getConexion("restaurante");
     }
 
-    public void guardarMesa(Mesa mesa) {
-        try {
-            if (mesa.getIdMesa() == -1) {
-                String sql = "INSERT INTO mesa (nroMesa, capacidad, estado, idReserva) VALUES (?, ?, ?, ?)";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, mesa.getNroMesa());
-                ps.setInt(2, mesa.getCapacidad());
-                ps.setBoolean(3, mesa.isEstado());
-                if (mesa.getIdReserva() != null) {
-                    ps.setInt(4, mesa.getIdReserva().getIdReserva());
-                } else {
-                    ps.setObject(4, null);
-                }
-                int end = ps.executeUpdate();
-                if (end == 1) {
-                    JOptionPane.showMessageDialog(null, "Mesa guardada.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar la Mesa.");
-                }
-                ps.close();
+   public void guardarMesa(Mesa mesa) {
+    PreparedStatement ps;
+       try {
+           //JOptionPane.showMessageDialog(null, mesa.getNroMesa());
+        //if (mesa.getIdMesa() >0) { //id de mesa lo estoy trayendo vacio acá está el error!!!!
+            // Crear una nueva mesa
+            String sql = "INSERT INTO mesa (nroMesa, capacidad, estado, idReserva) VALUES (?, ?, ?, ?)";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, mesa.getNroMesa());
+            ps.setInt(2, mesa.getCapacidad());
+            ps.setBoolean(3, mesa.isEstado());
+            if (mesa.getIdReserva() != null) {
+                ps.setInt(4, mesa.getIdReserva().getIdReserva());
             } else {
-                String sql = "INSERT INTO mesa (idMesa, nroMesa, capacidad, estado, idReserva) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, mesa.getIdMesa());
-                ps.setInt(2, mesa.getNroMesa());
-                ps.setInt(3, mesa.getCapacidad());
-                ps.setBoolean(4, mesa.isEstado());
-                if (mesa.getIdReserva() != null) {
-                    ps.setInt(5, mesa.getIdReserva().getIdReserva());
-                } else {
-                    ps.setObject(5, null);
-                }
-                int end = ps.executeUpdate();
-                if (end == 1) {
-                    JOptionPane.showMessageDialog(null, "Mesa guardada.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar la Mesa.");
-                }
-                ps.close();
+                ps.setNull(4, Types.INTEGER); // Usar setNull para indicar un valor NULL
             }
+       // } else {
+            // Actualizar una mesa existente
+       //     String sql = "UPDATE mesa SET nroMesa = ?, capacidad = ?, estado = ?, idReserva = ? WHERE idMesa = ?";
+       //     ps = con.prepareStatement(sql);
+       //     ps.setInt(1, mesa.getNroMesa());
+       //     ps.setInt(2, mesa.getCapacidad());
+        //    ps.setBoolean(3, mesa.isEstado());
+        //    if (mesa.getIdReserva() != null) {
+        //        ps.setInt(4, mesa.getIdReserva().getIdReserva());
+        //    } else {
+        //        ps.setNull(4, Types.INTEGER); // Usar setNull para indicar un valor NULL
+        //    }
+        //    ps.setInt(5, mesa.getIdMesa()); // Agregar la condición WHERE para la mesa existente
+        //}
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar Mesa: " + ex.getMessage());
+        int end = ps.executeUpdate();
+
+        if (end == 1) {
+            //JOptionPane.showMessageDialog(null, "Mesa guardada.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo guardar la Mesa.");
         }
+
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al guardar Mesa: " + ex.getMessage());
     }
+}
 
     //Si el parametro ingreado es == 1, retornará un List de Mesas Activas.
     //Si el parametro ingreado es == 0, retornará un List de Mesas Inactivas.
@@ -241,4 +240,20 @@ public class MesaData {
         }
         return mesa;
     }
+    
+   public int obtenerNumeroMesaMasAlto() {
+    int numeroMesaMasAlto = 0;
+    try {
+        String sql = "SELECT MAX(nroMesa) FROM mesa";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            numeroMesaMasAlto = rs.getInt(1);
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener el número de mesa más alto: " + ex.getMessage());
+    }
+    
+    return numeroMesaMasAlto;
+}
 }
