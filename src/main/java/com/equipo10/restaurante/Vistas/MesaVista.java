@@ -2,6 +2,7 @@ package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.MesaData;
 import com.equipo10.restaurante.Entidades.Mesa;
+import com.equipo10.restaurante.ValidacionDatos;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -102,7 +103,12 @@ public class MesaVista extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBagregarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBagregarMesaActionPerformed
-    agregarMesa();// con esto las creo
+   //jTcantMesas
+   if (!ValidacionDatos.validarNumeroPositivo(jTcantMesas.getText())) {
+            JOptionPane.showMessageDialog(this, "EPA!!!");
+            return;
+        }
+        agregarMesa();// con esto las creo
        
     }//GEN-LAST:event_jBagregarMesaActionPerformed
 
@@ -179,6 +185,9 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
         Font font = new Font("Segoe UI", Font.BOLD, 12);
         mesaButton.setFont(font);
 
+        
+        
+        
         // Establecer el color del botón según el estado de la mesa
         if (mesa.isEstado()) {
             mesaButton.setBackground(Color.green); // Verde para mesas abiertas
