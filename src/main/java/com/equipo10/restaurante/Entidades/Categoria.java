@@ -7,6 +7,7 @@ public enum Categoria {
     CERVEZA,
     PASTA,
     MINUTA,
+    PRINCIPAL,
         
     
 }
