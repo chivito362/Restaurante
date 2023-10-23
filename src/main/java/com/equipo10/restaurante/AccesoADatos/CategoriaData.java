@@ -42,15 +42,15 @@ public class CategoriaData {
         return idCategoria;
     }
     
-    public String obtenerNombreCategoriaPorId(int idCategoria) {
-        String nombreCategoria = null; // Valor predeterminado en caso de no encontrar la categoría.
+    public Categoria obtenerNombreCategoriaPorId(int idCategoria) {
+        Categoria nombreCategoria = null; // Valor predeterminado en caso de no encontrar la categoría.
 
-        String sql = "SELECT nombre FROM categorias WHERE idCategoria = ?";
+        String sql = "SELECT * FROM categorias WHERE idCategoria = ?";
         try (PreparedStatement statement = con.prepareStatement(sql)) {
             statement.setInt(1, idCategoria);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                nombreCategoria = resultSet.getString("nombre");
+                nombreCategoria = Categoria.valueOf(resultSet.getString("nombre"));
             }
             statement.close();
         } catch (SQLException e) {

@@ -4,38 +4,48 @@
  */
 package com.equipo10.restaurante.Entidades;
 
+import com.equipo10.restaurante.AccesoADatos.ProductoData;
+
 /**
  *
  * @author Lucas
  */
 public class DetallePedido {
+
+    ProductoData pd = new ProductoData();
+
     private int idDetalle;
-    private int idPedido;
     private int idProducto;
     private int cantidad;
-    private double precioUnitario;
     private Pedido pedido; // Referencia al pedido al que pertenece
     private double totalPedido;
-    
-        public DetallePedido(int idProducto, double totalPedido, int cantidad, Pedido pedido) {
+
+    public DetallePedido(int idDetalle, int idProducto, int cantidad, Pedido pedido) {
+        this.idDetalle = idDetalle;
         this.idProducto = idProducto;
-        this.totalPedido = totalPedido;
+        this.totalPedido = pd.TraerProducto(idProducto).getPrecio() * cantidad;
         this.cantidad = cantidad;
         this.pedido = pedido;
     }
-    public DetallePedido(int idDetalle, int idPedido, int idProducto, int cantidad, double precioUnitario) {
+
+    public DetallePedido(int idDetalle, int idProducto, int cantidad, Pedido pedido, double totalPedido) {
         this.idDetalle = idDetalle;
-        this.idPedido = idPedido;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
-        this.precioUnitario = precioUnitario;
+        this.pedido = pedido;
+        this.totalPedido = totalPedido;
     }
-     public DetallePedido(int idDetalle, int idPedido, int idProducto, int cantidad) {
-        this.idDetalle = idDetalle;
-        this.idPedido = idPedido;
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
+    
+    public DetallePedido(){
         
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     public int getIdDetalle() {
@@ -44,14 +54,6 @@ public class DetallePedido {
 
     public void setIdDetalle(int idDetalle) {
         this.idDetalle = idDetalle;
-    }
-
-    public int getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
     }
 
     public int getIdProducto() {
@@ -70,14 +72,12 @@ public class DetallePedido {
         this.cantidad = cantidad;
     }
 
-    public double getPrecioUnitario() {
-        return precioUnitario;
+    public double getTotalPedido() {
+        return totalPedido;
     }
 
-    public void setPrecioUnitario(double precioUnitario) {
-        this.precioUnitario = precioUnitario;
+    public void setTotalPedido(double totalPedido) {
+        this.totalPedido = totalPedido;
     }
-    public double getTotalPedido(){
-    return cantidad * precioUnitario;
-    }
+
 }

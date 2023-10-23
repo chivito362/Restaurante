@@ -9,26 +9,35 @@ import com.equipo10.restaurante.Entidades.DetallePedido;
 import com.equipo10.restaurante.Entidades.Pedido;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Lucas
  */
 public class DetallePedidoData {
+
     /*nsertas el detalle del producto en la tabla pedidodetalle utilizando el ID del pedido existente en el argumento pedido*/
     private Connection con = null;
-     
+
     public DetallePedidoData() {
         con = Conexion.getConexion("restaurante");
-        }
-        public void crearCategoria(Categoria categoria) {
-        con=Conexion.getConexion("restaurante");
     }
-public void agregarProductoAlDetalle(Pedido pedido, DetallePedido detalle) {
-    String insertDetalleSQL = "INSERT INTO pedidodetalle (id_pedido, id_producto, totalpedido, cantidad) VALUES (?, ?, ?, ?)";
-    try (PreparedStatement statement = con.prepareStatement(insertDetalleSQL)) {
-           
+
+    public void crearCategoria(Categoria categoria) {
+        con = Conexion.getConexion("restaurante");
+    }
+
+    public void agregarProductoAlDetalle(Pedido pedido, DetallePedido detalle) {
+        String insertDetalleSQL = "INSERT INTO pedidodetalle (id_pedido, id_producto, totalpedido, cantidad) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = con.prepareStatement(insertDetalleSQL)) {
+
             PreparedStatement insertDetalleStmt = con.prepareStatement(insertDetalleSQL);
             insertDetalleStmt.setInt(1, pedido.getIdPedido()); // Utiliza el ID del pedido existente
             insertDetalleStmt.setInt(2, detalle.getIdProducto());
@@ -39,18 +48,64 @@ public void agregarProductoAlDetalle(Pedido pedido, DetallePedido detalle) {
             e.printStackTrace();
         }
     }
-public void agregarDetallePedido(DetallePedido detalle) {
-    String insertDetalleSQL = "INSERT INTO pedidoDetalle (idpedido, idproducto, cantidad, totalpedido) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = con.prepareStatement(insertDetalleSQL)) {
-            
-            PreparedStatement insertDetalleStmt = con.prepareStatement(insertDetalleSQL);
-            insertDetalleStmt.setInt(1, detalle.getIdPedido());
-            insertDetalleStmt.setInt(2, detalle.getIdProducto());
-            insertDetalleStmt.setInt(3, detalle.getCantidad());
-            insertDetalleStmt.setDouble(4, detalle.getTotalPedido());
-            insertDetalleStmt.executeUpdate();
+
+    public void agregarDetallePedido(DetallePedido detalle) {
+        String insertDetalleSQL = "INSERT INTO pedidoDetalle (idPedidoDetalle, idPedido, idProducto, totalPedido, cantidad) VALUES (?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(insertDetalleSQL);
+
+            ps.setInt(1, detalle.getIdDetalle());
+            ps.setInt(2, detalle.getPedido().getIdPedido());
+            ps.setInt(3, detalle.getIdProducto());
+            ps.setDouble(4, detalle.getTotalPedido());
+            ps.setInt(5, detalle.getCantidad());
+            ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+    }
+
+    public List<DetallePedido> obtenerDetalleXPedido(Pedido pedido) {
+        List<DetallePedido> lista = new ArrayList<>();
+        String sql = "SELECT * FROM pedidoDetalle WHERE idPedido = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, pedido.getIdPedido());
+            ResultSet rs = ps.executeQuery();
+            DetallePedido dp = new DetallePedido();
+            
+            while (rs.next()) {
+                dp.setIdDetalle(rs.getInt(1));
+                dp.setPedido(pedido);
+                dp.setIdProducto(rs.getInt(3));
+                dp.setTotalPedido(rs.getDouble(4));
+                dp.setCantidad(rs.getInt(5));
+
+                lista.add(dp);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+
+    public int ultimo() {
+        int ultimo = 1;
+        String sql = "SELECT MAX(idPedidoDetalle) FROM pedidoDetalle";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                if (rs.getObject(1) != null) {
+                    ultimo = rs.getInt(1) + 1;
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return ultimo;
     }
 }

@@ -4,9 +4,9 @@
  */
 package com.equipo10.restaurante;
 
-import com.equipo10.restaurante.AccesoADatos.DetallePedidoData;
+import com.equipo10.restaurante.AccesoADatos.MesaData;
+import com.equipo10.restaurante.AccesoADatos.MeseroData;
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
-import com.equipo10.restaurante.Entidades.DetallePedido;
 import com.equipo10.restaurante.Entidades.Pedido;
 
 /**
@@ -14,31 +14,18 @@ import com.equipo10.restaurante.Entidades.Pedido;
  * @author Lucas
  */
 public class MainPruebaDetallePedido {
-    
+
     public static void main(String[] args) {
         PedidoData pedidoData = new PedidoData();
-        DetallePedidoData detallePedidoData = new DetallePedidoData();
+        MesaData md = new MesaData();
+        MeseroData med = new MeseroData();
         // Supongamos que tenemos un pedido existente con ID 1
-        Pedido pedidoExistente = new Pedido(1,121, 7, false,false); //idpedido,idmesa,idmesero,entregado,pagado (esto miralo bien)
-/*aca para mi tiene que ser nro de mesa, pero hay que verlo bien*/
-        // Creamos un detalle de pedido para el primer producto
-        DetallePedido detalleProducto1 = new DetallePedido(1, 4, 2,3); //int idDetalle, int idPedido, int idProducto, int cantidad
-
-        // Creamos un detalle de pedido para el segundo producto
-        DetallePedido detalleProducto2 = new DetallePedido(2,5,3,5);
+        Pedido pedidoExistente = new Pedido(pedidoData.ultimo(),md.buscarMesa(9), med.buscarMozoxId(7), false,false, true);
+        
 
        
         // Agrega el pedido con los detalles a la base de datos
         pedidoData.agregarPedido(pedidoExistente);
-        detallePedidoData.agregarDetallePedido(detalleProducto1);
-        detallePedidoData.agregarDetallePedido(detalleProducto2);
+
     }
-    }
-
-
-
-
-
-
-
-
+}

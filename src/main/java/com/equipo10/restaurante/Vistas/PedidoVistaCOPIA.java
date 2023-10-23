@@ -20,6 +20,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     private static PedidoData pd = new PedidoData();
     private DefaultTableModel modelo = new DefaultTableModel();
     private static DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+    public static Pedido pedidoGlobal = new Pedido();
 
     /**
      * Creates new form PedidoVistaCOPIA
@@ -28,6 +29,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         initComponents();
         modelo = (DefaultTableModel) jtTabla1.getModel();
         ArmarTabla();
+        CargarTabla();
     }
 
     public JPanel getFondo() {
@@ -43,7 +45,6 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     private void initComponents() {
 
         fondo = new javax.swing.JPanel();
-        pantalla = new javax.swing.JPanel();
         jbAgregar = new javax.swing.JButton();
         jbEditar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
@@ -55,21 +56,6 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
 
         fondo.setBackground(new java.awt.Color(251, 250, 241));
         fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        pantalla.setOpaque(false);
-
-        javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
-        pantalla.setLayout(pantallaLayout);
-        pantallaLayout.setHorizontalGroup(
-            pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 360, Short.MAX_VALUE)
-        );
-        pantallaLayout.setVerticalGroup(
-            pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 270, Short.MAX_VALUE)
-        );
-
-        fondo.add(pantalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 360, 270));
 
         jbAgregar.setBackground(new java.awt.Color(56, 49, 39));
         jbAgregar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
@@ -120,11 +106,12 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         });
         fondo.add(jbBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 80, 35));
 
-        jScrollPane1.setBackground(new java.awt.Color(56, 49, 39));
+        jScrollPane1.setBackground(new java.awt.Color(42, 36, 29));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(35, 32, 31)));
         jScrollPane1.setForeground(new java.awt.Color(251, 250, 241));
+        jScrollPane1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
 
-        jtTabla1.setBackground(new java.awt.Color(56, 49, 39));
-        jtTabla1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jtTabla1.setBackground(new java.awt.Color(233, 237, 201));
         jtTabla1.setForeground(new java.awt.Color(251, 250, 241));
         jtTabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,9 +129,12 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jtTabla1.setGridColor(new java.awt.Color(54, 47, 37));
+        jtTabla1.setGridColor(new java.awt.Color(214, 221, 155));
+        jtTabla1.setRowHeight(25);
         jtTabla1.setSelectionBackground(new java.awt.Color(57, 137, 111));
         jtTabla1.setSelectionForeground(new java.awt.Color(251, 250, 241));
+        jtTabla1.setShowGrid(true);
+        jtTabla1.setShowVerticalLines(false);
         jtTabla1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtTabla1MouseClicked(evt);
@@ -213,7 +203,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         AgregarPedidoVistaCOPIA apv = new AgregarPedidoVistaCOPIA(null,true);
-        apv.setSize(360,270);
+        apv.setSize(452,445);
         apv.setVisible(true);
     }//GEN-LAST:event_jbAgregarActionPerformed
 
@@ -258,7 +248,6 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     private javax.swing.JButton jbEditar;
     private javax.swing.JComboBox<String> jcFiltro;
     private javax.swing.JTable jtTabla1;
-    private javax.swing.JPanel pantalla;
     // End of variables declaration//GEN-END:variables
 
     private void ArmarTabla() {
@@ -278,48 +267,41 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedido()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(),pedido.isEntregado(),pedido.isPagado()});
                 }
                 break;
             case 1:
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedidoEntregado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(),pedido.isPagado()});
                 }
                 break;
             case 2:
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedidoNoEntregados()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(),pedido.isEntregado(),pedido.isPagado()});
                 }
                 break;
             case 3:
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedidoPagado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(),pedido.isEntregado(),pedido.isPagado()});
                 }
                 break;
             case 4:
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedidoNoPagado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(),pedido.isEntregado(),pedido.isPagado()});
                 }
                 break;
         }
     }
 
-    private void crearVentana(JPanel p) {
-        pantalla.removeAll();
-        pantalla.add(p);
-        p.setSize(360, 270);
-        p.setLocation(0, 0);
-        pantalla.revalidate();
-        pantalla.repaint();
-    }
+    
 
     private Object[] traerDatosFila() {
         int fila = jtTabla1.getSelectedRow();

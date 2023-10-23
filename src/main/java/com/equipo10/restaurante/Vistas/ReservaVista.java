@@ -4,6 +4,7 @@
  */
 package com.equipo10.restaurante.Vistas;
 
+import com.equipo10.restaurante.*;
 import com.equipo10.restaurante.AccesoADatos.Conexion;
 import com.equipo10.restaurante.AccesoADatos.ReservaData;
 import com.equipo10.restaurante.Entidades.Reserva;
@@ -358,7 +359,7 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
     }
 
     private void jBcrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBcrearMouseClicked
-        if (siNombre && siDocumento) {
+        if (siNombre && siDocumento && ValidacionDatos.validarDNI(jTdocumento.getText()) ) {
             String nom = jTnya.getText();
             int docu = Integer.parseInt(jTdocumento.getText());
             Calendar cal = jDCfecha.getCalendar();
