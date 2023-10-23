@@ -219,6 +219,7 @@ public class ProductoCargaVista extends javax.swing.JFrame {
         stock=Integer.parseInt(txtStock.getText());
         cat=(Categoria)cbCategoria.getSelectedItem();
         pd.guardarProcuto(new Producto(nombre, stock, precio, cat, rbtnHabil.isSelected()));
+        limpiar();
             }catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "El campo precio o stock solo deben contener numeros");
             }
