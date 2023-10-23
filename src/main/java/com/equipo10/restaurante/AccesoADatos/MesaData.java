@@ -124,7 +124,7 @@ public class MesaData {
 
             int end = ps.executeUpdate();
             if (end == 1) {
-                JOptionPane.showMessageDialog(null, "Mesa actualizada.");
+               // JOptionPane.showMessageDialog(null, "Mesa actualizada.");
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo actualizar la Mesa");
             }
