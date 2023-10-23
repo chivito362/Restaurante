@@ -216,6 +216,22 @@ public class MesaData {
             JOptionPane.showMessageDialog(null, "Error al eliminar la Mesa: " + ex.getMessage());
         }
     }
+    public void eliminarMesaxNRO(int nroMesa) {//elimina de la bdd 
+        try {
+            String sql = "UPDATE mesa SET estado = 0 WHERE nroMesa = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, nroMesa);
+            int ok = ps.executeUpdate();
+            if (ok == 1) {
+                JOptionPane.showMessageDialog(null, "Mesa eliminada.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar la Mesa.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la Mesa: " + ex.getMessage());
+        }
+    }
 
     public Mesa buscarMesaxNRO(int idMesa) {
         Mesa mesa = new Mesa(0, 0, 0, true, null);

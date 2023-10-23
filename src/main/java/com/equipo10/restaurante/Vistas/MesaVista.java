@@ -4,6 +4,7 @@ import com.equipo10.restaurante.AccesoADatos.MesaData;
 import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.ValidacionDatos;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -39,6 +40,7 @@ public class MesaVista extends javax.swing.JInternalFrame {
         jBagregarMesa = new javax.swing.JButton();
         jTcantMesas = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jBquitarMesa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(633, 490));
@@ -68,7 +70,15 @@ public class MesaVista extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Cantidad de Mesas a agregar:");
+        jLabel1.setText("Cantidad de Mesas:");
+
+        jBquitarMesa.setText("Quitar");
+        jBquitarMesa.setPreferredSize(new java.awt.Dimension(100, 20));
+        jBquitarMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBquitarMesaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,9 +91,11 @@ public class MesaVista extends javax.swing.JInternalFrame {
                 .addComponent(jTcantMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBagregarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBquitarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(153, Short.MAX_VALUE)
                 .addComponent(jPmesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -93,10 +105,11 @@ public class MesaVista extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBagregarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTcantMesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jBquitarMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPmesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,6 +129,14 @@ public class MesaVista extends javax.swing.JInternalFrame {
 
   
     }//GEN-LAST:event_jTcantMesasActionPerformed
+
+    private void jBquitarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBquitarMesaActionPerformed
+       if (!ValidacionDatos.validarNumeroPositivo(jTcantMesas.getText())) {
+            JOptionPane.showMessageDialog(this, "EPA!!!");
+            return;
+        }
+        quitarMesa(Integer.parseInt(jTcantMesas.getText()));
+    }//GEN-LAST:event_jBquitarMesaActionPerformed
 
     public static void main(String args[]) {
 
@@ -148,6 +169,7 @@ public class MesaVista extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBagregarMesa;
+    private javax.swing.JButton jBquitarMesa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPmesas;
     private javax.swing.JTextField jTcantMesas;
@@ -233,7 +255,7 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
            
         cantMesa = Integer.parseInt(jTcantMesas.getText());
         
-        if (numeroMesa + cantMesa > mesasMax){
+        if (numeroMesa + cantMesa > mesasMax+1){
              JOptionPane.showMessageDialog(null, "La cantidad deseada de mesas excede el límite permitido de " + mesasMax);
         } else {
         for (int i = 0; i < cantMesa; i++) {
@@ -287,6 +309,33 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
        mesa=mesaPasada;
        mesaData.guardarMesa(mesa);
     }
+
+    private void quitarMesa(int cantidadMesas) {
+    Component[] components = jPmesas.getComponents(); // Obtener los componentes en el panel
+    
+    int startIndex = components.length - 1; // Empezar desde el último componente
+    
+    for (int i = 0; i < cantidadMesas && startIndex >= 0; i++) {
+        Component component = components[startIndex];
+        if (component instanceof JPanel) {
+            JPanel buttonPanel = (JPanel) component;
+            if (buttonPanel.getComponentCount() > 0 && buttonPanel.getComponent(0) instanceof JButton) {
+                JButton mesaButtonManual = (JButton) buttonPanel.getComponent(0);
+                String textoDelBoton = mesaButtonManual.getText();
+                
+                // Muestra el texto del botón en un cuadro de diálogo
+               // JOptionPane.showMessageDialog(null, "Texto del botón: " + textoDelBoton);
+               // mesaData.eliminarMesaxNRO(Integer.parseInt(textoDelBoton));
+               
+            }
+            jPmesas.remove(buttonPanel); // Eliminar el panel del botón
+        }
+        startIndex--; // Mover al componente anterior en orden inverso
+    }
+    
+    jPmesas.revalidate();
+    jPmesas.repaint();
+}
 
 
 }
