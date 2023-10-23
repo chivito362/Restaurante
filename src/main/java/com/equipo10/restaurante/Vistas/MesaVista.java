@@ -8,12 +8,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class MesaVista extends javax.swing.JInternalFrame {
     Mesa mesa = new Mesa();
@@ -23,7 +22,10 @@ public class MesaVista extends javax.swing.JInternalFrame {
     
     public MesaVista() {
         initComponents();
-        jPmesas.setLayout(new GridLayout(9, 9)); // 0 filas y 3 columnas
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) getUI();
+        ui.setNorthPane(null);
+        jPmesas.setLayout(new GridLayout(0, 10)); // 0 filas y 3 columnas
+            
         mesaData = new MesaData();
         agregarMesasAbiertasDesdeBaseDeDatos();// con este las levanto
     }
