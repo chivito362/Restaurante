@@ -212,15 +212,21 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
     jPmesas.repaint();
 }
     private void agregarMesa() {
+        int mesasMax = 70;
         int numeroMasAlto = mesaData.obtenerNumeroMesaMasAlto();
        // JOptionPane.showMessageDialog(null, numeroMasAlto ); aca lo trae bien
-           if (numeroMasAlto > 0) {
+           
+       if (numeroMasAlto > 0) {
             numeroMesa = numeroMasAlto + 1;
              } else {
             numeroMesa = 1; // Si no hay mesas en la base de datos, comenzar desde 1.
              }
            
         cantMesa = Integer.parseInt(jTcantMesas.getText());
+        
+        if (numeroMesa + cantMesa > mesasMax){
+             JOptionPane.showMessageDialog(null, "La cantidad deseada de mesas excede el límite permitido de " + mesasMax);
+        } else {
         for (int i = 0; i < cantMesa; i++) {
 
             JButton mesaButtonManual = new JButton(""+numeroMesa);
@@ -265,7 +271,7 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
             jPmesas.repaint();
             numeroMesa++;
 
-        }
+        }}
     }
 
     private void crearMesa(Mesa mesaPasada) {
