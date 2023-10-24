@@ -578,12 +578,12 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         if (num == 3) {
             modelo.setRowCount(0);
             for (Reserva res : rd.todas()) {
-                modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
+                modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora(), res.isEstado()});
             }
         } else {
             modelo.setRowCount(0);
             for (Reserva res : rd.obtenerReservas(num)) {
-                modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
+                modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora(), res.isEstado()});
             }
         }
     }

@@ -58,6 +58,8 @@ public class ReservaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar Reserva: " + ex.getMessage());
+        }catch(NullPointerException ex){
+            
         }
         return res;
     }
