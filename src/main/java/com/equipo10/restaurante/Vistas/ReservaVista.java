@@ -590,7 +590,7 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
 
     //Está al pedo, la uso una vez y nada mas, pero bueno, sirve.
     private void toTabla(Reserva res) {
-        modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora().toString(), res.isEstado()});
+        modelo.addRow(new Object[]{res.getIdReserva(), res.getNombreApellido(), res.getDni(), res.getFechaHora(), res.isEstado()});
     }
 
     //Agrega los Items al jComboBo y lo centra.
