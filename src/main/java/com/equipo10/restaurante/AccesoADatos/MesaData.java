@@ -20,8 +20,10 @@ public class MesaData {
     PreparedStatement ps;
        try {
            //JOptionPane.showMessageDialog(null, mesa.getNroMesa());
-        //if (mesa.getIdMesa() >0) { //id de mesa lo estoy trayendo vacio acá está el error!!!!
-            // Crear una nueva mesa
+           //JOptionPane.showMessageDialog(null, mesa.getNroMesa());
+        if (!mesa.isEliminada()) { //id de mesa lo estoy trayendo vacio acá está el error!!!!
+            
+// Crear una nueva mesa
             String sql = "INSERT INTO mesa (nroMesa, capacidad, estado, idReserva) VALUES (?, ?, ?, ?)";
             ps = con.prepareStatement(sql);
             ps.setInt(1, mesa.getNroMesa());
@@ -32,20 +34,19 @@ public class MesaData {
             } else {
                 ps.setNull(4, Types.INTEGER); // Usar setNull para indicar un valor NULL
             }
-       // } else {
-            // Actualizar una mesa existente
-       //     String sql = "UPDATE mesa SET nroMesa = ?, capacidad = ?, estado = ?, idReserva = ? WHERE idMesa = ?";
-       //     ps = con.prepareStatement(sql);
-       //     ps.setInt(1, mesa.getNroMesa());
-       //     ps.setInt(2, mesa.getCapacidad());
-        //    ps.setBoolean(3, mesa.isEstado());
-        //    if (mesa.getIdReserva() != null) {
-        //        ps.setInt(4, mesa.getIdReserva().getIdReserva());
-        //    } else {
-        //        ps.setNull(4, Types.INTEGER); // Usar setNull para indicar un valor NULL
-        //    }
-        //    ps.setInt(5, mesa.getIdMesa()); // Agregar la condición WHERE para la mesa existente
-        //}
+       } else {
+            // Si existe la doy de alta
+            String sql = "UPDATE mesa SET eliminada=0 WHERE nroMesa = ?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, mesa.getNroMesa());
+            
+          //if (mesa.getIdReserva() != null) {
+          //      ps.setInt(4, mesa.getIdReserva().getIdReserva());
+          // } else {
+          //    ps.setNull(4, Types.INTEGER); // Usar setNull para indicar un valor NULL
+           }
+          /// ps.setInt(5, mesa.getIdMesa()); // Agregar la condición WHERE para la mesa existente
+       //}
 
         int end = ps.executeUpdate();
 
@@ -108,6 +109,23 @@ public class MesaData {
         }
         return lista;
     }
+    public List<Mesa> obtenerTodasMesasNoEliminadas() {
+        List<Mesa> lista = new ArrayList<>();
+        Mesa mesa = new Mesa();
+        try {
+                String sql = "SELECT * FROM mesa WHERE eliminada = 0";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    mesa = buscarMesa(rs.getInt(1));
+                    lista.add(mesa);
+                }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener las Mesas: " + ex.getMessage());
+        }
+        return lista;
+    }
     public void actualizarMesa(Mesa mesa) {
         try {
             String sql = "UPDATE mesa SET nroMesa = ?, capacidad = ?, estado = ?, idReserva = ? WHERE idMesa = ?";
@@ -124,7 +142,7 @@ public class MesaData {
 
             int end = ps.executeUpdate();
             if (end == 1) {
-                JOptionPane.showMessageDialog(null, "Mesa actualizada.");
+               // JOptionPane.showMessageDialog(null, "Mesa actualizada.");
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo actualizar la Mesa");
             }
@@ -136,7 +154,7 @@ public class MesaData {
 
     public void eliminarMesa(Mesa mesa) {
         try {
-            String sql = "UPDATE mesa SET estado = 0 WHERE idMesa = ?";
+            String sql = "UPDATE mesa SET eliminada = 0 WHERE idMesa = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, mesa.getIdMesa());
             int end = ps.executeUpdate();
@@ -216,6 +234,22 @@ public class MesaData {
             JOptionPane.showMessageDialog(null, "Error al eliminar la Mesa: " + ex.getMessage());
         }
     }
+    public void eliminarMesaxNRO(int nroMesa) {//elimina de la bdd 
+        try {
+            String sql = "UPDATE mesa SET eliminada = 1 WHERE nroMesa = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, nroMesa);
+            int ok = ps.executeUpdate();
+            if (ok == 1) {
+                //JOptionPane.showMessageDialog(null, "Mesa eliminada.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar la Mesa.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la Mesa: " + ex.getMessage());
+        }
+    }
 
     public Mesa buscarMesaxNRO(int idMesa) {
         Mesa mesa = new Mesa(0, 0, 0, true, null);
@@ -240,7 +274,21 @@ public class MesaData {
         }
         return mesa;
     }
+   public int obtenerNumeroMesaMasAltoYnoEliminada() {
+    int numeroMesaMasAlto = 0;
+    try {
+        String sql = "SELECT MAX(nroMesa) FROM mesa WHERE eliminada =0";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            numeroMesaMasAlto = rs.getInt(1);
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener el número de mesa más alto: " + ex.getMessage());
+    }
     
+    return numeroMesaMasAlto;
+}
    public int obtenerNumeroMesaMasAlto() {
     int numeroMesaMasAlto = 0;
     try {
