@@ -9,10 +9,7 @@ import com.equipo10.restaurante.AccesoADatos.MeseroData;
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
 import com.equipo10.restaurante.Entidades.Pedido;
 
-/**
- *
- * @author Lucas
- */
+
 public class MainPruebaDetallePedido {
 
     public static void main(String[] args) {

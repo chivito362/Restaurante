@@ -6,6 +6,8 @@ package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
 import com.equipo10.restaurante.Entidades.Pedido;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -261,46 +263,64 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
 
     }
 
-    private void CargarTabla() {
-        switch (jcFiltro.getSelectedIndex()) {
-            case 0:
-                modelo.setRowCount(0);
+    public void CargarTabla(){
+    if (jcFiltro.getSelectedItem().equals("Pedidos")) {
+limpiarTabla();
 
-                for (Pedido pedido : pd.listarPedido()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(),pedido.isEntregado(),pedido.isPagado()});
-                }
-                break;
-            case 1:
-                modelo.setRowCount(0);
+List<Pedido> pedidos=new ArrayList<>();
+PedidoData pd=new PedidoData();
+pedidos = pd.listarPedido();
 
-                for (Pedido pedido : pd.listarPedidoEntregado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(),pedido.isPagado()});
-                }
-                break;
-            case 2:
-                modelo.setRowCount(0);
-
-                for (Pedido pedido : pd.listarPedidoNoEntregados()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(),pedido.isEntregado(),pedido.isPagado()});
-                }
-                break;
-            case 3:
-                modelo.setRowCount(0);
-
-                for (Pedido pedido : pd.listarPedidoPagado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(),pedido.isEntregado(),pedido.isPagado()});
-                }
-                break;
-            case 4:
-                modelo.setRowCount(0);
-
-                for (Pedido pedido : pd.listarPedidoNoPagado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(),pedido.isEntregado(),pedido.isPagado()});
-                }
-                break;
-        }
+    for (Pedido pedido : pedidos) {
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
     }
+}
+  if (jcFiltro.getSelectedItem().equals("Entregados")) {
+limpiarTabla();
 
+List<Pedido> pedidos=new ArrayList<>();
+PedidoData pd=new PedidoData();
+pedidos = pd.listarPedidoEntregado();
+
+    for (Pedido pedido : pedidos) {
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa(), pedido.getMesero(), pedido.isEstado()});
+    }
+}  
+  if (jcFiltro.getSelectedItem().equals("Pagados")) {
+limpiarTabla();
+
+List<Pedido> pedidos=new ArrayList<>();
+PedidoData pd=new PedidoData();
+pedidos = pd.listarPedidoPagado();
+
+    for (Pedido pedido : pedidos) {
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
+    }
+}
+    if (jcFiltro.getSelectedItem().equals("No pagados")) {
+limpiarTabla();
+
+List<Pedido> pedidos=new ArrayList<>();
+PedidoData pd=new PedidoData();
+pedidos = pd.listarPedidoNoPagado();
+
+    for (Pedido pedido : pedidos) {
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
+    }
+}
+  if (jcFiltro.getSelectedItem().equals("No entregados")) {
+limpiarTabla();
+
+List<Pedido> pedidos=new ArrayList<>();
+PedidoData pd=new PedidoData();
+pedidos = pd.listarPedidoNoEntregados();
+
+    for (Pedido pedido : pedidos) {
+        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEntregado()});
+    }
+}  
+    
+}
     
 
     private Object[] traerDatosFila() {
@@ -317,5 +337,9 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         }
 
     }
-
+private void limpiarTabla(){
+        for (int i = modelo.getRowCount()-1; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
 }
