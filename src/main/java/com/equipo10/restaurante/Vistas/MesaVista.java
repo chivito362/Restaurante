@@ -200,7 +200,7 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
     //List<Mesa> mesasAbiertas = mesaData.obtenerMesas(1); // Mesas abiertas
     //List<Mesa> mesasCerradas = mesaData.obtenerMesas(0); // Mesas cerradas
     //List<Mesa> mesasTodas = new ArrayList<>();
-    List<Mesa> mesasTodas = mesaData.obtenerTodasMesas();
+    List<Mesa> mesasTodas = mesaData.obtenerTodasMesasNoEliminadas();
 
     for (Mesa mesa : mesasTodas) {
         JButton mesaButton = new JButton(Integer.toString(mesa.getNroMesa()));
@@ -244,7 +244,7 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
 }
     private void agregarMesa() {
         int mesasMax = 70;
-        int numeroMasAlto = mesaData.obtenerNumeroMesaMasAlto();
+        int numeroMasAlto = mesaData.obtenerNumeroMesaMasAltoYnoEliminada();
        // JOptionPane.showMessageDialog(null, numeroMasAlto ); aca lo trae bien
            
        if (numeroMasAlto > 0) {
@@ -266,10 +266,11 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
             mesaButtonManual.setBackground(Color.red);//rojo cerradas
              //guardarMesa String sql = "INSERT INTO mesa (nroMesa, capacidad, estado, idReserva) VALUES (?, ?, ?, ?)";
              mesa.setCapacidad(4);
-             mesa.setEstado(false);
+             //mesa.setEstado(false);//
              mesa.setNroMesa(numeroMesa);
              mesa.setIdReserva(null);
-             //aca falla?
+             mesa.setEliminada(true);
+//aca falla?
              crearMesa(mesa); 
            
              mesaButtonManual.addMouseListener(new MouseAdapter() {
@@ -325,7 +326,7 @@ private void agregarMesasAbiertasDesdeBaseDeDatos() {
                 
                 // Muestra el texto del botón en un cuadro de diálogo
                // JOptionPane.showMessageDialog(null, "Texto del botón: " + textoDelBoton);
-               // mesaData.eliminarMesaxNRO(Integer.parseInt(textoDelBoton));
+               mesaData.eliminarMesaxNRO(Integer.parseInt(textoDelBoton));
                
             }
             jPmesas.remove(buttonPanel); // Eliminar el panel del botón
