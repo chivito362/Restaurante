@@ -1,5 +1,6 @@
 package com.equipo10.restaurante;
 
+import com.equipo10.restaurante.AccesoADatos.Conexion;
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
 import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.Entidades.Producto;
@@ -12,5 +13,6 @@ public class Restaurante {
         View vw=new  View();
         vw.setVisible(true);
         vw.setLocationRelativeTo(null);
+    
     }
 }

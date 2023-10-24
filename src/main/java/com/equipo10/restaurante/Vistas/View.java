@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.Conexion;
@@ -9,9 +5,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class View extends javax.swing.JFrame {
-
     public View() {
         initComponents();
+        Conexion.CrearBD();
     }
 
     @SuppressWarnings("unchecked")
