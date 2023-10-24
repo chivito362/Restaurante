@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2023 a las 20:57:03
+-- Tiempo de generación: 24-10-2023 a las 21:02:26
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -55,41 +55,42 @@ CREATE TABLE `mesa` (
   `NroMesa` int(11) NOT NULL,
   `capacidad` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL,
-  `idReserva` int(11) DEFAULT NULL
+  `idReserva` int(11) DEFAULT NULL,
+  `Eliminada` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `mesa`
 --
 
-INSERT INTO `mesa` (`idMesa`, `NroMesa`, `capacidad`, `estado`, `idReserva`) VALUES
-(2, 0, 6, 1, 1),
-(3, 1, 4, 0, NULL),
-(4, 2, 4, 0, NULL),
-(5, 3, 4, 0, NULL),
-(6, 4, 4, 0, NULL),
-(7, 5, 4, 0, NULL),
-(8, 6, 4, 0, NULL),
-(9, 7, 4, 0, NULL),
-(10, 8, 4, 0, NULL),
-(11, 9, 4, 0, NULL),
-(12, 10, 4, 0, NULL),
-(13, 11, 4, 0, NULL),
-(14, 12, 4, 0, NULL),
-(15, 13, 4, 0, NULL),
-(16, 14, 4, 0, NULL),
-(17, 15, 4, 0, NULL),
-(18, 16, 4, 0, NULL),
-(19, 17, 4, 0, NULL),
-(20, 18, 4, 0, NULL),
-(21, 19, 4, 0, NULL),
-(22, 20, 4, 0, NULL),
-(23, 21, 4, 0, NULL),
-(24, 22, 4, 0, NULL),
-(25, 23, 4, 0, NULL),
-(26, 24, 4, 0, NULL),
-(27, 25, 4, 0, NULL),
-(28, 26, 4, 0, NULL);
+INSERT INTO `mesa` (`idMesa`, `NroMesa`, `capacidad`, `estado`, `idReserva`, `Eliminada`) VALUES
+(2, 0, 6, 1, 1, 0),
+(3, 1, 4, 0, NULL, 0),
+(4, 2, 4, 0, NULL, 0),
+(5, 3, 4, 0, NULL, 0),
+(6, 4, 4, 0, NULL, 0),
+(7, 5, 4, 0, NULL, 0),
+(8, 6, 4, 0, NULL, 0),
+(9, 7, 4, 0, NULL, 0),
+(10, 8, 4, 0, NULL, 0),
+(11, 9, 4, 0, NULL, 0),
+(12, 10, 4, 0, NULL, 0),
+(13, 11, 4, 0, NULL, 0),
+(14, 12, 4, 0, NULL, 0),
+(15, 13, 4, 0, NULL, 0),
+(16, 14, 4, 0, NULL, 0),
+(17, 15, 4, 0, NULL, 0),
+(18, 16, 4, 0, NULL, 0),
+(19, 17, 4, 0, NULL, 0),
+(20, 18, 4, 0, NULL, 0),
+(21, 19, 4, 0, NULL, 0),
+(22, 20, 4, 0, NULL, 0),
+(23, 21, 4, 0, NULL, 0),
+(24, 22, 4, 0, NULL, 0),
+(25, 23, 4, 0, NULL, 0),
+(26, 24, 4, 0, NULL, 0),
+(27, 25, 4, 0, NULL, 0),
+(28, 26, 4, 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -99,22 +100,24 @@ INSERT INTO `mesa` (`idMesa`, `NroMesa`, `capacidad`, `estado`, `idReserva`) VAL
 
 CREATE TABLE `mesero` (
   `idMesero` int(11) NOT NULL,
+  `Documento` int(11) NOT NULL,
   `NombreyApellido` varchar(60) NOT NULL,
-  `estado` tinyint(1) NOT NULL
+  `estado` tinyint(1) NOT NULL,
+  `Ingreso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `mesero`
 --
 
-INSERT INTO `mesero` (`idMesero`, `NombreyApellido`, `estado`) VALUES
-(7, 'Lucas', 1),
-(11, 'Clemente Rodriguez', 1),
-(12, 'Wilmar Barrios', 1),
-(13, 'Lucas Cometto', 1),
-(17, 'Alejandro', 1),
-(18, 'Sebas', 1),
-(19, 'Facundo', 1);
+INSERT INTO `mesero` (`idMesero`, `Documento`, `NombreyApellido`, `estado`, `Ingreso`) VALUES
+(7, 334455343, 'Lucas', 1, 0),
+(11, 56473454, 'Clemente Rodriguez', 1, 0),
+(12, 33448899, 'Wilmar Barrios', 1, 0),
+(13, 55667744, 'Lucas Cometto', 1, 0),
+(17, 99886334, 'Alejandro', 1, 0),
+(18, 93949392, 'Sebas', 1, 0),
+(19, 45637788, 'Facundo', 1, 0);
 
 -- --------------------------------------------------------
 
