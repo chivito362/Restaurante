@@ -16,5 +16,6 @@ public class Restaurante {
         View vw=new  View();
         vw.setVisible(true);
         vw.setLocationRelativeTo(null);
+    
     }
 }
