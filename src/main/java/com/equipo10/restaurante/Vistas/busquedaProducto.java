@@ -5,12 +5,13 @@ import com.equipo10.restaurante.AccesoADatos.ProductoData;
 import com.equipo10.restaurante.Entidades.Producto;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
-public class busquedaProducto extends javax.swing.JFrame {
+public class busquedaProducto extends javax.swing.JDialog  {
     
     DefaultTableModel model=new DefaultTableModel(){
         @Override
@@ -19,12 +20,13 @@ public class busquedaProducto extends javax.swing.JFrame {
         }
         
     };
-    ProductoCargaVista ven;
+    ProductoCargaVistaCOPIA ven;
     
     
-    public busquedaProducto(JFrame ven) {
+    public busquedaProducto(JDialog ven,java.awt.Frame parent, boolean modal) {
+         super(parent, modal);
         initComponents();
-        this.ven=(ProductoCargaVista) ven;
+        this.ven=(ProductoCargaVistaCOPIA) ven;
         cargarTabla();
     }
 
@@ -40,7 +42,7 @@ public class busquedaProducto extends javax.swing.JFrame {
         btnSelec = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

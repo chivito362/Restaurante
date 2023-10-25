@@ -3,7 +3,6 @@ package com.equipo10.restaurante.Entidades;
 public class Mesa {
 
     private int idMesa;
-    private int nroMesa;
     private int capacidad;
     private boolean estado, eliminada;
     private Reserva idReserva = new Reserva();
@@ -24,9 +23,8 @@ public class Mesa {
     public Mesa() {
     }
 
-    public Mesa(int idMesa, int nroMesa, int capacidad, boolean estado, Reserva idReserva) {
+    public Mesa(int idMesa, int capacidad, boolean estado, Reserva idReserva) {
         this.idMesa = idMesa;
-        this.nroMesa = nroMesa;
         this.capacidad = capacidad;
         this.estado = estado;
         this.idReserva = idReserva;
@@ -37,9 +35,7 @@ public class Mesa {
         this.idMesa = idMesa;
     }
 
-    public Mesa(int nroMesa, int capacidad, boolean estado, Reserva idReserva) {
-        this.idMesa = -1;
-        this.nroMesa = nroMesa;
+    public Mesa(int capacidad, boolean estado, Reserva idReserva) {
         this.capacidad = capacidad;
         this.estado = estado;
         this.idReserva = idReserva;
@@ -51,14 +47,6 @@ public class Mesa {
 
     public void setIdMesa(int idMesa) {
         this.idMesa = idMesa;
-    }
-
-    public int getNroMesa() {
-        return nroMesa;
-    }
-
-    public void setNroMesa(int nroMesa) {
-        this.nroMesa = nroMesa;
     }
 
     public int getCapacidad() {
@@ -88,9 +76,9 @@ public class Mesa {
     @Override
     public String toString() {
         if (idReserva != null) {
-            return"|ID: " + idMesa + "|Nro: " + nroMesa + "|Capacidad: " + capacidad + "|Estado: " + estado + "|Reserva: " + idReserva.getNombreApellido() + "|";
+            return"|ID: " + idMesa + "|Capacidad: " + capacidad + "|Estado: " + estado + "|Reserva: " + idReserva.getNombreApellido() + "|";
         }else{
-            return"|ID: " + idMesa + "|Nro: " + nroMesa + "|Capacidad: " + capacidad + "|Estado: " + estado + "|Reserva: NO TIENE|";
+            return"|ID: " + idMesa + "|Capacidad: " + capacidad + "|Estado: " + estado + "|Reserva: NO TIENE|";
         }
     }
 
