@@ -4,19 +4,29 @@ package com.equipo10.restaurante.Entidades;
 
 public class Producto {
     private int idProducto;
-    private String nombre;
-    private int cantidad;
-    private double precio;
     private Categoria categoria;
+    private String nombre;
+    private int cantidadEnStock;
+    private double precio;
     private boolean estado;
     
     public Producto() {
     }
 
+    public Producto(int idProducto, Categoria categoria, String nombre, int cantidadEnStock, double precio, boolean estado) {
+        this.idProducto = idProducto;
+        this.categoria = categoria;
+        this.nombre = nombre;
+        this.cantidadEnStock = cantidadEnStock;
+        this.precio = precio;
+        this.estado = estado;
+    }
+    
+
     public Producto(int idProducto, String nombre, int cantidad, double precio, Categoria categoria, boolean estado) {
         this.idProducto = idProducto;
         this.nombre = nombre;
-        this.cantidad = cantidad;
+        this.cantidadEnStock = cantidad;
         this.precio = precio;
         this.categoria = categoria;
         this.estado = estado;
@@ -24,7 +34,7 @@ public class Producto {
 
     public Producto(String nombre, int cantidad, double precio, Categoria categoria, boolean estado) {
         this.nombre = nombre;
-        this.cantidad = cantidad;
+        this.cantidadEnStock = cantidad;
         this.precio = precio;
         this.categoria = categoria;
         this.estado = estado;
@@ -66,13 +76,15 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getCantidadEnStock() {
+        return cantidadEnStock;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setCantidadEnStock(int cantidadEnStock) {
+        this.cantidadEnStock = cantidadEnStock;
     }
+
+    
 
     public double getPrecio() {
         return precio;

@@ -262,5 +262,13 @@ int fila=jtTabla1.getSelectedRow();
     }
 
 }
+public int traerIdFila(){
+int fila=jtTabla1.getSelectedRow();
+    
+        
+int datos=(int)jtTabla1.getValueAt(fila, 1);
+        
+   return datos;     
+}
 
 }

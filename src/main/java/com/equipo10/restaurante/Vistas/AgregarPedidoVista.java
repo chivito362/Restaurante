@@ -140,8 +140,7 @@ int idPedido;
         jtMesa.setText("");
         jtPedido.setText("");
         
-        detalleProductos dt=new detalleProductos();
-        crearVentana(dt);
+        
         
     }//GEN-LAST:event_jbAgregarActionPerformed
 

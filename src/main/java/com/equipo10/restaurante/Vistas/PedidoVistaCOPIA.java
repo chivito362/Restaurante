@@ -7,6 +7,7 @@ package com.equipo10.restaurante.Vistas;
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
 import com.equipo10.restaurante.Entidades.Pedido;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -18,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Facua
  */
 public class PedidoVistaCOPIA extends javax.swing.JPanel {
+    private javax.swing.JDesktopPane Escritorio;
 
     private static PedidoData pd = new PedidoData();
     private DefaultTableModel modelo = new DefaultTableModel();
@@ -55,7 +57,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTabla1 = new javax.swing.JTable();
         jcFiltro = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jbDetalle = new javax.swing.JButton();
         atras = new javax.swing.JLabel();
 
         fondo.setBackground(new java.awt.Color(251, 250, 241));
@@ -67,7 +69,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jbAgregar.setText("Agregar");
         jbAgregar.setBorder(null);
         jbAgregar.setBorderPainted(false);
-        jbAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbAgregar.setFocusPainted(false);
         jbAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +85,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jbEditar.setText("Editar");
         jbEditar.setBorder(null);
         jbEditar.setBorderPainted(false);
-        jbEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbEditar.setEnabled(false);
         jbEditar.setFocusPainted(false);
         jbEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -100,7 +102,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(null);
         jbBuscar.setBorderPainted(false);
-        jbBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jbBuscar.setFocusPainted(false);
         jbBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -169,16 +171,21 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         });
         fondo.add(jcFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 50, 210, 30));
 
-        jButton1.setBackground(new java.awt.Color(0, 21, 36));
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Detalle");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        fondo.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 203, 80, 35));
+        jbDetalle.setBackground(new java.awt.Color(0, 21, 36));
+        jbDetalle.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        jbDetalle.setForeground(new java.awt.Color(255, 255, 255));
+        jbDetalle.setText("Detalle");
+        jbDetalle.setBorder(null);
+        jbDetalle.setBorderPainted(false);
+        jbDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jbDetalle.setFocusPainted(false);
+        jbDetalle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDetalleActionPerformed(evt);
+            }
+        });
+        fondo.add(jbDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 203, 80, 35));
 
         atras.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         atras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/flecha_atras_icon.png"))); // NOI18N
@@ -246,14 +253,21 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         atras.setLocation(atras.getX() + 3, atras.getY());
     }//GEN-LAST:event_atrasMouseReleased
 
+    private void jbDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalleActionPerformed
+        detalleProductos dp=new detalleProductos();
+        dp.setSize(360, 270);
+        dp.setLocationRelativeTo(Login.prin);
+        dp.setVisible(true);
+    }//GEN-LAST:event_jbDetalleActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel atras;
     private javax.swing.JPanel fondo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbDetalle;
     private javax.swing.JButton jbEditar;
     private javax.swing.JComboBox<String> jcFiltro;
     private javax.swing.JTable jtTabla1;
@@ -311,4 +325,10 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
                 break;
         }
     }
+public int traerIdFila(){
+int fila=jtTabla1.getSelectedRow();
+int id=(int)modelo.getValueAt(fila, 0);
+        
+   return id;     
+}
 }
