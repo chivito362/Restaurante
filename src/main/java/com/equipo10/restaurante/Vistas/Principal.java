@@ -232,8 +232,8 @@ CategoriaData ca=new CategoriaData();
     }//GEN-LAST:event_MenuCargaProductosActionPerformed
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        CheckInMozos ven=new CheckInMozos();
-        crearVentana(ven);
+        CheckInMozo ven = new CheckInMozo();
+        showPanel(ven);
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
