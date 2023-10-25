@@ -225,37 +225,4 @@ public class EditarPedidoVistaCOPIA extends javax.swing.JDialog {
     private javax.swing.JTextField jtMesero;
     // End of variables declaration//GEN-END:variables
 
-    private void traerDatos() {
-        String mesa1 = "";
-        String mesero1 = "";
-        Boolean check1 = false;
-        Boolean check2 = false;
-        PedidoVista pd = new PedidoVista();
-        Object[] datosR = pd.traerDatosFila();
-        int cont = 0;
-        int contB = 0;
-        if (datosR != null) {
-            for (Object object : datosR) {
-                if (object instanceof String && cont == 0) {
-
-                    mesa1 = (String) object;
-                    jtMesa.setText(mesa1);
-                    cont++;
-                } else if (object instanceof String && cont != 0) {
-                    mesero1 = (String) object;
-                    jtMesero.setText(mesero1);
-                } else if (object instanceof Boolean && contB == 0) {
-
-                    check1 = (Boolean) object;
-                    jcEntregado.setSelected(check1);
-                    contB++;
-                } else if (object instanceof Boolean && contB != 0) {
-
-                    check2 = (Boolean) object;
-                    jcPagado.setSelected(check2);
-                }
-            }
-        }
-
-    }
 }

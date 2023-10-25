@@ -18,6 +18,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -42,6 +43,7 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         modelo = (DefaultTableModel) tabla.getModel();
         table();
         mostrarEnTabla();
+        cargarCB();
     }
 
     public JPanel getFondo() {
@@ -60,13 +62,13 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         fondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jtMesa = new javax.swing.JTextField();
-        jtPedido = new javax.swing.JTextField();
         jbAgregar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        cbMesa = new javax.swing.JComboBox<>();
+        cbMozo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
@@ -94,22 +96,6 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Mesero:");
         fondo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 150, 20));
-
-        jtMesa.setBackground(new java.awt.Color(251, 250, 241));
-        jtMesa.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jtMesa.setForeground(new java.awt.Color(35, 32, 31));
-        jtMesa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtMesa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-        jtMesa.setOpaque(true);
-        fondo.add(jtMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 150, 30));
-
-        jtPedido.setBackground(new java.awt.Color(251, 250, 241));
-        jtPedido.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jtPedido.setForeground(new java.awt.Color(35, 32, 31));
-        jtPedido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jtPedido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-        jtPedido.setOpaque(true);
-        fondo.add(jtPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 150, 30));
 
         jbAgregar.setBackground(new java.awt.Color(98, 210, 106));
         jbAgregar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -175,17 +161,17 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         tabla.setForeground(new java.awt.Color(35, 32, 31));
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Productos", "Cantidad"
+                "Productos", "Stock", "Cantidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -203,10 +189,17 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
             tabla.getColumnModel().getColumn(0).setResizable(false);
             tabla.getColumnModel().getColumn(1).setMinWidth(70);
             tabla.getColumnModel().getColumn(1).setPreferredWidth(70);
-            tabla.getColumnModel().getColumn(1).setMaxWidth(100);
+            tabla.getColumnModel().getColumn(1).setMaxWidth(70);
+            tabla.getColumnModel().getColumn(2).setMinWidth(70);
+            tabla.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tabla.getColumnModel().getColumn(2).setMaxWidth(100);
         }
 
         fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 119, 452, 280));
+
+        fondo.add(cbMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 150, -1));
+
+        fondo.add(cbMozo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,38 +228,43 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         List<Integer> cant = new ArrayList<>();
         ProductoData prd = new ProductoData();
         Pedido pedido = null;
-
-        if (tabla.getSelectedRows().length > 0) {
-            
-            
-            int mesaN = Integer.parseInt(jtMesa.getText());
-            int moso = Integer.parseInt(jtPedido.getText());
-            Mesa mesa = md.buscarMesa(mesaN);
-            Mesero mesero = med.buscarMozoxId(moso);
-            pedido = new Pedido(pd.ultimo(),mesa, mesero, false, false, true);
-            
-            pd.agregarPedido(pedido);
-            
+        try{
             Producto produ;
+        if (tabla.getSelectedRows().length > 0) {
             for (int cada : tabla.getSelectedRows()) {
                 produ = (Producto) modelo.getValueAt(cada, 0);
                 cant.add(Integer.valueOf(modelo.getValueAt(cada, 1).toString()));
                 productos.add(produ);
             }
             
+            int mesaN = ((Mesa)cbMesa.getSelectedItem()).getIdMesa();
+            int moso = ((Mesero)cbMozo.getSelectedItem()).getIdMesero();
+            Mesa mesa = md.buscarMesa(mesaN);
+            Mesero mesero = med.buscarMozoxId(moso);
+            pedido = new Pedido(pd.ultimo(),mesa, mesero, false, false, true);
+            
+            pd.agregarPedido(pedido);
+            
+            
+            
+            
+            
             int num = 0;
             for (Producto cada : productos) {
                 //total = (double) (Double.parseDouble(modelo.getValueAt(num, 1).toString()) * cada.getPrecio());
                 DetallePedido dp = new DetallePedido(dpd.ultimo(),cada.getIdProducto(), cant.get(num), pedido);
                 num += 1;
+ 
                 dpd.agregarDetallePedido(dp);
             }
+            mostrarEnTabla();
 
-        }
+        }}catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "Todos los productos seleccionados deben tener cantidad");
+            }
 
         
-        jtMesa.setText("");
-        jtPedido.setText("");
+        cbMesa.setSelectedIndex(-1);
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSalirMouseEntered
@@ -286,6 +284,8 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Mesa> cbMesa;
+    private javax.swing.JComboBox<Mesero> cbMozo;
     private javax.swing.JPanel fondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -293,8 +293,6 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JTextField jtMesa;
-    private javax.swing.JTextField jtPedido;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 
@@ -308,7 +306,16 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         modelo.setRowCount(0);
 
         for (Producto cada : prdg.listarProductos()) {
-            modelo.addRow(new Object[]{cada, ""});
+            modelo.addRow(new Object[]{cada,cada.getCantidad(), ""});
+        }
+    }
+    private void cargarCB(){
+        for (Mesa mesa : md.obtenerMesas(1)) {
+            cbMesa.addItem(mesa);
+        }
+        for (Mesero m : med.mozosActivos()) {
+            cbMozo.addItem(m);
         }
     }
 }
+    

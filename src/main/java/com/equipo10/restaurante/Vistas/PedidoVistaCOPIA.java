@@ -292,35 +292,35 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedido()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
                 }
                 break;
             case 1:
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedidoEntregado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
                 }
                 break;
             case 2:
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedidoNoEntregados()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
                 }
                 break;
             case 3:
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedidoPagado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
                 }
                 break;
             case 4:
                 modelo.setRowCount(0);
 
                 for (Pedido pedido : pd.listarPedidoNoPagado()) {
-                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
                 }
                 break;
         }

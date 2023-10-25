@@ -284,7 +284,9 @@ public class ProductoCargaVistaCOPIA extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
+        busquedaProducto bs=new busquedaProducto(this,null,true);
+        bs.setVisible(true);
+        bs.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseEntered

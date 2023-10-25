@@ -60,6 +60,10 @@ public class DetallePedidoData {
             ps.setDouble(4, detalle.getTotalPedido());
             ps.setInt(5, detalle.getCantidad());
             ps.executeUpdate();
+            PreparedStatement ps1=con.prepareStatement("Update Producto Set CantidadenStock =CantidadenStock - ? where idProducto=?");
+                ps1.setInt(1, detalle.getCantidad());
+                ps1.setInt(2, detalle.getIdProducto());
+                ps1.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
