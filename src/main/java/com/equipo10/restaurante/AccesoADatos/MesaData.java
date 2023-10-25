@@ -169,36 +169,4 @@ public class MesaData {
         }
         return mesa;
     }
-   public int obtenerNumeroMesaMasAltoYCerrado() {
-    int numeroMesaMasAlto = 0;
-    try {
-        String sql = "SELECT MAX(idMesa) FROM mesa WHERE estado=0";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            numeroMesaMasAlto = rs.getInt(1);
-        }
-        ps.close();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al obtener el número de mesa más alto: " + ex.getMessage());
-    }
-    
-    return numeroMesaMasAlto;
-}
-   public int obtenerNumeroMesaMasAlto() {
-    int numeroMesaMasAlto = 0;
-    try {
-        String sql = "SELECT MAX(idMesa) FROM mesa";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            numeroMesaMasAlto = rs.getInt(1);
-        }
-        ps.close();
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al obtener el número de mesa más alto: " + ex.getMessage());
-    }
-    
-    return numeroMesaMasAlto;
-}
 }

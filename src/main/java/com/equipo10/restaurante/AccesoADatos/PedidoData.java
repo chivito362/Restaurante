@@ -277,14 +277,14 @@ public class PedidoData {
     }
 
     public double calcularTotalPedido(int idPedido) {
-        int total = 0;
+        double total = 0;
         String sql = "SELECT producto.Precio, pedidodetalle.cantidad FROM pedidodetalle JOIN producto ON pedidodetalle.idProducto = producto.idProducto WHERE pedidodetalle.idPedido = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idPedido);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                total = rs.getInt("Precio") * rs.getInt("cantidad");
+                total += rs.getDouble("Precio") * rs.getInt("cantidad");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error consulta sql al traer total");
