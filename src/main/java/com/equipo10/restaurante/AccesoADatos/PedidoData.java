@@ -270,6 +270,7 @@ public class PedidoData {
             int r = ps.executeUpdate();
             if (r == 1) {
                 JOptionPane.showMessageDialog(null, "Producto Añadido");
+
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error en sql");

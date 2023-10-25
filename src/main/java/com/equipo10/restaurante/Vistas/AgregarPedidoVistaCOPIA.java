@@ -161,17 +161,17 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         tabla.setForeground(new java.awt.Color(35, 32, 31));
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Productos", "Cantidad"
+                "Productos", "Stock", "Cantidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -189,7 +189,10 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
             tabla.getColumnModel().getColumn(0).setResizable(false);
             tabla.getColumnModel().getColumn(1).setMinWidth(70);
             tabla.getColumnModel().getColumn(1).setPreferredWidth(70);
-            tabla.getColumnModel().getColumn(1).setMaxWidth(100);
+            tabla.getColumnModel().getColumn(1).setMaxWidth(70);
+            tabla.getColumnModel().getColumn(2).setMinWidth(70);
+            tabla.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tabla.getColumnModel().getColumn(2).setMaxWidth(100);
         }
 
         fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 119, 452, 280));
@@ -251,8 +254,10 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
                 //total = (double) (Double.parseDouble(modelo.getValueAt(num, 1).toString()) * cada.getPrecio());
                 DetallePedido dp = new DetallePedido(dpd.ultimo(),cada.getIdProducto(), cant.get(num), pedido);
                 num += 1;
+ 
                 dpd.agregarDetallePedido(dp);
             }
+            mostrarEnTabla();
 
         }}catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Todos los productos seleccionados deben tener cantidad");
@@ -301,7 +306,7 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         modelo.setRowCount(0);
 
         for (Producto cada : prdg.listarProductos()) {
-            modelo.addRow(new Object[]{cada, ""});
+            modelo.addRow(new Object[]{cada,cada.getCantidad(), ""});
         }
     }
     private void cargarCB(){

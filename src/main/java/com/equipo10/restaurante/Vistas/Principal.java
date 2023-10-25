@@ -10,10 +10,12 @@ import javax.swing.JPanel;
 
 public class Principal extends javax.swing.JFrame {
 public static ReservaVista rv = new ReservaVista();
+MesaVista mesa=new MesaVista();
 CategoriaData ca=new CategoriaData();
     public Principal() {
         initComponents();
         ca.CargarEnumsABD();
+        crearVentana(mesa);
     }
 
  
@@ -29,6 +31,7 @@ CategoriaData ca=new CategoriaData();
         Escritorio = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -149,16 +152,18 @@ CategoriaData ca=new CategoriaData();
 
         jPanelPrincipal.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 86, 5, 495));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoPrincipal.png"))); // NOI18N
+        jPanelPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 16, 180, 180));
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/patron.png"))); // NOI18N
-        jPanelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, -90, 1030, 700));
+        jPanelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, -80, 1030, 700));
 
         jMenuBar1.setBackground(new java.awt.Color(198, 23, 0));
         jMenuBar1.setBorder(null);
         jMenuBar1.setForeground(new java.awt.Color(251, 250, 241));
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jMenuBar1.setOpaque(true);
         jMenuBar1.setPreferredSize(new java.awt.Dimension(833, 23));
 
         jMenu1.setBackground(new java.awt.Color(251, 250, 241));
@@ -221,8 +226,7 @@ CategoriaData ca=new CategoriaData();
     }//GEN-LAST:event_btnPedidosActionPerformed
 
     private void btnMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesasActionPerformed
-       MesaVista ven=new MesaVista();
-        crearVentana(ven);
+          crearVentana(mesa);
     }//GEN-LAST:event_btnMesasActionPerformed
 
     private void MenuCargaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCargaProductosActionPerformed
@@ -256,6 +260,7 @@ CategoriaData ca=new CategoriaData();
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JButton jBreservas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
