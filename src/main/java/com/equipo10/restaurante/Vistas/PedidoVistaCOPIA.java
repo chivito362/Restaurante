@@ -6,12 +6,7 @@ package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
 import com.equipo10.restaurante.Entidades.Pedido;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.DefaultListCellRenderer;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -43,6 +38,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     public JPanel getFondo() {
         return fondo;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,8 +137,6 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jtTabla1.setRowHeight(25);
         jtTabla1.setSelectionBackground(new java.awt.Color(57, 137, 111));
         jtTabla1.setSelectionForeground(new java.awt.Color(251, 250, 241));
-        jtTabla1.setShowGrid(true);
-        jtTabla1.setShowVerticalLines(false);
         jtTabla1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtTabla1MouseClicked(evt);
@@ -151,10 +145,15 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jtTabla1);
         if (jtTabla1.getColumnModel().getColumnCount() > 0) {
             jtTabla1.getColumnModel().getColumn(0).setResizable(false);
+            jtTabla1.getColumnModel().getColumn(0).setPreferredWidth(25);
             jtTabla1.getColumnModel().getColumn(1).setResizable(false);
+            jtTabla1.getColumnModel().getColumn(1).setPreferredWidth(25);
             jtTabla1.getColumnModel().getColumn(2).setResizable(false);
+            jtTabla1.getColumnModel().getColumn(2).setPreferredWidth(170);
             jtTabla1.getColumnModel().getColumn(3).setResizable(false);
+            jtTabla1.getColumnModel().getColumn(3).setPreferredWidth(25);
             jtTabla1.getColumnModel().getColumn(4).setResizable(false);
+            jtTabla1.getColumnModel().getColumn(4).setPreferredWidth(25);
         }
 
         fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 83, 533, 407));
@@ -210,21 +209,21 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        AgregarPedidoVistaCOPIA apv = new AgregarPedidoVistaCOPIA(null,true);
-        apv.setSize(452,445);
-        apv.setLocationRelativeTo(this);
+        AgregarPedidoVistaCOPIA apv = new AgregarPedidoVistaCOPIA(null, true);
+        apv.setSize(452, 445);
+        apv.setLocationRelativeTo(Login.prin);
         apv.setVisible(true);
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
-        EditarPedidoVistaCOPIA epv = new EditarPedidoVistaCOPIA(null,true);
-        epv.setSize(360,270);
-        epv.setLocationRelativeTo(this);
+        EditarPedidoVistaCOPIA epv = new EditarPedidoVistaCOPIA(null, true);
+        epv.setSize(360, 270);
+        epv.setLocationRelativeTo(Login.prin);
         epv.setVisible(true);
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-
+        
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtTabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTabla1MouseClicked
@@ -240,11 +239,11 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }//GEN-LAST:event_atrasMouseClicked
 
     private void atrasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMousePressed
-        atras.setLocation(atras.getX()-3,atras.getY());
+        atras.setLocation(atras.getX() - 3, atras.getY());
     }//GEN-LAST:event_atrasMousePressed
 
     private void atrasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atrasMouseReleased
-        atras.setLocation(atras.getX()+3,atras.getY());
+        atras.setLocation(atras.getX() + 3, atras.getY());
     }//GEN-LAST:event_atrasMouseReleased
 
 
@@ -273,83 +272,43 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
 
     }
 
-    public void CargarTabla(){
-    if (jcFiltro.getSelectedItem().equals("Pedidos")) {
-limpiarTabla();
+    private void CargarTabla() {
+        switch (jcFiltro.getSelectedIndex()) {
+            case 0:
+                modelo.setRowCount(0);
 
-List<Pedido> pedidos=new ArrayList<>();
-PedidoData pd=new PedidoData();
-pedidos = pd.listarPedido();
+                for (Pedido pedido : pd.listarPedido()) {
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                }
+                break;
+            case 1:
+                modelo.setRowCount(0);
 
-    for (Pedido pedido : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
-    }
-}
-  if (jcFiltro.getSelectedItem().equals("Entregados")) {
-limpiarTabla();
+                for (Pedido pedido : pd.listarPedidoEntregado()) {
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                }
+                break;
+            case 2:
+                modelo.setRowCount(0);
 
-List<Pedido> pedidos=new ArrayList<>();
-PedidoData pd=new PedidoData();
-pedidos = pd.listarPedidoEntregado();
+                for (Pedido pedido : pd.listarPedidoNoEntregados()) {
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                }
+                break;
+            case 3:
+                modelo.setRowCount(0);
 
-    for (Pedido pedido : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa(), pedido.getMesero(), pedido.isEstado()});
-    }
-}  
-  if (jcFiltro.getSelectedItem().equals("Pagados")) {
-limpiarTabla();
+                for (Pedido pedido : pd.listarPedidoPagado()) {
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                }
+                break;
+            case 4:
+                modelo.setRowCount(0);
 
-List<Pedido> pedidos=new ArrayList<>();
-PedidoData pd=new PedidoData();
-pedidos = pd.listarPedidoPagado();
-
-    for (Pedido pedido : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
-    }
-}
-    if (jcFiltro.getSelectedItem().equals("No pagados")) {
-limpiarTabla();
-
-List<Pedido> pedidos=new ArrayList<>();
-PedidoData pd=new PedidoData();
-pedidos = pd.listarPedidoNoPagado();
-
-    for (Pedido pedido : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEstado()});
-    }
-}
-  if (jcFiltro.getSelectedItem().equals("No entregados")) {
-limpiarTabla();
-
-List<Pedido> pedidos=new ArrayList<>();
-PedidoData pd=new PedidoData();
-pedidos = pd.listarPedidoNoEntregados();
-
-    for (Pedido pedido : pedidos) {
-        modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEntregado()});
-    }
-}  
-    
-}
-    
-
-    private Object[] traerDatosFila() {
-        int fila = jtTabla1.getSelectedRow();
-        if (fila != -1) {
-            int columnas = modelo.getColumnCount();
-            Object[] datos = new Object[columnas];
-            for (int i = 0; i < columnas; i++) {
-                datos[i] = modelo.getValueAt(fila, i);
-            }
-            return datos;
-        } else {
-            return null;
-        }
-
-    }
-private void limpiarTabla(){
-        for (int i = modelo.getRowCount()-1; i >= 0; i--) {
-            modelo.removeRow(i);
+                for (Pedido pedido : pd.listarPedidoNoPagado()) {
+                    modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getNroMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+                }
+                break;
         }
     }
 }

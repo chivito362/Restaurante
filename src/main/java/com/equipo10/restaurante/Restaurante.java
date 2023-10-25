@@ -1,11 +1,7 @@
 package com.equipo10.restaurante;
 
 import com.equipo10.restaurante.AccesoADatos.Conexion;
-import com.equipo10.restaurante.AccesoADatos.PedidoData;
-import com.equipo10.restaurante.Entidades.Mesa;
-import com.equipo10.restaurante.Entidades.Producto;
-import com.equipo10.restaurante.Vistas.Principal;
-import com.equipo10.restaurante.Vistas.View;
+import com.equipo10.restaurante.Vistas.Login;
 
 public class Restaurante {
 
@@ -13,7 +9,7 @@ public class Restaurante {
         Conexion.getConexion("Restaurante");
        // Conexion.getConexion("RestoLogin");
        
-        View vw=new  View();
+        Login vw=new  Login();
         vw.setVisible(true);
         vw.setLocationRelativeTo(null);
     

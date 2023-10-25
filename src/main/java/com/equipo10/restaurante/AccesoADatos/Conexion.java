@@ -7,8 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -66,7 +64,6 @@ public class Conexion {
             while (resultado.next()) {
                 if (resultado.getString("usuario").equals(usuario) && resultado.getInt("estado") == 1) {
                     if (resultado.getString("contrasenia").equals(pw)) {
-                        JOptionPane.showMessageDialog(null, "Ingreso Exitoso");
                         return true;
                     } else {
                         JOptionPane.showMessageDialog(null, "Contraseña incorrecta");

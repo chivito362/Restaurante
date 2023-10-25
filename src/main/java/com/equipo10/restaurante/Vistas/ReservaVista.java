@@ -116,14 +116,14 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         jLabel3.setText("Fecha");
         fondo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(423, 10, 162, 20));
 
-        jScrollPane1.setBackground(new java.awt.Color(89, 68, 33));
+        jScrollPane1.setBackground(new java.awt.Color(42, 36, 29));
         jScrollPane1.setForeground(new java.awt.Color(251, 250, 241));
         jScrollPane1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
 
-        jTReservas.setBackground(new java.awt.Color(56, 49, 39));
+        jTReservas.setBackground(new java.awt.Color(233, 237, 201));
         jTReservas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTReservas.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
-        jTReservas.setForeground(new java.awt.Color(251, 250, 241));
+        jTReservas.setForeground(new java.awt.Color(35, 32, 31));
         jTReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -143,21 +143,22 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         jTReservas.setAlignmentX(0.0F);
         jTReservas.setAlignmentY(0.0F);
         jTReservas.setFillsViewportHeight(true);
-        jTReservas.setGridColor(new java.awt.Color(54, 47, 37));
+        jTReservas.setGridColor(new java.awt.Color(214, 221, 155));
         jTReservas.setRowHeight(30);
         jTReservas.setRowMargin(2);
         jTReservas.setSelectionBackground(new java.awt.Color(57, 137, 111));
         jTReservas.setSelectionForeground(new java.awt.Color(251, 250, 241));
         jTReservas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTReservas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTReservas.setShowGrid(false);
+        jTReservas.setShowGrid(true);
         jTReservas.getTableHeader().setResizingAllowed(false);
         jTReservas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTReservas);
         if (jTReservas.getColumnModel().getColumnCount() > 0) {
             jTReservas.getColumnModel().getColumn(0).setResizable(false);
-            jTReservas.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTReservas.getColumnModel().getColumn(0).setPreferredWidth(15);
             jTReservas.getColumnModel().getColumn(1).setResizable(false);
+            jTReservas.getColumnModel().getColumn(1).setPreferredWidth(100);
             jTReservas.getColumnModel().getColumn(2).setResizable(false);
             jTReservas.getColumnModel().getColumn(3).setResizable(false);
             jTReservas.getColumnModel().getColumn(3).setPreferredWidth(20);
@@ -247,8 +248,8 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         jTDNI.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar ID", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semibold", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         fondo.add(jTDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 122, 100, 40));
 
-        jbPorFecha.setBackground(new java.awt.Color(56, 49, 39));
-        jbPorFecha.setForeground(new java.awt.Color(251, 250, 241));
+        jbPorFecha.setBackground(new java.awt.Color(0, 21, 36));
+        jbPorFecha.setForeground(new java.awt.Color(255, 255, 255));
         jbPorFecha.setText("POR FECHA");
         jbPorFecha.setBorder(null);
         jbPorFecha.setBorderPainted(false);
@@ -262,8 +263,8 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         });
         fondo.add(jbPorFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(507, 165, 125, 35));
 
-        jbTodas.setBackground(new java.awt.Color(56, 49, 39));
-        jbTodas.setForeground(new java.awt.Color(251, 250, 241));
+        jbTodas.setBackground(new java.awt.Color(0, 21, 36));
+        jbTodas.setForeground(new java.awt.Color(255, 255, 255));
         jbTodas.setText("TODAS");
         jbTodas.setBorder(null);
         jbTodas.setBorderPainted(false);
@@ -277,8 +278,8 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         });
         fondo.add(jbTodas, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 165, 125, 35));
 
-        jbActivas.setBackground(new java.awt.Color(56, 49, 39));
-        jbActivas.setForeground(new java.awt.Color(251, 250, 241));
+        jbActivas.setBackground(new java.awt.Color(0, 21, 36));
+        jbActivas.setForeground(new java.awt.Color(255, 255, 255));
         jbActivas.setText("ACTIVAS");
         jbActivas.setBorder(null);
         jbActivas.setBorderPainted(false);
@@ -292,8 +293,8 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         });
         fondo.add(jbActivas, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 165, 126, 35));
 
-        jbInactivas.setBackground(new java.awt.Color(56, 49, 39));
-        jbInactivas.setForeground(new java.awt.Color(251, 250, 241));
+        jbInactivas.setBackground(new java.awt.Color(0, 21, 36));
+        jbInactivas.setForeground(new java.awt.Color(255, 255, 255));
         jbInactivas.setText("INACTIVAS");
         jbInactivas.setBorder(null);
         jbInactivas.setBorderPainted(false);
@@ -307,8 +308,8 @@ public class ReservaVista extends javax.swing.JPanel implements ActionListener {
         });
         fondo.add(jbInactivas, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 165, 125, 35));
 
-        jbPorDni.setBackground(new java.awt.Color(56, 49, 39));
-        jbPorDni.setForeground(new java.awt.Color(251, 250, 241));
+        jbPorDni.setBackground(new java.awt.Color(0, 21, 36));
+        jbPorDni.setForeground(new java.awt.Color(255, 255, 255));
         jbPorDni.setText("POR DNI");
         jbPorDni.setBorder(null);
         jbPorDni.setBorderPainted(false);
