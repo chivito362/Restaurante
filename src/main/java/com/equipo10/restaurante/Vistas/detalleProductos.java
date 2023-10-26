@@ -146,22 +146,35 @@ jtTablaProductos.setModel(modelo);
 //}
 
 private void cargarTabla(){
-
+limpiarTabla();
 List<Producto> productos=new ArrayList<>();
 PedidoData pd=new PedidoData();
 PedidoVistaCOPIA pdv=new PedidoVistaCOPIA();
     
  productos = pd.listarProductosDelPedido(pdv.traerIdFila());
-
+    if (productos.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No hay datos");
+    }else{
     for (Producto producto : productos) {
         modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombre(), producto.getCantidadEnStock(), producto.getPrecio(), producto.isEstado()});
     }
-}
+//            for (int i = 0; i < productos.size(); i++) {
+//                Producto producto = productos.get(i);
+//                for (int j = 0; j < productos.size(); j++) {
+//                  modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombre(), producto.getCantidadEnStock(), producto.getPrecio(), producto.isEstado()});
+//                }
+
+ //           }
+        }
+    }
+    
+
 private void limpiarTabla(){
         for (int i = modelo.getRowCount()-1; i >= 0; i--) {
             modelo.removeRow(i);
         }
     }
+}
 // metodo para cargar una segunda tabla que al seleccionar los rows de una primera tabla se caguen en  esta seguna
 //    public void cargarTabla2() {
 //        int[] filaSeleccionada = jtTablaProductos.getSelectedRows();
@@ -215,4 +228,3 @@ private void limpiarTabla(){
 //
 //        }
 //    }                                          
-}

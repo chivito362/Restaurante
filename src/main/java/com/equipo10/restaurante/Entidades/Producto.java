@@ -6,6 +6,7 @@ public class Producto {
     private int idProducto;
     private Categoria categoria;
     private String nombre;
+    private int Cantidad;
     private int cantidadEnStock;
     private double precio;
     private boolean estado;

@@ -306,7 +306,7 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         modelo.setRowCount(0);
 
         for (Producto cada : prdg.listarProductos()) {
-            modelo.addRow(new Object[]{cada,cada.getCantidad(), ""});
+            modelo.addRow(new Object[]{cada,cada.getCantidadEnStock(), ""});
         }
     }
     private void cargarCB(){

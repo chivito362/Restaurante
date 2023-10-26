@@ -327,7 +327,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }
 public int traerIdFila(){
 int fila=jtTabla1.getSelectedRow();
-int id=(int)modelo.getValueAt(fila, 0);
+int id=Integer.valueOf(modelo.getValueAt(fila, 0).toString());
         
    return id;     
 }

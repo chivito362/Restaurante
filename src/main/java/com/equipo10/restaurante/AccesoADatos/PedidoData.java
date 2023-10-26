@@ -337,7 +337,11 @@ public class PedidoData {
         }
         return productos;
     }
-
+    //SQL de posible solucion a problema de carga de datos de tabla relacional...
+//"SELECT Pedidos.*, Producto.*\n" +
+//        "FROM Pedidos tp\n" +
+//         "CROSS APPLY STRING_SPLIT(Pedidos.IdProducto, ',') AS SplitClaves\n" +
+//             "JOIN Producto ON producto.Id = Pedidos.iDProducto WHERE Producto.idPedido =?";
     public ArrayList<Producto> listarProductosDelPedido(int idPedido) {
         ArrayList<Producto> productos = new ArrayList<>();
         CategoriaData cat = new CategoriaData();
