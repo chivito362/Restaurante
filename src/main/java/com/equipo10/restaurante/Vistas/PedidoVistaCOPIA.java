@@ -230,7 +230,10 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        
+        BuscarPedidoVista dp=new BuscarPedidoVista();
+        dp.setSize(360, 270);
+        dp.setLocationRelativeTo(Login.prin);
+        dp.setVisible(true);        
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtTabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTabla1MouseClicked
