@@ -349,10 +349,10 @@ public class PedidoData {
             while (rs.next()) {
                 Producto p = new Producto();
                 p.setIdProducto(rs.getInt("idProducto"));
-                p.setNombre(rs.getString("Nombre"));
-                p.setPrecio(rs.getDouble("Precio"));
-                p.setCantidad(rs.getInt("cantidad"));
                 p.setCategoria(cat.obtenerNombreCategoriaPorId(rs.getInt("idCategoria")));
+                p.setNombre(rs.getString("Nombre"));
+                p.setCantidadEnStock(rs.getInt("CantidadEnStock"));
+                p.setPrecio(rs.getDouble("Precio"));
                 p.setEstado(rs.getBoolean("estado"));
                 productos.add(p);
             }
@@ -363,7 +363,7 @@ public class PedidoData {
     }
 
     public int ultimo() {
-        int ultimo = 1;
+        int ultimo=0;
         String sql = "SELECT MAX(idPedido) FROM pedido";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

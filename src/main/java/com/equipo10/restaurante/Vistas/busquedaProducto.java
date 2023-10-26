@@ -127,7 +127,7 @@ public class busquedaProducto extends javax.swing.JDialog  {
         ven.pd=new ProductoData();
         for (Producto t : ven.pd.listarProductos()) {
             if(t.getNombre().toLowerCase().contains(txtNombre.getText())){
-            model.addRow(new Object[] {t.getIdProducto(),t.getNombre(),t.getPrecio(),t.getCantidad()});  
+            model.addRow(new Object[] {t.getIdProducto(),t.getNombre(),t.getPrecio(),t.getCantidadEnStock()});  
             }
         }
     }//GEN-LAST:event_txtNombreKeyReleased
@@ -141,7 +141,7 @@ public class busquedaProducto extends javax.swing.JDialog  {
             ven.txtId.setText(String.valueOf(t.getIdProducto()));
             ven.txtNombre.setText(t.getNombre());
             ven.txtPrecio.setText(String.valueOf(t.getPrecio()));
-            ven.txtStock.setText(String.valueOf(t.getCantidad()));
+            ven.txtStock.setText(String.valueOf(t.getCantidadEnStock()));
             ven.cbCategoria.setSelectedItem(t.getCategoria());
             ven.rbtnHabil.setSelected(t.isEstado());
             this.dispose();
@@ -174,7 +174,7 @@ private void limpiarTabla(){
 private void datosTabla(){
     ven.pd=new ProductoData();
     ven.pd.listarProductos().stream().forEach( (t) -> {
-        Object[] obj={t.getIdProducto(),t.getNombre(),t.getPrecio(),t.getCantidad()};
+        Object[] obj={t.getIdProducto(),t.getNombre(),t.getPrecio(),t.getCantidadEnStock()};
         model.addRow(obj);          
     });
 }

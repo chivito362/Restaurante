@@ -25,7 +25,7 @@ public class ProductoData {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, cat.obtenerIdCategoriaPorNombre(p.getCategoria().toString()));
             ps.setString(2, p.getNombre());
-            ps.setInt(3, p.getCantidad());
+            ps.setInt(3, p.getCantidadEnStock());
             ps.setDouble(4, p.getPrecio());
             ps.setBoolean(5, true);
             ps.executeUpdate();
@@ -66,7 +66,7 @@ public class ProductoData {
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, p.getNombre());
-            ps.setInt(2, p.getCantidad());
+            ps.setInt(2, p.getCantidadEnStock());
             ps.setDouble(3, p.getPrecio());
             ps.setInt(4, cat.obtenerIdCategoriaPorNombre(p.getCategoria().toString()));
             ps.setBoolean(5, p.isEstado());
@@ -99,7 +99,7 @@ public class ProductoData {
                 p.setIdProducto(id);
                 p.setNombre(rs.getString("Nombre"));
                 p.setPrecio(rs.getDouble("Precio"));
-                p.setCantidad(rs.getInt("CantidadenStock"));
+                p.setCantidadEnStock(rs.getInt("CantidadenStock"));
                 p.setEstado(true);
                 p.setCategoria(cat.obtenerNombreCategoriaPorId(rs.getInt("idCategoria")));
                 return p;
