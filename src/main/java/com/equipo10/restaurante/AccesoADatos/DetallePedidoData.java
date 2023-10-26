@@ -7,6 +7,7 @@ package com.equipo10.restaurante.AccesoADatos;
 import com.equipo10.restaurante.Entidades.Categoria;
 import com.equipo10.restaurante.Entidades.DetallePedido;
 import com.equipo10.restaurante.Entidades.Pedido;
+import com.equipo10.restaurante.Entidades.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,7 +51,10 @@ public class DetallePedidoData {
     }
 
     public void agregarDetallePedido(DetallePedido detalle) {
-        String insertDetalleSQL = "INSERT INTO pedidoDetalle (idPedidoDetalle, idPedido, idProducto, totalPedido, cantidad) VALUES (?, ?, ?, ?, ?)";
+        ProductoData pd=new ProductoData();
+        Producto p=pd.TraerProducto(detalle.getIdProducto());
+        if(p.getCantidad()>=detalle.getCantidad() && detalle.getCantidad()!=0){
+            String insertDetalleSQL = "INSERT INTO pedidoDetalle (idPedidoDetalle, idPedido, idProducto, totalPedido, cantidad) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(insertDetalleSQL);
 
@@ -64,9 +68,15 @@ public class DetallePedidoData {
                 ps1.setInt(1, detalle.getCantidad());
                 ps1.setInt(2, detalle.getIdProducto());
                 ps1.executeUpdate();
+                ps1.close();
+                ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay stock para el producto "+p.getNombre());
+        }
+        
     }
 
     public List<DetallePedido> obtenerDetalleXPedido(Pedido pedido) {

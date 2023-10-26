@@ -233,7 +233,7 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         if (tabla.getSelectedRows().length > 0) {
             for (int cada : tabla.getSelectedRows()) {
                 produ = (Producto) modelo.getValueAt(cada, 0);
-                cant.add(Integer.valueOf(modelo.getValueAt(cada, 1).toString()));
+                cant.add(Integer.valueOf(modelo.getValueAt(cada, 2).toString()));
                 productos.add(produ);
             }
             
