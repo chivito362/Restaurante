@@ -18,7 +18,7 @@ public class Pedido {
         this.pagado = pagado;
         this.estado = estado;
     }
-
+    
     public Pedido(Mesa mesa, Mesero mesero, boolean entregado, boolean pagado, boolean estado) {
         this.mesa = mesa;
         this.mesero = mesero;

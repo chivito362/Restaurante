@@ -42,10 +42,6 @@ public class PedidoData {
             ps.setBoolean(5, pedido.isPagado());
             ps.setBoolean(6, pedido.isEstado());
             int end = ps.executeUpdate();
-            if (end == 1) {
-
-                JOptionPane.showMessageDialog(null, "Pedido añadido con exito.");
-            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al ingresar pedido ");
@@ -55,9 +51,22 @@ public class PedidoData {
     public int getIdPedido() {
         return idPedido;
     }
+    
+    public void setearEntregado(boolean f,int id){
+        String sql = "UPDATE pedido SET entregado= ? WHERE idPedido = ?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setBoolean(1, f);
+            ps.setInt(2, id);
+            ps.executeUpdate();
 
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     public void editarPedido(Pedido pedido) {
-        String sql = "UPDATE alumno SET mesa = ? , mesero = ?, detalle = ?, entregado= ?, pagado= ? WHERE idPedido = ?";
+        String sql = "UPDATE pedido SET mesa = ? , mesero = ?, detalle = ?, entregado= ?, pagado= ? WHERE idPedido = ?";
         PreparedStatement ps = null;
 
         try {
@@ -80,7 +89,7 @@ public class PedidoData {
 
     }
 
-    public void eliminarPedido(int id) {
+    public void CerrarPedido(int id) {
         try {
             String sql = "UPDATE pedido SET estado=0 WHERE idPedido = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -153,7 +162,7 @@ public class PedidoData {
 
     public List<Pedido> listarPedido() {
         List<Pedido> pedidos = new ArrayList<>();
-        String sql = "SELECT * FROM pedido WHERE estado=1";
+        String sql = "SELECT * FROM pedido WHERE estado = 1 AND anulado IS NULL;";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -407,5 +416,20 @@ public class PedidoData {
             JOptionPane.showMessageDialog(null, "Error al buscar pedido" + ex.getMessage());
         }
         return pedido;
+    }
+    public void anularPedido(int id){
+        try {
+            String sql = "UPDATE pedido SET anulado=1 WHERE idPedido = ? ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int fila = ps.executeUpdate();
+
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, " Se anulo el pedido.");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, " Error al acceder al pedido");
+        }
     }
 }

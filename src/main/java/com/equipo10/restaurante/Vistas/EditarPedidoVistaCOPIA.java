@@ -17,12 +17,13 @@ import javax.swing.JPanel;
  */
 public class EditarPedidoVistaCOPIA extends javax.swing.JDialog {
 
-    /**
-     * Creates new form EditarPedidoVistaCOPIA
-     */
-    public EditarPedidoVistaCOPIA(java.awt.Frame parent, boolean modal) {
+int idPedido;
+    public EditarPedidoVistaCOPIA(java.awt.Frame parent, boolean modal,Mesa m,String me,int id) {
         super(parent, modal);
         initComponents();
+        jtMesa.setText(m.getIdMesa()+"");
+        jtMesero.setText(me);
+        this.idPedido=id;
     }
 
     public JPanel getFondo() {
@@ -43,7 +44,6 @@ public class EditarPedidoVistaCOPIA extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jcEntregado = new javax.swing.JCheckBox();
-        jcPagado = new javax.swing.JCheckBox();
         jtMesero = new javax.swing.JTextField();
         jtMesa = new javax.swing.JTextField();
         jbConfirmar = new javax.swing.JButton();
@@ -85,26 +85,15 @@ public class EditarPedidoVistaCOPIA extends javax.swing.JDialog {
         jcEntregado.setText("Entregado");
         jcEntregado.setBorder(null);
         jcEntregado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(jcEntregado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 90, -1));
+        fondo.add(jcEntregado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 90, -1));
 
-        jcPagado.setBackground(new java.awt.Color(251, 250, 241));
-        jcPagado.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        jcPagado.setForeground(new java.awt.Color(0, 0, 0));
-        jcPagado.setText("Pagado");
-        jcPagado.setBorder(null);
-        jcPagado.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jcPagado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcPagadoActionPerformed(evt);
-            }
-        });
-        fondo.add(jcPagado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 70, -1));
-
+        jtMesero.setEditable(false);
         jtMesero.setBackground(new java.awt.Color(251, 250, 241));
         jtMesero.setForeground(new java.awt.Color(51, 51, 51));
         jtMesero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         fondo.add(jtMesero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 200, 35));
 
+        jtMesa.setEditable(false);
         jtMesa.setBackground(new java.awt.Color(251, 250, 241));
         jtMesa.setForeground(new java.awt.Color(51, 51, 51));
         jtMesa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
@@ -173,10 +162,6 @@ public class EditarPedidoVistaCOPIA extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcPagadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcPagadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcPagadoActionPerformed
-
     private void jbConfirmarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbConfirmarMouseEntered
         jbConfirmar.setBackground(new Color(90, 158, 115));
     }//GEN-LAST:event_jbConfirmarMouseEntered
@@ -186,14 +171,11 @@ public class EditarPedidoVistaCOPIA extends javax.swing.JDialog {
     }//GEN-LAST:event_jbConfirmarMouseExited
 
     private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
-        int mesaN = Integer.parseInt(jtMesa.getText());
-        int moso = Integer.parseInt(jtMesero.getText());
-        Mesa mesa = new Mesa(mesaN);
-        Mesero mesero = new Mesero(moso);
-        Pedido pedido = new Pedido(mesa, mesero, jcEntregado.isSelected(), jcPagado.isSelected());
 
         PedidoData pd = new PedidoData();
-        pd.editarPedido(pedido);
+        pd.setearEntregado(jcEntregado.isSelected(), idPedido);
+        this.dispose();
+        PedidoVistaCOPIA.CargarTabla();
     }//GEN-LAST:event_jbConfirmarActionPerformed
 
     private void jbSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSalirMouseEntered
@@ -220,7 +202,6 @@ public class EditarPedidoVistaCOPIA extends javax.swing.JDialog {
     private javax.swing.JButton jbConfirmar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JCheckBox jcEntregado;
-    private javax.swing.JCheckBox jcPagado;
     private javax.swing.JTextField jtMesa;
     private javax.swing.JTextField jtMesero;
     // End of variables declaration//GEN-END:variables

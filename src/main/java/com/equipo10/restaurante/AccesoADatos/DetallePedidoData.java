@@ -122,4 +122,18 @@ public class DetallePedidoData {
         }
         return ultimo;
     }
+    public boolean verificarPedidosEnDetalles(int idPedido){
+        String sql="SELECT idPedido FROM pedidodetalle where idPedido=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            
+        }
+        return false;
+    }
 }
