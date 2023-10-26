@@ -65,7 +65,7 @@ DefaultTableModel modelo=new DefaultTableModel();
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(230, 290, 55, 28);
+        jButton1.setBounds(220, 140, 55, 28);
 
         jBuscar.setEditable(false);
         jPanel1.add(jBuscar);
@@ -82,7 +82,7 @@ DefaultTableModel modelo=new DefaultTableModel();
         jScrollPane1.setViewportView(jTabla);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(2, 76, 300, 210);
+        jScrollPane1.setBounds(2, 76, 300, 60);
 
         JbBuscar.setText("Buscar");
         JbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +91,7 @@ DefaultTableModel modelo=new DefaultTableModel();
             }
         });
         jPanel1.add(JbBuscar);
-        JbBuscar.setBounds(10, 290, 67, 28);
+        JbBuscar.setBounds(0, 140, 67, 28);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 460, 316);
@@ -100,7 +100,7 @@ DefaultTableModel modelo=new DefaultTableModel();
     }// </editor-fold>//GEN-END:initComponents
 
     private void PorMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PorMesaActionPerformed
-        // TODO add your handling code here:
+        jBuscar.setEditable(true);
     }//GEN-LAST:event_PorMesaActionPerformed
 
     private void PorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PorIdActionPerformed
@@ -152,12 +152,12 @@ jTabla.setModel(modelo);
     private void cargarTabla() {
 
         List<Pedido> pedidos = new ArrayList<>();
-
+        PedidoData pd = new PedidoData();
+        
         if (PorId.isSelected()) {
-            PedidoData pd = new PedidoData();
             int idMesa = Integer.parseInt(jBuscar.getText());
-            pedidos = pd.obtenerPedidosXidMesa(idMesa);
-            for (Pedido pedido : pedidos) {
+                Pedido pedido = new Pedido();
+                pedido = pd.buscarPedido(idMesa);
                 modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEntregado(), pedido.isPagado(), pedido.isEstado()});
             }
             if (PorMesa.isSelected()) {
@@ -168,5 +168,5 @@ jTabla.setModel(modelo);
             }
         }
     }
-}
+
 
