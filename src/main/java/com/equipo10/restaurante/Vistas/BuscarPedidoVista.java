@@ -31,8 +31,9 @@ DefaultTableModel modelo=new DefaultTableModel();
         jBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
+        JbBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -55,7 +56,7 @@ DefaultTableModel modelo=new DefaultTableModel();
             }
         });
         jPanel1.add(PorMesa);
-        PorMesa.setBounds(329, 6, 115, 18);
+        PorMesa.setBounds(170, 10, 115, 18);
 
         jButton1.setText("salilr");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -64,11 +65,11 @@ DefaultTableModel modelo=new DefaultTableModel();
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(380, 290, 55, 28);
+        jButton1.setBounds(230, 290, 55, 28);
 
         jBuscar.setEditable(false);
         jPanel1.add(jBuscar);
-        jBuscar.setBounds(92, 36, 197, 28);
+        jBuscar.setBounds(50, 40, 197, 28);
 
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -81,7 +82,16 @@ DefaultTableModel modelo=new DefaultTableModel();
         jScrollPane1.setViewportView(jTabla);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(2, 76, 460, 210);
+        jScrollPane1.setBounds(2, 76, 300, 210);
+
+        JbBuscar.setText("Buscar");
+        JbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JbBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(JbBuscar);
+        JbBuscar.setBounds(10, 290, 67, 28);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 460, 316);
@@ -101,6 +111,10 @@ DefaultTableModel modelo=new DefaultTableModel();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void JbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbBuscarActionPerformed
+        cargarTabla();
+    }//GEN-LAST:event_JbBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -114,6 +128,7 @@ DefaultTableModel modelo=new DefaultTableModel();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JbBuscar;
     private javax.swing.JRadioButton PorId;
     private javax.swing.JRadioButton PorMesa;
     private javax.swing.ButtonGroup buttonGroup1;

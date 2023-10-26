@@ -145,7 +145,7 @@ public class PedidoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Inscripcion");
+            JOptionPane.showMessageDialog(null, " Error al acceder pedidos");
         }
         return pedidos;
     }
