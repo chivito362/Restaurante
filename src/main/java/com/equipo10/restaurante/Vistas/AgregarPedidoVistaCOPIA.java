@@ -230,6 +230,7 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         Pedido pedido = null;
         try{
             Producto produ;
+            if(cbMesa.getSelectedItem()!=null && cbMozo.getSelectedItem()!=null){
         if (tabla.getSelectedRows().length > 0) {
             for (int cada : tabla.getSelectedRows()) {
                 produ = (Producto) modelo.getValueAt(cada, 0);
@@ -241,7 +242,8 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
             int moso = ((Mesero)cbMozo.getSelectedItem()).getIdMesero();
             Mesa mesa = md.buscarMesa(mesaN);
             Mesero mesero = med.buscarMozoxId(moso);
-            pedido = new Pedido(pd.ultimo(),mesa, mesero, false, false, true);
+            int idPedido=pd.ultimo();
+            pedido = new Pedido(idPedido,mesa, mesero, false, false, true);
             
             pd.agregarPedido(pedido);
             
@@ -251,20 +253,28 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
             
             int num = 0;
             for (Producto cada : productos) {
-                //total = (double) (Double.parseDouble(modelo.getValueAt(num, 1).toString()) * cada.getPrecio());
                 DetallePedido dp = new DetallePedido(dpd.ultimo(),cada.getIdProducto(), cant.get(num), pedido);
                 num += 1;
- 
+                
                 dpd.agregarDetallePedido(dp);
             }
+            
+            if(dpd.verificarPedidosEnDetalles(idPedido)){
+            JOptionPane.showMessageDialog(null, "Pedido añadido con exito");
+            }else{
+                pd.anularPedido(idPedido);
+            }
             mostrarEnTabla();
-
+        }
+        }else{
+            JOptionPane.showMessageDialog(null, "El mozo y la mesa deben estar seleccionados");
         }}catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Todos los productos seleccionados deben tener cantidad");
             }
 
         
         cbMesa.setSelectedIndex(-1);
+        cbMozo.setSelectedIndex(-1);
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSalirMouseEntered

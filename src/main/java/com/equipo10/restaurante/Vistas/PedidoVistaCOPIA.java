@@ -4,11 +4,19 @@
  */
 package com.equipo10.restaurante.Vistas;
 
+import com.equipo10.restaurante.AccesoADatos.MesaData;
+import com.equipo10.restaurante.AccesoADatos.MeseroData;
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
+import com.equipo10.restaurante.Entidades.Mesa;
+import com.equipo10.restaurante.Entidades.Mesero;
 import com.equipo10.restaurante.Entidades.Pedido;
+import com.equipo10.restaurante.Entidades.Producto;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -22,10 +30,12 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     private javax.swing.JDesktopPane Escritorio;
 
     private static PedidoData pd = new PedidoData();
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private static DefaultTableModel modelo = new DefaultTableModel();
     private static DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
     private static DefaultListCellRenderer dlcr = new DefaultListCellRenderer();
     public static Pedido pedidoGlobal = new Pedido();
+    private MesaData m=new MesaData();
+    private MeseroData me=new MeseroData();
 
     /**
      * Creates new form PedidoVistaCOPIA
@@ -223,7 +233,11 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
-        EditarPedidoVistaCOPIA epv = new EditarPedidoVistaCOPIA(null, true);
+        int fila=jtTabla1.getSelectedRow();
+        int idMesa=Integer.valueOf(modelo.getValueAt(fila, 1).toString());
+        int idPedido=Integer.valueOf(modelo.getValueAt(fila, 0).toString());
+        String mesero=modelo.getValueAt(fila, 2).toString();
+        EditarPedidoVistaCOPIA epv = new EditarPedidoVistaCOPIA(null, true,traerMesa(idMesa),mesero,idPedido);
         epv.setSize(360, 270);
         epv.setLocationRelativeTo(Login.prin);
         epv.setVisible(true);
@@ -254,7 +268,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }//GEN-LAST:event_atrasMouseReleased
 
     private void jbDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalleActionPerformed
-        detalleProductos dp=new detalleProductos();
+        detalleProductos dp=new detalleProductos(productosDelPedido());
         dp.setSize(360, 270);
         dp.setLocationRelativeTo(Login.prin);
         dp.setVisible(true);
@@ -269,8 +283,8 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbDetalle;
     private javax.swing.JButton jbEditar;
-    private javax.swing.JComboBox<String> jcFiltro;
-    private javax.swing.JTable jtTabla1;
+    private static javax.swing.JComboBox<String> jcFiltro;
+    public static javax.swing.JTable jtTabla1;
     // End of variables declaration//GEN-END:variables
 
     private void ArmarTabla() {
@@ -286,7 +300,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
 
     }
 
-    private void CargarTabla() {
+    public static void CargarTabla() {
         switch (jcFiltro.getSelectedIndex()) {
             case 0:
                 modelo.setRowCount(0);
@@ -330,5 +344,13 @@ int fila=jtTabla1.getSelectedRow();
 int id=Integer.valueOf(modelo.getValueAt(fila, 0).toString());
         
    return id;     
+}
+
+public ArrayList<Producto> productosDelPedido(){
+PedidoData pd=new PedidoData();
+return pd.listarProductosDelPedido(traerIdFila());
+}
+public Mesa traerMesa(int id){
+    return m.buscarMesa(id);
 }
 }

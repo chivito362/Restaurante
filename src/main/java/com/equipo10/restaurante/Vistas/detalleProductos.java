@@ -8,8 +8,10 @@ import com.equipo10.restaurante.Entidades.Pedido;
 import com.equipo10.restaurante.Entidades.Producto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -17,11 +19,11 @@ public class detalleProductos extends javax.swing.JDialog {
 DefaultTableModel modelo=new DefaultTableModel();
 //DefaultTableModel modelo2=new DefaultTableModel();
 private javax.swing.JDesktopPane Escritorio;
-
-    public detalleProductos() {
+    ArrayList<Producto> productos;
+    public detalleProductos(ArrayList j) {
         initComponents();
+        this.productos=j;
         modeloTabla();
-//        modeloTabla2();
         cargarTabla();
     }
 
@@ -108,14 +110,6 @@ private javax.swing.JDesktopPane Escritorio;
     }//GEN-LAST:event_jbConfirmarPActionPerformed
 
   
-    public static void main(String args[]) {
-     
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new detalleProductos().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -145,33 +139,17 @@ jtTablaProductos.setModel(modelo);
 //jtTablaP2.setModel(modelo2);
 //}
 
-private void cargarTabla(){
-limpiarTabla();
-List<Producto> productos=new ArrayList<>();
-PedidoData pd=new PedidoData();
-PedidoVistaCOPIA pdv=new PedidoVistaCOPIA();
-    
- productos = pd.listarProductosDelPedido(pdv.traerIdFila());
-    if (productos.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "No hay datos");
-    }else{
-    for (Producto producto : productos) {
-        modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombre(), producto.getCantidadEnStock(), producto.getPrecio(), producto.isEstado()});
-    }
-//            for (int i = 0; i < productos.size(); i++) {
-//                Producto producto = productos.get(i);
-//                for (int j = 0; j < productos.size(); j++) {
-//                  modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombre(), producto.getCantidadEnStock(), producto.getPrecio(), producto.isEstado()});
-//                }
-
- //           }
-        }
-    }
     
 
 private void limpiarTabla(){
         for (int i = modelo.getRowCount()-1; i >= 0; i--) {
             modelo.removeRow(i);
+        }
+    }
+
+    private void cargarTabla() {
+        for (Producto producto : productos) {
+            modelo.addRow(new Object[]{producto.getIdProducto(), producto.getNombre(), producto.getCantidadEnStock(), producto.getPrecio(), producto.isEstado()});
         }
     }
 }

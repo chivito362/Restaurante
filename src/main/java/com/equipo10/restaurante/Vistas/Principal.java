@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 public class Principal extends javax.swing.JFrame {
 public static ReservaVista rv = new ReservaVista();
+int xMouse, yMouse;
 MesaVista mesa=new MesaVista();
 CategoriaData ca=new CategoriaData();
     public Principal() {
@@ -41,6 +42,7 @@ CategoriaData ca=new CategoriaData();
         btnSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanelPrincipal.setBackground(new java.awt.Color(251, 250, 241));
         jPanelPrincipal.setPreferredSize(new java.awt.Dimension(833, 581));
@@ -165,6 +167,16 @@ CategoriaData ca=new CategoriaData();
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jMenuBar1.setPreferredSize(new java.awt.Dimension(833, 23));
+        jMenuBar1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jMenuBar1MouseDragged(evt);
+            }
+        });
+        jMenuBar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuBar1MousePressed(evt);
+            }
+        });
 
         jMenu1.setBackground(new java.awt.Color(251, 250, 241));
         jMenu1.setForeground(new java.awt.Color(251, 250, 241));
@@ -248,6 +260,17 @@ CategoriaData ca=new CategoriaData();
             System.exit(0);
         }
     }//GEN-LAST:event_btnSalirMouseClicked
+
+    private void jMenuBar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuBar1MousePressed
+       xMouse = evt.getX();
+       yMouse = evt.getY();
+    }//GEN-LAST:event_jMenuBar1MousePressed
+
+    private void jMenuBar1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuBar1MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse,y - yMouse);
+    }//GEN-LAST:event_jMenuBar1MouseDragged
 
   
 

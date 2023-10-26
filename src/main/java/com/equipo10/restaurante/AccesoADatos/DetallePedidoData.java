@@ -53,7 +53,7 @@ public class DetallePedidoData {
     public void agregarDetallePedido(DetallePedido detalle) {
         ProductoData pd=new ProductoData();
         Producto p=pd.TraerProducto(detalle.getIdProducto());
-        if(p.getCantidad()>=detalle.getCantidad() && detalle.getCantidad()!=0){
+        if(p.getCantidadEnStock()>=detalle.getCantidad() && detalle.getCantidad()!=0){
             String insertDetalleSQL = "INSERT INTO pedidoDetalle (idPedidoDetalle, idPedido, idProducto, totalPedido, cantidad) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(insertDetalleSQL);
@@ -121,5 +121,19 @@ public class DetallePedidoData {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return ultimo;
+    }
+    public boolean verificarPedidosEnDetalles(int idPedido){
+        String sql="SELECT idPedido FROM pedidodetalle where idPedido=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            
+        }
+        return false;
     }
 }
