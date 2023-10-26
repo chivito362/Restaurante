@@ -155,7 +155,7 @@ jTabla.setModel(modelo);
         PedidoData pd = new PedidoData();
         
         if (PorMesa.isSelected()) {
-            
+            limpiarTabla();
             int idMesa = Integer.parseInt(jBuscar.getText());
                
                 pedidos=pd.obtenerPedidosXidMesa(idMesa);
@@ -164,12 +164,18 @@ jTabla.setModel(modelo);
             }
             }
         if (PorId.isSelected()) {
+            limpiarTabla();
                 Pedido pedido = new Pedido();
                 int id = Integer.parseInt(jBuscar.getText());
                 pedido = pd.buscarPedido(id);
                 modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEntregado(), pedido.isPagado(), pedido.isEstado()});
             }
         }
+    private void limpiarTabla(){
+        for (int i = modelo.getRowCount()-1; i >= 0; i--) {
+            modelo.removeRow(i);
+        }
+    }
     }
 
 
