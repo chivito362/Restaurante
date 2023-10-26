@@ -154,13 +154,16 @@ jTabla.setModel(modelo);
         List<Pedido> pedidos = new ArrayList<>();
         PedidoData pd = new PedidoData();
         
-        if (PorId.isSelected()) {
+        if (PorMesa.isSelected()) {
+            
             int idMesa = Integer.parseInt(jBuscar.getText());
-                Pedido pedido = new Pedido();
-                pedido = pd.buscarPedido(idMesa);
+               
+                pedidos=pd.obtenerPedidosXidMesa(idMesa);
+                for (Pedido pedido : pedidos) {
                 modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getIdMesero(), pedido.isEntregado(), pedido.isPagado(), pedido.isEstado()});
             }
-            if (PorMesa.isSelected()) {
+            }
+        if (PorId.isSelected()) {
                 Pedido pedido = new Pedido();
                 int id = Integer.parseInt(jBuscar.getText());
                 pedido = pd.buscarPedido(id);

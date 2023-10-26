@@ -128,7 +128,7 @@ public class PedidoData {
 
     public List<Pedido> obtenerPedidosXidMesa(int idMesa) {
         List<Pedido> pedidos = new ArrayList<>();
-        String sql = "SELECT mesa.* FROM pedido JOIN mesa ON (pedido.idMesa=mesa.idmesa) WHERE idmesa=?";
+        String sql = "SELECT * FROM pedido where idMesa=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMesa);
@@ -141,11 +141,12 @@ public class PedidoData {
                 pedido.setMesero(new Mesero(rs.getInt("idMesero")));
                 pedido.setEntregado(rs.getBoolean("entregado"));
                 pedido.setPagado(rs.getBoolean("pagado"));
+                pedido.setPagado(rs.getBoolean("Estado"));
                 pedidos.add(pedido);
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, " Error al acceder pedidos");
+            JOptionPane.showMessageDialog(null, " Error al acceder ");
         }
         return pedidos;
     }
