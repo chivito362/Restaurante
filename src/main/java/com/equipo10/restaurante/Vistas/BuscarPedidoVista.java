@@ -113,6 +113,7 @@ DefaultTableModel modelo=new DefaultTableModel();
 
     private void JbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbBuscarActionPerformed
         cargarTabla();
+        jBuscar.setText("");
     }//GEN-LAST:event_JbBuscarActionPerformed
 
     /**
@@ -155,7 +156,7 @@ jTabla.setModel(modelo);
         PedidoData pd = new PedidoData();
         
         if (PorMesa.isSelected()) {
-            jBuscar.setText("");
+           // jBuscar.setText("");
             limpiarTabla();
             int idMesa = Integer.parseInt(jBuscar.getText());
                
@@ -165,7 +166,7 @@ jTabla.setModel(modelo);
             }
             }
         if (PorId.isSelected()) {
-            jBuscar.setText("");
+         //   jBuscar.setText("");
             limpiarTabla();
                 Pedido pedido = new Pedido();
                 int id = Integer.parseInt(jBuscar.getText());
