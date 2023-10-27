@@ -155,6 +155,7 @@ jTabla.setModel(modelo);
         PedidoData pd = new PedidoData();
         
         if (PorMesa.isSelected()) {
+            jBuscar.setText("");
             limpiarTabla();
             int idMesa = Integer.parseInt(jBuscar.getText());
                
@@ -164,6 +165,7 @@ jTabla.setModel(modelo);
             }
             }
         if (PorId.isSelected()) {
+            jBuscar.setText("");
             limpiarTabla();
                 Pedido pedido = new Pedido();
                 int id = Integer.parseInt(jBuscar.getText());
