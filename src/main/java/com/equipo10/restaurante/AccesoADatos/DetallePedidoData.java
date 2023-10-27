@@ -14,8 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,53 +49,54 @@ public class DetallePedidoData {
     }
 
     public void agregarDetallePedido(DetallePedido detalle) {
-        ProductoData pd=new ProductoData();
-        Producto p=pd.TraerProducto(detalle.getIdProducto());
-        if(p.getCantidadEnStock()>=detalle.getCantidad() && detalle.getCantidad()!=0){
+        ProductoData pd = new ProductoData();
+        Producto p = pd.TraerProducto(detalle.getIdProducto());
+        if (p.getCantidadEnStock() >= detalle.getCantidad() && detalle.getCantidad() != 0) {
             String insertDetalleSQL = "INSERT INTO pedidoDetalle (idPedidoDetalle, idPedido, idProducto, totalPedido, cantidad) VALUES (?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(insertDetalleSQL);
+            try {
+                PreparedStatement ps = con.prepareStatement(insertDetalleSQL);
 
-            ps.setInt(1, detalle.getIdDetalle());
-            ps.setInt(2, detalle.getPedido().getIdPedido());
-            ps.setInt(3, detalle.getIdProducto());
-            ps.setDouble(4, detalle.getTotalPedido());
-            ps.setInt(5, detalle.getCantidad());
-            ps.executeUpdate();
-            PreparedStatement ps1=con.prepareStatement("Update Producto Set CantidadenStock =CantidadenStock - ? where idProducto=?");
+                ps.setInt(1, detalle.getIdDetalle());
+                ps.setInt(2, detalle.getPedido().getIdPedido());
+                ps.setInt(3, detalle.getIdProducto());
+                ps.setDouble(4, detalle.getTotalPedido());
+                ps.setInt(5, detalle.getCantidad());
+                ps.executeUpdate();
+                PreparedStatement ps1 = con.prepareStatement("Update Producto Set CantidadenStock =CantidadenStock - ? where idProducto=?");
                 ps1.setInt(1, detalle.getCantidad());
                 ps1.setInt(2, detalle.getIdProducto());
                 ps1.executeUpdate();
                 ps1.close();
                 ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay stock para el producto " + p.getNombre());
         }
-        }else{
-            JOptionPane.showMessageDialog(null, "No hay stock para el producto "+p.getNombre());
-        }
-        
+
     }
 
     public List<DetallePedido> obtenerDetalleXPedido(Pedido pedido) {
         List<DetallePedido> lista = new ArrayList<>();
-        String sql = "SELECT * FROM pedidoDetalle WHERE idPedido = ?";
+        String sql = "SELECT * FROM pedidodetalle WHERE idPedido = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, pedido.getIdPedido());
+            ps.setInt(1,pedido.getIdPedido());
             ResultSet rs = ps.executeQuery();
-            DetallePedido dp = new DetallePedido();
             
-            while (rs.next()) {
+            while(rs.next()){
+                DetallePedido dp = new DetallePedido();
                 dp.setIdDetalle(rs.getInt(1));
                 dp.setPedido(pedido);
                 dp.setIdProducto(rs.getInt(3));
                 dp.setTotalPedido(rs.getDouble(4));
                 dp.setCantidad(rs.getInt(5));
-
+                
                 lista.add(dp);
             }
+            ps.close();
             rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
@@ -122,17 +121,18 @@ public class DetallePedidoData {
         }
         return ultimo;
     }
-    public boolean verificarPedidosEnDetalles(int idPedido){
-        String sql="SELECT idPedido FROM pedidodetalle where idPedido=?";
+
+    public boolean verificarPedidosEnDetalles(int idPedido) {
+        String sql = "SELECT idPedido FROM pedidodetalle where idPedido=?";
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idPedido);
-            ResultSet rs=ps.executeQuery();
-            if(rs.next()){
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
                 return true;
             }
         } catch (SQLException ex) {
-            
+
         }
         return false;
     }

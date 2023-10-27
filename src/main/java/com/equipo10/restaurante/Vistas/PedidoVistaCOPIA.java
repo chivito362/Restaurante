@@ -4,13 +4,17 @@
  */
 package com.equipo10.restaurante.Vistas;
 
+import com.equipo10.restaurante.AccesoADatos.DetallePedidoData;
 import com.equipo10.restaurante.AccesoADatos.MesaData;
 import com.equipo10.restaurante.AccesoADatos.MeseroData;
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
+import com.equipo10.restaurante.Entidades.DetallePedido;
 import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.Entidades.Mesero;
 import com.equipo10.restaurante.Entidades.Pedido;
 import com.equipo10.restaurante.Entidades.Producto;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
@@ -27,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Facua
  */
 public class PedidoVistaCOPIA extends javax.swing.JPanel {
+
     private javax.swing.JDesktopPane Escritorio;
 
     private static PedidoData pd = new PedidoData();
@@ -34,8 +39,8 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     private static DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
     private static DefaultListCellRenderer dlcr = new DefaultListCellRenderer();
     public static Pedido pedidoGlobal = new Pedido();
-    private MesaData m=new MesaData();
-    private MeseroData me=new MeseroData();
+    private MesaData m = new MesaData();
+    private MeseroData me = new MeseroData();
 
     /**
      * Creates new form PedidoVistaCOPIA
@@ -149,9 +154,12 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jtTabla1.setRowHeight(25);
         jtTabla1.setSelectionBackground(new java.awt.Color(57, 137, 111));
         jtTabla1.setSelectionForeground(new java.awt.Color(251, 250, 241));
-        jtTabla1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtTabla1MouseClicked(evt);
+        jtTabla1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtTabla1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtTabla1FocusLost(evt);
             }
         });
         jScrollPane1.setViewportView(jtTabla1);
@@ -188,6 +196,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         jbDetalle.setBorder(null);
         jbDetalle.setBorderPainted(false);
         jbDetalle.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jbDetalle.setEnabled(false);
         jbDetalle.setFocusPainted(false);
         jbDetalle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbDetalle.addActionListener(new java.awt.event.ActionListener() {
@@ -233,26 +242,22 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
-        int fila=jtTabla1.getSelectedRow();
-        int idMesa=Integer.valueOf(modelo.getValueAt(fila, 1).toString());
-        int idPedido=Integer.valueOf(modelo.getValueAt(fila, 0).toString());
-        String mesero=modelo.getValueAt(fila, 2).toString();
-        EditarPedidoVistaCOPIA epv = new EditarPedidoVistaCOPIA(null, true,traerMesa(idMesa),mesero,idPedido);
+        int fila = jtTabla1.getSelectedRow();
+        int idMesa = Integer.parseInt(modelo.getValueAt(fila, 1).toString());
+        int idPedido = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+        String mesero = modelo.getValueAt(fila, 2).toString();
+        EditarPedidoVistaCOPIA epv = new EditarPedidoVistaCOPIA(null, true, traerMesa(idMesa), mesero, idPedido);
         epv.setSize(360, 270);
         epv.setLocationRelativeTo(Login.prin);
         epv.setVisible(true);
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        BuscarPedidoVista dp=new BuscarPedidoVista();
+        BuscarPedidoVista dp = new BuscarPedidoVista();
         dp.setSize(360, 270);
         dp.setLocationRelativeTo(Login.prin);
-        dp.setVisible(true);        
+        dp.setVisible(true);
     }//GEN-LAST:event_jbBuscarActionPerformed
-
-    private void jtTabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTabla1MouseClicked
-        jbEditar.setEnabled(true);
-    }//GEN-LAST:event_jtTabla1MouseClicked
 
     private void jcFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcFiltroActionPerformed
         CargarTabla();
@@ -271,11 +276,45 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }//GEN-LAST:event_atrasMouseReleased
 
     private void jbDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalleActionPerformed
-        detalleProductos dp=new detalleProductos(productosDelPedido());
-        dp.setSize(360, 270);
+        /*DetalleProducto dp = new DetalleProducto(Login.prin, true);
+        dp.setSize(470, 400);
         dp.setLocationRelativeTo(Login.prin);
-        dp.setVisible(true);
+        dp.setVisible(true);*/
+        
+        Detalle de = new Detalle(PedidoVistaCOPIA.detalleDelPedido());
+        de.setLocationRelativeTo(Login.prin);
+        de.setVisible(true);
+        
+        PrinterJob job = PrinterJob.getPrinterJob();
+        
+        job.setPrintable(de);
+        
+        if(job.printDialog()){
+            try{
+                job.print();
+            }catch(PrinterException ex){
+                
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,"No se pudo Imprimir");
+        }
+        
+        
     }//GEN-LAST:event_jbDetalleActionPerformed
+
+    private void jtTabla1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtTabla1FocusGained
+        if (jtTabla1.getSelectedRow() > -1) {
+            jbEditar.setEnabled(true);
+            jbDetalle.setEnabled(true);
+        }
+    }//GEN-LAST:event_jtTabla1FocusGained
+
+    private void jtTabla1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtTabla1FocusLost
+        if (jtTabla1.getSelectedRow() == -1) {
+            jbEditar.setEnabled(false);
+            jbDetalle.setEnabled(false);
+        }
+    }//GEN-LAST:event_jtTabla1FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -342,18 +381,24 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
                 break;
         }
     }
-public int traerIdFila(){
-int fila=jtTabla1.getSelectedRow();
-int id=Integer.valueOf(modelo.getValueAt(fila, 0).toString());
-        
-   return id;     
-}
 
-public ArrayList<Producto> productosDelPedido(){
-PedidoData pd=new PedidoData();
-return pd.listarProductosDelPedido(traerIdFila());
-}
-public Mesa traerMesa(int id){
-    return m.buscarMesa(id);
-}
+    public static int traerIdFila() {
+        int fila = jtTabla1.getSelectedRow();
+        int id = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+
+        return id;
+    }
+
+    public static List<DetallePedido> detalleDelPedido() {
+        List<DetallePedido> lista;
+        DetallePedidoData dpd = new DetallePedidoData();
+        PedidoData pd = new PedidoData();
+
+        lista = dpd.obtenerDetalleXPedido(pd.buscarPedido(traerIdFila()));
+        return lista;
+    }
+
+    public Mesa traerMesa(int id) {
+        return m.buscarMesa(id);
+    }
 }

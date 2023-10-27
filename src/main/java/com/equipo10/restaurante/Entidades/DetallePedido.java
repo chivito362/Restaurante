@@ -80,4 +80,9 @@ public class DetallePedido {
         this.totalPedido = totalPedido;
     }
 
+    @Override
+    public String toString() {
+        return "DetallePedido{" + "idDetalle=" + idDetalle + ", idProducto=" + idProducto + ", cantidad=" + cantidad + ", pedido=" + pedido.getIdPedido() + ", totalPedido=" + totalPedido + '}';
+    }
+
 }
