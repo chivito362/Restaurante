@@ -75,11 +75,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        if (idReserva != null) {
-            return"|ID: " + idMesa + "|Capacidad: " + capacidad + "|Estado: " + estado + "|Reserva: " + idReserva.getNombreApellido() + "|";
-        }else{
-            return"|ID: " + idMesa + "|Capacidad: " + capacidad + "|Estado: " + estado + "|Reserva: NO TIENE|";
-        }
+        return "| "+idMesa+" |";
     }
 
 }

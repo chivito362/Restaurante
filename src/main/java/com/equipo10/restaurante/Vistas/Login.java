@@ -2,6 +2,11 @@ package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.Conexion;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -13,6 +18,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         Conexion.CrearBD();
+        //imagenes();
     }
 
     @SuppressWarnings("unchecked")
@@ -28,6 +34,7 @@ public class Login extends javax.swing.JFrame {
         txtUS = new javax.swing.JTextField();
         passwordtxt1 = new javax.swing.JLabel();
         txtPW = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
         passwordtxt = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -98,7 +105,6 @@ public class Login extends javax.swing.JFrame {
         btnMostrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMostrar.setFocusPainted(false);
         btnMostrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnMostrar.setOpaque(true);
         btnMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMostrarActionPerformed(evt);
@@ -165,6 +171,21 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(txtPW, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 230, 200, 40));
 
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("?");
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
+
         passwordtxt.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         passwordtxt.setForeground(new java.awt.Color(255, 255, 255));
         passwordtxt.setText("Contraseña");
@@ -194,6 +215,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogActionPerformed
@@ -296,12 +318,21 @@ public class Login extends javax.swing.JFrame {
         btnLog.setBackground(new Color(0,21,36));
     }//GEN-LAST:event_btnLogMouseExited
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create("https://i.imgflip.com/6c24jd.jpg"));
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barra;
     private javax.swing.JButton btnLog;
     private javax.swing.JToggleButton btnMostrar;
     private javax.swing.JLabel exit;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -311,4 +342,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPW;
     private javax.swing.JTextField txtUS;
     // End of variables declaration//GEN-END:variables
+
+    
+
 }

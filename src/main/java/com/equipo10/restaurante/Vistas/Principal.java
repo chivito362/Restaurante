@@ -1,25 +1,30 @@
-
 package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.CategoriaData;
 import com.equipo10.restaurante.AccesoADatos.MeseroData;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 public class Principal extends javax.swing.JFrame {
-public static ReservaVista rv = new ReservaVista();
-int xMouse, yMouse;
-MesaVista mesa=new MesaVista();
-CategoriaData ca=new CategoriaData();
+
+    public static ReservaVista rv = new ReservaVista();
+    int xMouse, yMouse;
+    MesaVista mesa = new MesaVista();
+    CategoriaData ca = new CategoriaData();
+
     public Principal() {
         initComponents();
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/patron.png")));
+        //imagenes();
         ca.CargarEnumsABD();
         crearVentana(mesa);
+        
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -32,7 +37,6 @@ CategoriaData ca=new CategoriaData();
         Escritorio = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -154,9 +158,6 @@ CategoriaData ca=new CategoriaData();
 
         jPanelPrincipal.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 86, 5, 495));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoPrincipal.png"))); // NOI18N
-        jPanelPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 16, 180, 180));
-
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/patron.png"))); // NOI18N
         jPanelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, -80, 1030, 700));
@@ -166,6 +167,7 @@ CategoriaData ca=new CategoriaData();
         jMenuBar1.setForeground(new java.awt.Color(251, 250, 241));
         jMenuBar1.setBorderPainted(false);
         jMenuBar1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jMenuBar1.setOpaque(true);
         jMenuBar1.setPreferredSize(new java.awt.Dimension(833, 23));
         jMenuBar1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -238,11 +240,11 @@ CategoriaData ca=new CategoriaData();
     }//GEN-LAST:event_btnPedidosActionPerformed
 
     private void btnMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesasActionPerformed
-          crearVentana(mesa);
+        crearVentana(mesa);
     }//GEN-LAST:event_btnMesasActionPerformed
 
     private void MenuCargaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCargaProductosActionPerformed
-        ProductoCargaVistaCOPIA venta=new ProductoCargaVistaCOPIA(null,true);
+        ProductoCargaVistaCOPIA venta = new ProductoCargaVistaCOPIA(null, true);
         venta.setLocationRelativeTo(this);
         venta.setVisible(true);
     }//GEN-LAST:event_MenuCargaProductosActionPerformed
@@ -253,26 +255,25 @@ CategoriaData ca=new CategoriaData();
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
-        int r=JOptionPane.showConfirmDialog(null, "Seguro Desea Salir?");
-        if(r==0){
-            MeseroData me=new MeseroData();
+        int r = JOptionPane.showConfirmDialog(null, "Seguro Desea Salir?");
+        if (r == 0) {
+            MeseroData me = new MeseroData();
             me.CierreLaboral();
             System.exit(0);
         }
     }//GEN-LAST:event_btnSalirMouseClicked
 
     private void jMenuBar1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuBar1MousePressed
-       xMouse = evt.getX();
-       yMouse = evt.getY();
+        xMouse = evt.getX();
+        yMouse = evt.getY();
     }//GEN-LAST:event_jMenuBar1MousePressed
 
     private void jMenuBar1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuBar1MouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse,y - yMouse);
+        this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_jMenuBar1MouseDragged
 
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
@@ -283,18 +284,16 @@ CategoriaData ca=new CategoriaData();
     private javax.swing.JButton btnUsuarios;
     private javax.swing.JButton jBreservas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanelPrincipal;
+    public static javax.swing.JPanel jPanelPrincipal;
     // End of variables declaration//GEN-END:variables
 
-
-    private void showPanel(JPanel p){
+    private void showPanel(JPanel p) {
         Escritorio.removeAll();
         Escritorio.add(p);
         p.setSize(633, 490);
@@ -302,13 +301,20 @@ CategoriaData ca=new CategoriaData();
         Escritorio.revalidate();
         Escritorio.repaint();
     }
-    
-    private void crearVentana(JInternalFrame fi){      
+
+    private void crearVentana(JInternalFrame fi) {
         Escritorio.removeAll();
         Escritorio.repaint();
         fi.setVisible(true);
         Escritorio.setSize(fi.getWidth(), fi.getHeight());
         Escritorio.add(fi);
         Escritorio.moveToFront(fi);
-}
+    }
+    
+//    private void imagenes() {
+//        jlogo.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png")).getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
+//        
+//        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/logo.png")).getScaledInstance(128, 128, Image.SCALE_SMOOTH));
+//        
+//    }
 }
