@@ -276,12 +276,12 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
     }//GEN-LAST:event_atrasMouseReleased
 
     private void jbDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalleActionPerformed
-        /*DetalleProducto dp = new DetalleProducto(Login.prin, true);
+        DetalleProducto dp = new DetalleProducto(Login.prin, true);
         dp.setSize(470, 400);
         dp.setLocationRelativeTo(Login.prin);
-        dp.setVisible(true);*/
+        dp.setVisible(true);
         
-        Detalle de = new Detalle(PedidoVistaCOPIA.detalleDelPedido());
+        /*Detalle de = new Detalle(PedidoVistaCOPIA.detalleDelPedido());
         de.setLocationRelativeTo(Login.prin);
         de.setVisible(true);
         
@@ -298,7 +298,7 @@ public class PedidoVistaCOPIA extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(this,"No se pudo Imprimir");
         }
-        
+        */
         
     }//GEN-LAST:event_jbDetalleActionPerformed
 

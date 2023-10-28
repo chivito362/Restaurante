@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 
 /**
  *
@@ -47,26 +48,14 @@ public class Detalle extends javax.swing.JFrame implements Printable{
 
         fondo = new javax.swing.JPanel();
         precio1 = new javax.swing.JLabel();
-        precio6 = new javax.swing.JLabel();
-        precio5 = new javax.swing.JLabel();
-        precio4 = new javax.swing.JLabel();
         precio2 = new javax.swing.JLabel();
-        precio3 = new javax.swing.JLabel();
         num1 = new javax.swing.JLabel();
         num2 = new javax.swing.JLabel();
-        num3 = new javax.swing.JLabel();
-        num4 = new javax.swing.JLabel();
-        num5 = new javax.swing.JLabel();
-        num6 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel14 = new javax.swing.JLabel();
         mesero = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        produ3 = new javax.swing.JLabel();
         produ1 = new javax.swing.JLabel();
-        produ4 = new javax.swing.JLabel();
-        produ5 = new javax.swing.JLabel();
-        produ6 = new javax.swing.JLabel();
         produ2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -111,35 +100,11 @@ public class Detalle extends javax.swing.JFrame implements Printable{
         precio1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 8));
         fondo.add(precio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 70, 20));
 
-        precio6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        precio6.setForeground(new java.awt.Color(0, 0, 0));
-        precio6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        precio6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 8));
-        fondo.add(precio6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 70, 20));
-
-        precio5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        precio5.setForeground(new java.awt.Color(0, 0, 0));
-        precio5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        precio5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 8));
-        fondo.add(precio5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 70, 20));
-
-        precio4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        precio4.setForeground(new java.awt.Color(0, 0, 0));
-        precio4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        precio4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 8));
-        fondo.add(precio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 70, 20));
-
         precio2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         precio2.setForeground(new java.awt.Color(0, 0, 0));
         precio2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         precio2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 8));
         fondo.add(precio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 70, 20));
-
-        precio3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        precio3.setForeground(new java.awt.Color(0, 0, 0));
-        precio3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        precio3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 8));
-        fondo.add(precio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 70, 20));
 
         num1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         num1.setForeground(new java.awt.Color(0, 0, 0));
@@ -150,26 +115,6 @@ public class Detalle extends javax.swing.JFrame implements Printable{
         num2.setForeground(new java.awt.Color(0, 0, 0));
         num2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         fondo.add(num2, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 220, 25, 20));
-
-        num3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        num3.setForeground(new java.awt.Color(0, 0, 0));
-        num3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(num3, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 250, 25, 20));
-
-        num4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        num4.setForeground(new java.awt.Color(0, 0, 0));
-        num4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(num4, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 280, 25, 20));
-
-        num5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        num5.setForeground(new java.awt.Color(0, 0, 0));
-        num5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(num5, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 310, 25, 20));
-
-        num6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        num6.setForeground(new java.awt.Color(0, 0, 0));
-        num6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(num6, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 340, 25, 20));
 
         jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
@@ -191,30 +136,10 @@ public class Detalle extends javax.swing.JFrame implements Printable{
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         fondo.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 310, 7));
 
-        produ3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        produ3.setForeground(new java.awt.Color(0, 0, 0));
-        produ3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(produ3, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 250, 223, 20));
-
         produ1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         produ1.setForeground(new java.awt.Color(0, 0, 0));
         produ1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         fondo.add(produ1, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 190, 223, 20));
-
-        produ4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        produ4.setForeground(new java.awt.Color(0, 0, 0));
-        produ4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(produ4, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 280, 223, 20));
-
-        produ5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        produ5.setForeground(new java.awt.Color(0, 0, 0));
-        produ5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(produ5, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 310, 223, 20));
-
-        produ6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        produ6.setForeground(new java.awt.Color(0, 0, 0));
-        produ6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        fondo.add(produ6, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 340, 223, 20));
 
         produ2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         produ2.setForeground(new java.awt.Color(0, 0, 0));
@@ -397,22 +322,10 @@ public class Detalle extends javax.swing.JFrame implements Printable{
     private javax.swing.JLabel mesero;
     private javax.swing.JLabel num1;
     private javax.swing.JLabel num2;
-    private javax.swing.JLabel num3;
-    private javax.swing.JLabel num4;
-    private javax.swing.JLabel num5;
-    private javax.swing.JLabel num6;
     private javax.swing.JLabel precio1;
     private javax.swing.JLabel precio2;
-    private javax.swing.JLabel precio3;
-    private javax.swing.JLabel precio4;
-    private javax.swing.JLabel precio5;
-    private javax.swing.JLabel precio6;
     private javax.swing.JLabel produ1;
     private javax.swing.JLabel produ2;
-    private javax.swing.JLabel produ3;
-    private javax.swing.JLabel produ4;
-    private javax.swing.JLabel produ5;
-    private javax.swing.JLabel produ6;
     private javax.swing.JLabel subtotal;
     private javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
@@ -431,8 +344,14 @@ public class Detalle extends javax.swing.JFrame implements Printable{
     
     private void cantidades() {
         int cont = detalles.size();
-
-        switch (cont) {
+        int cantidadY=250;
+        for (int i = 0; i < detalles.size(); i++) {
+            JLabel cantidad=new JLabel();
+            cantidad.setText(detalles.get(0).getCantidad() + "");
+            cantidad.setLocation(25, cantidadY);
+            cantidadY+=30;
+        }
+        /*switch (cont) {
             case 1:
                 num1.setText(detalles.get(0).getCantidad() + "");
                 break;
@@ -467,7 +386,7 @@ public class Detalle extends javax.swing.JFrame implements Printable{
                 num5.setText(detalles.get(4).getCantidad() + "");
                 num6.setText(detalles.get(5).getCantidad() + "");
                 break;
-        }
+        }*/
 
     }
 

@@ -16,6 +16,8 @@ import com.equipo10.restaurante.Entidades.Pedido;
 import com.equipo10.restaurante.Entidades.Producto;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,7 +38,7 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
     private static PedidoData pd = new PedidoData();
     private static MesaData md = new MesaData();
     private static MeseroData med = new MeseroData();
-
+    HashSet<Integer> filas=new HashSet<>();
     public AgregarPedidoVistaCOPIA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -183,7 +185,14 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         tabla.setRowHeight(30);
         tabla.setSelectionBackground(new java.awt.Color(57, 137, 111));
         tabla.setSelectionForeground(new java.awt.Color(251, 250, 241));
+        tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabla.setShowGrid(true);
+        tabla.setShowVerticalLines(false);
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla);
         if (tabla.getColumnModel().getColumnCount() > 0) {
             tabla.getColumnModel().getColumn(0).setResizable(false);
@@ -228,11 +237,23 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         List<Integer> cant = new ArrayList<>();
         ProductoData prd = new ProductoData();
         Pedido pedido = null;
+        HashSet<Integer> f=new HashSet<>();
+        int r=JOptionPane.showConfirmDialog(null, "Desea Confirmar el pedido?");
+        if(r==0){
         try{
             Producto produ;
             if(cbMesa.getSelectedItem()!=null && cbMozo.getSelectedItem()!=null){
-        if (tabla.getSelectedRows().length > 0) {
-            for (int cada : tabla.getSelectedRows()) {
+                
+        if (!filas.isEmpty()) {
+            for (Integer fila : filas) {
+                if(modelo.getValueAt(fila, 2).toString().equals("") ){
+                }else{
+                    f.add(fila);
+                }
+            }
+            System.out.println(f);
+            
+            for (int cada : f) {
                 produ = (Producto) modelo.getValueAt(cada, 0);
                 cant.add(Integer.valueOf(modelo.getValueAt(cada, 2).toString()));
                 productos.add(produ);
@@ -271,10 +292,8 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
         }}catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(null, "Todos los productos seleccionados deben tener cantidad");
             }
-
-        
-        cbMesa.setSelectedIndex(-1);
-        cbMozo.setSelectedIndex(-1);
+        filas.clear();
+        }
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSalirMouseEntered
@@ -288,6 +307,12 @@ public class AgregarPedidoVistaCOPIA extends javax.swing.JDialog {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+          if(tabla.getSelectedRow()>-1){
+        filas.add(tabla.getSelectedRow());
+          }  
+    }//GEN-LAST:event_tablaMouseClicked
 
     /**
      * @param args the command line arguments

@@ -40,7 +40,6 @@ public class DetalleProducto extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtTablaProductos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        print = new javax.swing.JButton();
         jlTotal = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -60,7 +59,6 @@ public class DetalleProducto extends javax.swing.JDialog {
         jbSalir.setBorderPainted(false);
         jbSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jbSalir.setOpaque(true);
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
@@ -121,22 +119,6 @@ public class DetalleProducto extends javax.swing.JDialog {
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 468, 30));
 
-        print.setBackground(new java.awt.Color(0, 21, 36));
-        print.setForeground(new java.awt.Color(255, 255, 255));
-        print.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/print.png"))); // NOI18N
-        print.setBorder(null);
-        print.setBorderPainted(false);
-        print.setContentAreaFilled(false);
-        print.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        print.setFocusPainted(false);
-        print.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        print.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                printActionPerformed(evt);
-            }
-        });
-        jPanel1.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 357, 36, 36));
-
         jlTotal.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
         jlTotal.setForeground(new java.awt.Color(35, 32, 31));
         jlTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -145,18 +127,18 @@ public class DetalleProducto extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(35, 32, 31));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Total");
+        jLabel3.setText("SubTotal");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 470, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
         pack();
@@ -167,26 +149,6 @@ public class DetalleProducto extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
-    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
-        Detalle de = new Detalle(PedidoVistaCOPIA.detalleDelPedido());
-        de.setLocationRelativeTo(this);
-        de.setVisible(true);
-        
-        PrinterJob job = PrinterJob.getPrinterJob();
-        
-        job.setPrintable(de);
-        
-        if(job.printDialog()){
-            try{
-                job.print();
-            }catch(PrinterException ex){
-                
-            }
-        }else{
-            JOptionPane.showMessageDialog(this,"No se pudo Imprimir");
-        }
-    }//GEN-LAST:event_printActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -196,7 +158,6 @@ public class DetalleProducto extends javax.swing.JDialog {
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlTotal;
     public static javax.swing.JTable jtTablaProductos;
-    private javax.swing.JButton print;
     // End of variables declaration//GEN-END:variables
 
     private void modeloTabla() {

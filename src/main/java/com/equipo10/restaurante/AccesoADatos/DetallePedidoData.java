@@ -47,20 +47,32 @@ public class DetallePedidoData {
             e.printStackTrace();
         }
     }
-
+    public double calcularTotalPedido(int idPedido) {
+        double total = 0;
+        String sql = "SELECT producto.Precio, pedidodetalle.cantidad FROM pedidodetalle JOIN producto ON pedidodetalle.idProducto = producto.idProducto WHERE pedidodetalle.idPedido = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                total += rs.getDouble("Precio") * rs.getInt("cantidad");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error consulta sql al traer total");
+        }
+        return total;
+    }
     public void agregarDetallePedido(DetallePedido detalle) {
         ProductoData pd = new ProductoData();
         Producto p = pd.TraerProducto(detalle.getIdProducto());
         if (p.getCantidadEnStock() >= detalle.getCantidad() && detalle.getCantidad() != 0) {
-            String insertDetalleSQL = "INSERT INTO pedidoDetalle (idPedidoDetalle, idPedido, idProducto, totalPedido, cantidad) VALUES (?, ?, ?, ?, ?)";
+            String insertDetalleSQL = "INSERT INTO pedidodetalle (idPedido, idProducto, totalPedido, cantidad) VALUES (?, ?, ?, ?)";
             try {
                 PreparedStatement ps = con.prepareStatement(insertDetalleSQL);
-
-                ps.setInt(1, detalle.getIdDetalle());
-                ps.setInt(2, detalle.getPedido().getIdPedido());
-                ps.setInt(3, detalle.getIdProducto());
-                ps.setDouble(4, detalle.getTotalPedido());
-                ps.setInt(5, detalle.getCantidad());
+                ps.setInt(1, detalle.getPedido().getIdPedido());
+                ps.setInt(2, detalle.getIdProducto());
+                ps.setDouble(3, detalle.getTotalPedido());
+                ps.setInt(4, detalle.getCantidad());
                 ps.executeUpdate();
                 PreparedStatement ps1 = con.prepareStatement("Update Producto Set CantidadenStock =CantidadenStock - ? where idProducto=?");
                 ps1.setInt(1, detalle.getCantidad());

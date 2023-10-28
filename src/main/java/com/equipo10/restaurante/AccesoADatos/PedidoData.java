@@ -91,7 +91,7 @@ public class PedidoData {
 
     public void CerrarPedido(int id) {
         try {
-            String sql = "UPDATE pedido SET estado=0 WHERE idPedido = ? ";
+            String sql = "UPDATE pedido SET estado=0 , pagado=1 WHERE idPedido = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int fila = ps.executeUpdate();
@@ -288,21 +288,6 @@ public class PedidoData {
         }
     }
 
-    public double calcularTotalPedido(int idPedido) {
-        double total = 0;
-        String sql = "SELECT producto.Precio, pedidodetalle.cantidad FROM pedidodetalle JOIN producto ON pedidodetalle.idProducto = producto.idProducto WHERE pedidodetalle.idPedido = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idPedido);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                total += rs.getDouble("Precio") * rs.getInt("cantidad");
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error consulta sql al traer total");
-        }
-        return total;
-    }
 
     public ArrayList<Integer> buscarPedidosxIDMesa(Mesa m) {
         ArrayList<Integer> pedidos = new ArrayList<>();
@@ -348,11 +333,7 @@ public class PedidoData {
         }
         return productos;
     }
-    //SQL de posible solucion a problema de carga de datos de tabla relacional...
-//"SELECT Pedidos.*, Producto.*\n" +
-//        "FROM Pedidos tp\n" +
-//         "CROSS APPLY STRING_SPLIT(Pedidos.IdProducto, ',') AS SplitClaves\n" +
-//             "JOIN Producto ON producto.Id = Pedidos.iDProducto WHERE Producto.idPedido =?";
+  
     public ArrayList<Producto> listarProductosDelPedido(int idPedido) {
         ArrayList<Producto> productos = new ArrayList<>();
         CategoriaData cat = new CategoriaData();
@@ -378,7 +359,7 @@ public class PedidoData {
     }
 
     public int ultimo() {
-        int ultimo=0;
+        int ultimo=1;
         String sql = "SELECT MAX(idPedido) FROM pedido";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -431,5 +412,28 @@ public class PedidoData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, " Error al acceder al pedido");
         }
+    }
+    
+    public ArrayList<Pedido> ListarPedidosDeLaMesa(Mesa m) {
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        String sql = "Select Producto.*,cantidad FROM Producto JOIN pedidodetalle ON (pedidodetalle.idProducto=Producto.idProducto) WHERE pedidodetalle.idPedido =?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idPedido);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setCategoria(cat.obtenerNombreCategoriaPorId(rs.getInt("idCategoria")));
+                p.setNombre(rs.getString("Nombre"));
+                p.setCantidadEnStock(rs.getInt("CantidadEnStock"));
+                p.setPrecio(rs.getDouble("Precio"));
+                p.setEstado(rs.getBoolean("estado"));
+                productos.add(p);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error consulta sql");
+        }
+        return productos;
     }
 }

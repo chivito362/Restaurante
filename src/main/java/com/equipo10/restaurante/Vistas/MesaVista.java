@@ -1,6 +1,8 @@
 package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.MesaData;
+import com.equipo10.restaurante.AccesoADatos.PedidoData;
+import com.equipo10.restaurante.Entidades.DetallePedido;
 import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.ValidacionDatos;
 import java.awt.Color;
@@ -10,6 +12,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -19,6 +22,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 public class MesaVista extends javax.swing.JInternalFrame {
     Mesa mesa = new Mesa();
     private MesaData mesaData;
+    PedidoData pd=new PedidoData();
     
     public MesaVista() {
         initComponents();
@@ -70,34 +74,6 @@ public class MesaVista extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MesaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MesaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MesaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MesaVista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MesaVista().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPmesas;
@@ -113,15 +89,22 @@ public void abrirMesa(int numeroMesa) {
                 JOptionPane.showMessageDialog(null, "Mesa " + numeroMesa + " abierta");
     }
 }
-public void cerrarMesa(int numeroMesa){
-  mesa = mesaData.buscarMesaxNRO(numeroMesa);
-  //JOptionPane.showMessageDialog(null, mesa.getNroMesa());
-    
-    //if (mesa != null && mesa.isEstado()) {
-        mesa.setEstado(false);
-        mesaData.CerrarMesaxNRO(mesa);
-                JOptionPane.showMessageDialog(null, "Mesa " + numeroMesa + " cerrada");
-  //  }
+    public void cerrarMesa(int numeroMesa) {
+
+        int r = JOptionPane.showConfirmDialog(null, "Desea cobrar la mesa?");
+        if (r == 0) {
+            
+            mesa = mesaData.buscarMesaxNRO(numeroMesa);
+            List<DetallePedido>deta=new ArrayList<>();
+            pd.listar(mesa.getIdMesa());
+            ArrayList<Integer> pedidos=pd.buscarPedidosxIDMesa(mesa);
+            for (Integer i : pedidos) {
+                pd.CerrarPedido(i);
+            }
+            mesa.setEstado(false);
+            mesaData.CerrarMesaxNRO(mesa);
+            Detalle det=new Detalle(deta);
+        }
 };
 private void agregarMesasAbiertasDesdeBaseDeDatos() {
   
