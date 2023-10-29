@@ -18,8 +18,7 @@ public class Mesa {
     /*                            IMPORTANTE
     *       AL CREAR UNA MESA SE PUEDE AGREGAR UNA RESERVA Y SI NO
     *       LO REQUIERE SE DEBE AGREGAR null EN LUGAR DE LA RESERVA" 
-    */
-    
+     */
     public Mesa() {
     }
 
@@ -75,7 +74,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return idMesa +"";
+        return idMesa + "";
     }
 
 }

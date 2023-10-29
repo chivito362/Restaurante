@@ -98,9 +98,11 @@ public class MesaData {
             ps.setInt(1, idMesa);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                mesa.setIdMesa(rs.getInt(1));
-                mesa.setCapacidad(rs.getInt(2));
-                mesa.setEstado(rs.getBoolean(3));
+                mesa.setIdMesa(rs.getInt(1)); //2 es numero
+                //falta el numero de mesa columna 2
+                mesa.setCapacidad(rs.getInt(3));
+                mesa.setEstado(rs.getBoolean(4));
+                mesa.setEliminada(rs.getBoolean(6));
                 int idReserva = rs.getInt("idReserva");
                 if (!rs.wasNull()) {
                     Reserva reserva = res.buscarReserva(idReserva);
