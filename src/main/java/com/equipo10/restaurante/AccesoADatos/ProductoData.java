@@ -106,6 +106,8 @@ public class ProductoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el producto");
             }
+            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al traer el producto");
@@ -126,7 +128,7 @@ public class ProductoData {
                 p = pd.TraerProducto(rs.getInt(1));
                 productos.add(p);
             }
-
+            ps.close();
             rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al traer los productos");

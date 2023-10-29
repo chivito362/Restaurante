@@ -23,12 +23,11 @@ import javax.swing.JLabel;
  *
  * @author Facua
  */
-public class Detalle extends javax.swing.JFrame implements Printable{
-    
+public class Detalle extends javax.swing.JFrame implements Printable {
+
     public static List<DetallePedido> detalles = new ArrayList<>();
     int xMouse, yMouse;
 
-    
     public Detalle(List<DetallePedido> deta) {
         initComponents();
         detalles = deta;
@@ -41,7 +40,6 @@ public class Detalle extends javax.swing.JFrame implements Printable{
         total();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -288,14 +286,13 @@ public class Detalle extends javax.swing.JFrame implements Printable{
     private void fondoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fondoMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x - xMouse,y - yMouse);
+        this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_fondoMouseDragged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cuentas;
@@ -341,15 +338,15 @@ public class Detalle extends javax.swing.JFrame implements Printable{
             return NO_SUCH_PAGE;
         }
     }
-    
+
     private void cantidades() {
         int cont = detalles.size();
-        int cantidadY=250;
+        int cantidadY = 250;
         for (int i = 0; i < detalles.size(); i++) {
-            JLabel cantidad=new JLabel();
+            JLabel cantidad = new JLabel();
             cantidad.setText(detalles.get(0).getCantidad() + "");
             cantidad.setLocation(25, cantidadY);
-            cantidadY+=30;
+            cantidadY += 30;
         }
         /*switch (cont) {
             case 1:
@@ -405,29 +402,19 @@ public class Detalle extends javax.swing.JFrame implements Printable{
             case 3:
                 produ1.setText(prd.TraerProducto(detalles.get(0).getIdProducto()).getNombre() + "");
                 produ2.setText(prd.TraerProducto(detalles.get(1).getIdProducto()).getNombre() + "");
-                produ3.setText(prd.TraerProducto(detalles.get(2).getIdProducto()).getNombre() + "");
                 break;
 
             case 4:
                 produ1.setText(prd.TraerProducto(detalles.get(0).getIdProducto()).getNombre() + "");
                 produ2.setText(prd.TraerProducto(detalles.get(1).getIdProducto()).getNombre() + "");
-                produ3.setText(prd.TraerProducto(detalles.get(2).getIdProducto()).getNombre() + "");
-                produ4.setText(prd.TraerProducto(detalles.get(3).getIdProducto()).getNombre() + "");
                 break;
             case 5:
                 produ1.setText(prd.TraerProducto(detalles.get(0).getIdProducto()).getNombre() + "");
                 produ2.setText(prd.TraerProducto(detalles.get(1).getIdProducto()).getNombre() + "");
-                produ3.setText(prd.TraerProducto(detalles.get(2).getIdProducto()).getNombre() + "");
-                produ4.setText(prd.TraerProducto(detalles.get(3).getIdProducto()).getNombre() + "");
-                produ5.setText(prd.TraerProducto(detalles.get(4).getIdProducto()).getNombre() + "");
                 break;
             case 6:
                 produ1.setText(prd.TraerProducto(detalles.get(0).getIdProducto()).getNombre() + "");
                 produ2.setText(prd.TraerProducto(detalles.get(1).getIdProducto()).getNombre() + "");
-                produ3.setText(prd.TraerProducto(detalles.get(2).getIdProducto()).getNombre() + "");
-                produ4.setText(prd.TraerProducto(detalles.get(3).getIdProducto()).getNombre() + "");
-                produ5.setText(prd.TraerProducto(detalles.get(4).getIdProducto()).getNombre() + "");
-                produ6.setText(prd.TraerProducto(detalles.get(5).getIdProducto()).getNombre() + "");
                 break;
         }
     }
@@ -446,29 +433,18 @@ public class Detalle extends javax.swing.JFrame implements Printable{
             case 3:
                 precio1.setText(detalles.get(0).getTotalPedido() + "");
                 precio2.setText(detalles.get(1).getTotalPedido() + "");
-                precio3.setText(detalles.get(2).getTotalPedido() + "");
                 break;
-
             case 4:
                 precio1.setText(detalles.get(0).getTotalPedido() + "");
                 precio2.setText(detalles.get(1).getTotalPedido() + "");
-                precio3.setText(detalles.get(2).getTotalPedido() + "");
-                precio4.setText(detalles.get(3).getTotalPedido() + "");
                 break;
             case 5:
                 precio1.setText(detalles.get(0).getTotalPedido() + "");
                 precio2.setText(detalles.get(1).getTotalPedido() + "");
-                precio3.setText(detalles.get(2).getTotalPedido() + "");
-                precio4.setText(detalles.get(3).getTotalPedido() + "");
-                precio5.setText(detalles.get(4).getTotalPedido() + "");
                 break;
             case 6:
                 precio1.setText(detalles.get(0).getTotalPedido() + "");
                 precio2.setText(detalles.get(1).getTotalPedido() + "");
-                precio3.setText(detalles.get(2).getTotalPedido() + "");
-                precio4.setText(detalles.get(3).getTotalPedido() + "");
-                precio5.setText(detalles.get(4).getTotalPedido() + "");
-                precio6.setText(detalles.get(5).getTotalPedido() + "");
                 break;
         }
     }
@@ -518,5 +494,5 @@ public class Detalle extends javax.swing.JFrame implements Printable{
 
         this.mesa.setText("MESA " + detalles.get(0).getPedido().getMesa().getIdMesa());
     }
-    
+
 }

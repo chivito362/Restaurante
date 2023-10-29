@@ -235,7 +235,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBreservasActionPerformed
 
     private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
-        PedidoVistaCOPIA pv = new PedidoVistaCOPIA();
+        PedidoVista pv = new PedidoVista();
         showPanel(pv.getFondo());
     }//GEN-LAST:event_btnPedidosActionPerformed
 
@@ -244,7 +244,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMesasActionPerformed
 
     private void MenuCargaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCargaProductosActionPerformed
-        ProductoCargaVistaCOPIA venta = new ProductoCargaVistaCOPIA(null, true);
+        ProductoCargaVista venta = new ProductoCargaVista(null, true);
         venta.setLocationRelativeTo(this);
         venta.setVisible(true);
     }//GEN-LAST:event_MenuCargaProductosActionPerformed

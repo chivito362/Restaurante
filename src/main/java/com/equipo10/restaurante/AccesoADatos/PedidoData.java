@@ -1,17 +1,13 @@
 package com.equipo10.restaurante.AccesoADatos;
 
-import com.equipo10.restaurante.Entidades.Categoria;
 import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.Entidades.Mesero;
 import com.equipo10.restaurante.Entidades.Pedido;
 import com.equipo10.restaurante.Entidades.Producto;
-import java.sql.Array;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -65,6 +61,7 @@ public class PedidoData {
         }
         
     }
+    
     public void editarPedido(Pedido pedido) {
         String sql = "UPDATE pedido SET mesa = ? , mesero = ?, detalle = ?, entregado= ?, pagado= ? WHERE idPedido = ?";
         PreparedStatement ps = null;
@@ -398,6 +395,7 @@ public class PedidoData {
         }
         return pedido;
     }
+    
     public void anularPedido(int id){
         try {
             String sql = "UPDATE pedido SET anulado=1 WHERE idPedido = ? ";
@@ -416,24 +414,25 @@ public class PedidoData {
     
     public ArrayList<Pedido> ListarPedidosDeLaMesa(Mesa m) {
         ArrayList<Pedido> pedidos = new ArrayList<>();
-        String sql = "Select Producto.*,cantidad FROM Producto JOIN pedidodetalle ON (pedidodetalle.idProducto=Producto.idProducto) WHERE pedidodetalle.idPedido =?";
+        
+        String sql = "SELECT idPedido FROM pedido WHERE idMesa = ?";
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idPedido);
+            ps.setInt(1, m.getIdMesa());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Producto p = new Producto();
-                p.setIdProducto(rs.getInt("idProducto"));
-                p.setCategoria(cat.obtenerNombreCategoriaPorId(rs.getInt("idCategoria")));
-                p.setNombre(rs.getString("Nombre"));
-                p.setCantidadEnStock(rs.getInt("CantidadEnStock"));
-                p.setPrecio(rs.getDouble("Precio"));
-                p.setEstado(rs.getBoolean("estado"));
-                productos.add(p);
+                Pedido p;
+                
+                p = buscarPedido(rs.getInt(1));
+                
+                pedidos.add(p);
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error consulta sql");
         }
-        return productos;
+        return pedidos;
     }
 }

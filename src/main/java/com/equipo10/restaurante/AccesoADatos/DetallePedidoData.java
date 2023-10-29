@@ -118,7 +118,7 @@ public class DetallePedidoData {
 
     public int ultimo() {
         int ultimo = 1;
-        String sql = "SELECT MAX(idPedidoDetalle) FROM pedidoDetalle";
+        String sql = "SELECT MAX(idPedidoDetalle) FROM pedidodetalle";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

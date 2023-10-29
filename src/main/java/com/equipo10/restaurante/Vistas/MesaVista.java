@@ -96,7 +96,7 @@ public void abrirMesa(int numeroMesa) {
             
             mesa = mesaData.buscarMesaxNRO(numeroMesa);
             List<DetallePedido>deta=new ArrayList<>();
-            pd.listar(mesa.getIdMesa());
+            pd.buscarPedidosxNumeroMesa(mesa.getIdMesa());
             ArrayList<Integer> pedidos=pd.buscarPedidosxIDMesa(mesa);
             for (Integer i : pedidos) {
                 pd.CerrarPedido(i);

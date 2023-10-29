@@ -16,15 +16,16 @@ import javax.swing.SwingConstants;
  *
  * @author Facua
  */
-public class ProductoCargaVistaCOPIA extends javax.swing.JDialog {
+public class ProductoCargaVista extends javax.swing.JDialog {
     
     private static DefaultListCellRenderer dlcr = new DefaultListCellRenderer();
     ProductoData pd;
 
+     int xMouse, yMouse;
     /**
      * Creates new form ProductoCargaVistaCOPIA
      */
-    public ProductoCargaVistaCOPIA(java.awt.Frame parent, boolean modal) {
+    public ProductoCargaVista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         cargarCB();
@@ -182,7 +183,7 @@ public class ProductoCargaVistaCOPIA extends javax.swing.JDialog {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 55, 70, 35));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 70, 30));
 
         rbtnHabil.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         rbtnHabil.setForeground(new java.awt.Color(35, 32, 31));
@@ -223,6 +224,16 @@ public class ProductoCargaVistaCOPIA extends javax.swing.JDialog {
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jLabel3.setOpaque(true);
         jLabel3.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        jLabel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jLabel3MouseDragged(evt);
+            }
+        });
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel3MousePressed(evt);
+            }
+        });
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 366, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,9 +295,11 @@ public class ProductoCargaVistaCOPIA extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        busquedaProducto bs=new busquedaProducto(this,null,true);
+        BuscarProducto bs=new BuscarProducto(null,true);
+        bs.setSize(470,470);
+        bs.setLocationRelativeTo(Login.prin);
         bs.setVisible(true);
-        bs.setLocationRelativeTo(null);
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseEntered
@@ -320,6 +333,17 @@ public class ProductoCargaVistaCOPIA extends javax.swing.JDialog {
         limpiar();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void jLabel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_jLabel3MousePressed
+
+    private void jLabel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse,y - yMouse);
+    }//GEN-LAST:event_jLabel3MouseDragged
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -327,7 +351,7 @@ public class ProductoCargaVistaCOPIA extends javax.swing.JDialog {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSalir;
-    public javax.swing.JComboBox<Categoria> cbCategoria;
+    public static javax.swing.JComboBox<Categoria> cbCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -335,11 +359,11 @@ public class ProductoCargaVistaCOPIA extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    public javax.swing.JRadioButton rbtnHabil;
-    public javax.swing.JTextField txtId;
-    public javax.swing.JTextField txtNombre;
-    public javax.swing.JTextField txtPrecio;
-    public javax.swing.JTextField txtStock;
+    public static javax.swing.JRadioButton rbtnHabil;
+    public static javax.swing.JTextField txtId;
+    public static javax.swing.JTextField txtNombre;
+    public static javax.swing.JTextField txtPrecio;
+    public static javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
 
     private void limpiar(){

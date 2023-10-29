@@ -1,8 +1,6 @@
 
 package com.equipo10.restaurante.Entidades;
 
-import java.util.List;
-
 
 public class Mesero {
     private int idMesero;
@@ -74,7 +72,7 @@ public class Mesero {
 
     @Override
     public String toString() {
-        return "| " +nombreApellido+" |";
+        return "-" +nombreApellido+"-";
     }
     
 

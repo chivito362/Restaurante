@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package com.equipo10.restaurante.Vistas;
 
 import com.equipo10.restaurante.AccesoADatos.PedidoData;
-import com.equipo10.restaurante.Entidades.Mesa;
-import com.equipo10.restaurante.Entidades.Mesero;
 import com.equipo10.restaurante.Entidades.Pedido;
 import java.awt.Color;
 import javax.swing.JPanel;
@@ -15,15 +10,18 @@ import javax.swing.JPanel;
  *
  * @author Facua
  */
-public class EditarPedidoVistaCOPIA extends javax.swing.JDialog {
+public class EditarPedidoVista extends javax.swing.JDialog {
 
-int idPedido;
-    public EditarPedidoVistaCOPIA(java.awt.Frame parent, boolean modal,Mesa m,String me,int id) {
+    Pedido ped;
+    PedidoData pd = new PedidoData();
+
+    public EditarPedidoVista(java.awt.Frame parent, boolean modal, String me, int id) {
         super(parent, modal);
         initComponents();
-        jtMesa.setText(m.getIdMesa()+"");
+        ped = pd.buscarPedido(id);
+        jtMesa.setText(ped.getMesa().getIdMesa() + "");
         jtMesero.setText(me);
-        this.idPedido=id;
+        jcEntregado.setSelected(ped.isEntregado());
     }
 
     public JPanel getFondo() {
@@ -89,17 +87,21 @@ int idPedido;
 
         jtMesero.setEditable(false);
         jtMesero.setBackground(new java.awt.Color(251, 250, 241));
-        jtMesero.setForeground(new java.awt.Color(51, 51, 51));
+        jtMesero.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jtMesero.setForeground(new java.awt.Color(35, 32, 31));
+        jtMesero.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtMesero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         fondo.add(jtMesero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 200, 35));
 
         jtMesa.setEditable(false);
         jtMesa.setBackground(new java.awt.Color(251, 250, 241));
-        jtMesa.setForeground(new java.awt.Color(51, 51, 51));
+        jtMesa.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jtMesa.setForeground(new java.awt.Color(35, 32, 31));
+        jtMesa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtMesa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         fondo.add(jtMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 67, 200, 35));
 
-        jbConfirmar.setBackground(new java.awt.Color(124, 180, 144));
+        jbConfirmar.setBackground(new java.awt.Color(98, 210, 106));
         jbConfirmar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbConfirmar.setForeground(new java.awt.Color(255, 255, 255));
         jbConfirmar.setText("Confirmar");
@@ -163,19 +165,33 @@ int idPedido;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbConfirmarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbConfirmarMouseEntered
-        jbConfirmar.setBackground(new Color(90, 158, 115));
+        jbConfirmar.setBackground(new Color(54, 190, 64));
     }//GEN-LAST:event_jbConfirmarMouseEntered
 
     private void jbConfirmarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbConfirmarMouseExited
-        jbConfirmar.setBackground(new Color(124, 180, 144));
+        jbConfirmar.setBackground(new Color(98, 210, 106));
     }//GEN-LAST:event_jbConfirmarMouseExited
 
     private void jbConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarActionPerformed
 
-        PedidoData pd = new PedidoData();
-        pd.setearEntregado(jcEntregado.isSelected(), idPedido);
+        pd.setearEntregado(jcEntregado.isSelected(), ped.getIdPedido());
         this.dispose();
-        PedidoVistaCOPIA.CargarTabla();
+
+        if (jcEntregado.isSelected()) {
+            PedidoVista.jcFiltro.setSelectedIndex(1);
+            PedidoVista.modelo.setRowCount(0);
+
+            for (Pedido pedido : pd.listarPedidoEntregado()) {
+                PedidoVista.modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+            }
+        } else {
+            PedidoVista.jcFiltro.setSelectedIndex(2);
+            PedidoVista.modelo.setRowCount(0);
+
+            for (Pedido pedido : pd.listarPedidoNoEntregados()) {
+                PedidoVista.modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
+            }
+        }
     }//GEN-LAST:event_jbConfirmarActionPerformed
 
     private void jbSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSalirMouseEntered
@@ -201,7 +217,7 @@ int idPedido;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jbConfirmar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JCheckBox jcEntregado;
+    public static javax.swing.JCheckBox jcEntregado;
     private javax.swing.JTextField jtMesa;
     private javax.swing.JTextField jtMesero;
     // End of variables declaration//GEN-END:variables
