@@ -184,7 +184,12 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.setForeground(new java.awt.Color(251, 250, 241));
         jMenu1.setText("Administracion");
 
-        jMenuItem1.setText("Carga Usuarios");
+        jMenuItem1.setText("Carga Meseros");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -273,6 +278,13 @@ public class Principal extends javax.swing.JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_jMenuBar1MouseDragged
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        CargaMeseros cm = new CargaMeseros(null,true);
+        cm.setSize(370, 330);
+        cm.setLocationRelativeTo(Login.prin);
+        cm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

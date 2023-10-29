@@ -16,7 +16,6 @@ import com.equipo10.restaurante.Entidades.Pedido;
 import com.equipo10.restaurante.Entidades.Producto;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;

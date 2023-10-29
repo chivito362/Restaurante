@@ -1,8 +1,13 @@
 
 package com.equipo10.restaurante.Entidades;
 
+import com.equipo10.restaurante.AccesoADatos.MeseroData;
+
 
 public class Mesero {
+    
+    private MeseroData md = new MeseroData();
+    
     private int idMesero;
     private String nombreApellido,docu;
     private boolean estado,Ingreso;
@@ -11,15 +16,23 @@ public class Mesero {
     public Mesero() {
     }
 
-    public Mesero(int idMesero, String nombreApellido, String docu) {
-        this.idMesero = idMesero;
+    public Mesero(String nombreApellido, String docu) {
+        this.idMesero = md.ultimo();
         this.nombreApellido = nombreApellido;
         this.docu = docu;
+        this.estado = true;
+        this.Ingreso = false;
     }
 
 
     public Mesero(int idMesero) {
         this.idMesero = idMesero;
+    }
+
+    public Mesero(int idMesero, String nombreApellido, String docu) {
+        this.idMesero = idMesero;
+        this.nombreApellido = nombreApellido;
+        this.docu = docu;
     }
 
 
@@ -72,7 +85,7 @@ public class Mesero {
 
     @Override
     public String toString() {
-        return "-" +nombreApellido+"-";
+        return nombreApellido;
     }
     
 

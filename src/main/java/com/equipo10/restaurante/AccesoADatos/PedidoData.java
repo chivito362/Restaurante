@@ -37,7 +37,8 @@ public class PedidoData {
             ps.setBoolean(4, pedido.isEntregado());
             ps.setBoolean(5, pedido.isPagado());
             ps.setBoolean(6, pedido.isEstado());
-            int end = ps.executeUpdate();
+            ps.executeUpdate();
+            
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al ingresar pedido ");
@@ -56,6 +57,7 @@ public class PedidoData {
             ps.setInt(2, id);
             ps.executeUpdate();
 
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,6 +81,7 @@ public class PedidoData {
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontro pedido");
             }
+            ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder al pedido ");
@@ -124,6 +127,7 @@ public class PedidoData {
 
             }
             ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a pedidos");
         }
@@ -151,6 +155,7 @@ public class PedidoData {
                 pedidos.add(pedido);
             }
             ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, " Error al acceder ");
         }
@@ -171,6 +176,8 @@ public class PedidoData {
                 pedido = buscarPedido(rs.getInt(1));
                 pedidos.add(pedido);
             }
+            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a pedidos.");
@@ -193,6 +200,8 @@ public class PedidoData {
                 pedido = buscarPedido(rs.getInt(1));
                 pedidos.add(pedido);
             }
+            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a pedidos.");
@@ -215,6 +224,8 @@ public class PedidoData {
                 pedido = buscarPedido(rs.getInt(1));
                 pedidos.add(pedido);
             }
+            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a pedidos.");
@@ -237,6 +248,8 @@ public class PedidoData {
                 pedido = buscarPedido(rs.getInt(1));
                 pedidos.add(pedido);
             }
+            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a pedidos.");
@@ -260,6 +273,8 @@ public class PedidoData {
                 pedido = buscarPedido(rs.getInt(1));
                 pedidos.add(pedido);
             }
+            ps.close();
+            rs.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a pedidos.");
@@ -280,6 +295,7 @@ public class PedidoData {
                 JOptionPane.showMessageDialog(null, "Producto Añadido");
 
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error en sql");
         }
@@ -296,6 +312,8 @@ public class PedidoData {
             while (rs.next()) {
                 pedidos.add(rs.getInt("idPedido"));
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -314,6 +332,8 @@ public class PedidoData {
             while (rs.next()) {
                 pedidos.add(rs.getInt("idPedido"));
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoData.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -349,6 +369,8 @@ public class PedidoData {
                 p.setEstado(rs.getBoolean("estado"));
                 productos.add(p);
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error consulta sql");
         }
@@ -367,6 +389,8 @@ public class PedidoData {
                     ultimo = rs.getInt(1) + 1;
                 }
             }
+            ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -389,6 +413,7 @@ public class PedidoData {
                 pedido.setPagado(rs.getBoolean(5));
                 pedido.setEstado(rs.getBoolean(6));
             }
+            ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar pedido" + ex.getMessage());

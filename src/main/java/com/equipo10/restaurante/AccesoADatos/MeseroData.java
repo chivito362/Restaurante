@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.equipo10.restaurante.AccesoADatos;
 
 import com.equipo10.restaurante.Entidades.Mesero;
@@ -11,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,17 +23,20 @@ public class MeseroData {
 
     public void crearMozo(Mesero mesero) {
 
-        String sql = "INSERT INTO mesero (nombreyapellido, estado) VALUES (?,?)";
+        String sql = "INSERT INTO mesero (NombreyApellido,Documento, estado,Ingreso) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, mesero.getNombreApellido());
-            ps.setBoolean(2, mesero.getEstado());
+            ps.setInt(2, Integer.parseInt(mesero.getDocu()));
+            ps.setBoolean(3, mesero.getEstado());
+            ps.setBoolean(4, mesero.isIngreso());
             int fila = ps.executeUpdate();
             if (fila == 1) {
                 JOptionPane.showMessageDialog(null, "Mesero Agregado");
             } else {
                 JOptionPane.showMessageDialog(null, "Algo salió mal");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Mesero" + ex.getMessage());
         }
@@ -83,8 +80,9 @@ public class MeseroData {
                     mozo.setEstado(rs.getBoolean("estado"));
                 } else {
                     JOptionPane.showMessageDialog(null, "Mesero no encontrado");
-                    ps.close();
                 }
+                ps.close();
+                rs.close();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Mesero" + ex.getMessage());
 
@@ -140,50 +138,101 @@ public class MeseroData {
         }
         return meseros;
     }
-    public ArrayList<Mesero> mozosActivos(){
+
+    public ArrayList<Mesero> mozosActivos() {
         ArrayList<Mesero> meseros = new ArrayList<>();
         String sql = "SELECT * FROM mesero where Ingreso=1";
         try {
             PreparedStatement statement = con.prepareStatement(sql);
             ResultSet resultado = statement.executeQuery();
-                while (resultado.next()){
-                    int idMesero = resultado.getInt("idmesero");
-                    String docu=resultado.getString("Documento");
-                    String nombreApellido = resultado.getString("nombreyapellido");
-                    Mesero mesero = new Mesero(idMesero, nombreApellido,docu);
-                    meseros.add(mesero);
-                }
+            while (resultado.next()) {
+                int idMesero = resultado.getInt("idmesero");
+                String docu = resultado.getString("Documento");
+                String nombreApellido = resultado.getString("nombreyapellido");
+                Mesero mesero = new Mesero(idMesero, nombreApellido, docu);
+                meseros.add(mesero);
+            }
+            statement.close();
+            resultado.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error sql");
         }
-                return meseros;
+        return meseros;
     }
-    public void IngresoMesero(String docu){
-        String sql="Update mesero Set Ingreso=1 where Documento=? AND estado=1";
+
+    public void IngresoMesero(String docu) {
+        String sql = "Update mesero Set Ingreso=1 where Documento=? AND estado=1";
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, docu);
-            int r=ps.executeUpdate();
-            if(r==1){
+            int r = ps.executeUpdate();
+            if (r == 1) {
                 JOptionPane.showMessageDialog(null, "Bienvenido");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No se encuentra ese mesero");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error sql");
-        }   
+        }
     }
-    
-    public void CierreLaboral(){
-        String sql="Update mesero Set Ingreso=0";
+
+    public void CierreLaboral() {
+        String sql = "Update mesero Set Ingreso=0";
         try {
-            PreparedStatement ps=con.prepareStatement(sql);
-            int r=ps.executeUpdate();
-            if(r==1){
+            PreparedStatement ps = con.prepareStatement(sql);
+            int r = ps.executeUpdate();
+            if (r == 1) {
                 JOptionPane.showMessageDialog(null, "Hasta la proxima");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error sql");
-        }   
+        }
+    }
+
+    public int ultimo() {
+        int ultimo = 1;
+        String sql = "SELECT MAX(idMesero) FROM mesero";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                if (rs.getObject(1) != null) {
+                    ultimo = rs.getInt(1) + 1;
+                }
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return ultimo;
+    }
+    
+    public ArrayList<Mesero> mozosEstadoActivo() {
+        ArrayList<Mesero> meseros = new ArrayList<>();
+        String sql = "SELECT * FROM mesero where estado = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Mesero m = new Mesero();
+                m.setIdMesero(rs.getInt(1));
+                m.setDocu(String.valueOf(rs.getInt(2)));
+                m.setNombreApellido(rs.getString(3));
+                m.setEstado(true);
+                m.setIngreso(rs.getBoolean(5));
+                
+                
+                meseros.add(m);
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error SQL");
+        }
+        return meseros;
     }
 }
