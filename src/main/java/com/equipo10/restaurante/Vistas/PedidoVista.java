@@ -8,9 +8,12 @@ import com.equipo10.restaurante.AccesoADatos.PedidoData;
 import com.equipo10.restaurante.Entidades.DetallePedido;
 import com.equipo10.restaurante.Entidades.Mesa;
 import com.equipo10.restaurante.Entidades.Pedido;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -270,6 +273,7 @@ public class PedidoVista extends javax.swing.JPanel {
         dp.setLocationRelativeTo(Login.prin);
         dp.setVisible(true);
         
+        //Este es el codigo necesario para iniciar el Ticket
         /*Detalle de = new Detalle(PedidoVista.detalleDelPedido());
         de.setLocationRelativeTo(Login.prin);
         de.setVisible(true);
