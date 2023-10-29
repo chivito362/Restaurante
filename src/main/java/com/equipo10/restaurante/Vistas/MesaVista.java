@@ -135,7 +135,7 @@ for (Mesa mesita : mesasTodas) {
 
 
 
-        /*mesaButton.addMouseListener(new MouseAdapter() {
+        mesaButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {//agregar el amarillo!!!!
                 if (e.getClickCount() == 2) {
                     // Cambiar el color del botón y actualizar el estado de la mesita en la base de datos
@@ -150,9 +150,9 @@ for (Mesa mesita : mesasTodas) {
                     }
                 }
             }
-        }*/
+        }
         
-       // );
+       );
 
         mesaButton.setPreferredSize(new Dimension(50, 50));
         JPanel buttonPanel = new JPanel();
