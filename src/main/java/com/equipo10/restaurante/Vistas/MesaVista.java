@@ -25,6 +25,7 @@ public class MesaVista extends javax.swing.JInternalFrame {
     private MesaData mesaData;
     PedidoData pd=new PedidoData();
     
+    
     public MesaVista() {
         
         initComponents();
@@ -101,9 +102,10 @@ public void abrirMesa(int numeroMesa) {
                 JOptionPane.showMessageDialog(null, "Mesa " + numeroMesa + " Abierta");
     }
     limpiarVentana();
+   
 }
     public boolean cerrarMesa(int numeroMesa) {//devuelvo true si fue cerrada
-
+        //ACA MOSTRAR DETALLE!!!!!!!
         int r = JOptionPane.showConfirmDialog(null, "Desea cobrar la mesa?");
         if (r == 0) {//yes
             
@@ -118,10 +120,11 @@ public void abrirMesa(int numeroMesa) {
             mesa.setEstado(false); //cierro la mesa
             mesaData.CerrarMesaxNRO(mesa);
             Detalle det=new Detalle(deta);
-            limpiarVentana();
+           
             return true;}else{ JOptionPane.showMessageDialog(null, "No hay pedidos en la mesa");return false;}
             
         }
+        limpiarVentana();
         return false;
         
 };
@@ -136,26 +139,32 @@ for (Mesa mesita : mesasTodas) {
 
     if (mesita.isEstado()) {
         mesaButton.setBackground(Color.green);
-    } else if (mesita.getIdReserva().getIdReserva() != 0) {
-        mesaButton.setBackground(Color.yellow);
     } else {
         mesaButton.setBackground(Color.red);
+        if(mesita.getIdReserva().getIdReserva() >0){
+           // JOptionPane.showMessageDialog(null, mesita.getIdReserva());
+             mesaButton.setBackground(Color.yellow);
+    
+    }
+        
     }
 
- limpiarVentana();
+ 
 
         mesaButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {//agregar el amarillo!!!!
+              
                 if (e.getClickCount() == 2) {
                     // Cambiar el color del botón y actualizar el estado de la mesita en la base de datos
-                    if (mesaButton.getBackground().equals(Color.green)) {
+                    if (mesaButton.getBackground().equals(Color.green)) {//si esta verde esta abierta
                         
-                        if(cerrarMesa(mesita.getIdMesa())){//aca habria que ver si la pude cerrar
-                        mesaButton.setBackground(Color.red);}
+                        if(cerrarMesa(mesita.getIdMesa())){//aca veo si la pude cerrar (cerrar devuelve booleano)
+                        mesaButton.setBackground(Color.red);}//si pude la pinto 
                     
                     } else {
                         
-                        abrirMesa(mesita.getIdMesa());//aca revisar si la pude abrir
+                        
+                        abrirMesa(mesita.getIdMesa());//aca revisar si la pude abrir aunque no deberia dar problemas
                         mesaButton.setBackground(Color.green);
                     }
                 }
@@ -168,14 +177,14 @@ for (Mesa mesita : mesasTodas) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(mesaButton);
         jPmesas.add(buttonPanel);//agrego la mesa al panel
-        limpiarVentana(); 
-    }//aca termina el foreach 
+            }//aca termina el foreach 
         // Vuelve a validar y repintar el panel de mesas
-    limpiarVentana();
+    
   
 }
 
 public void limpiarVentana(){
-    jPmesas.revalidate();
-    jPmesas.repaint();}
+     jPmesas.removeAll();
+     agregarMesasConEstadoDesdeBaseDeDatos();
+}
 }
