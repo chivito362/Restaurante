@@ -88,6 +88,7 @@ public class MesaVistaCOPIA extends javax.swing.JPanel {
         cbReservas.setBackground(new java.awt.Color(251, 250, 241));
         cbReservas.setForeground(new java.awt.Color(35, 32, 31));
         cbReservas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        cbReservas.setOpaque(true);
         add(cbReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 150, 30));
     }// </editor-fold>//GEN-END:initComponents
 

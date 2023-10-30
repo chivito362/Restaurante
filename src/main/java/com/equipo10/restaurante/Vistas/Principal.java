@@ -11,16 +11,14 @@ import javax.swing.JPanel;
 public class Principal extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    public static MesaVistaCOPIA mesa = new MesaVistaCOPIA();
     CategoriaData ca = new CategoriaData();
+    public MesaVistaCOPIA mesa = new MesaVistaCOPIA();
 
     public Principal() {
         initComponents();
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/patron.png")));
         imagenes();
         ca.CargarEnumsABD();
-        showPanel(mesa);
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -39,6 +37,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         MenuCargaProductos = new javax.swing.JMenuItem();
         btnSalir = new javax.swing.JMenu();
@@ -190,6 +189,14 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem2.setText("Carga Mesas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setBackground(new java.awt.Color(251, 250, 241));
@@ -244,7 +251,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPedidosActionPerformed
 
     private void btnMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesasActionPerformed
-        showPanel(mesa);
+           showPanel(mesa);
+           Login.prin.mesa.cargarMesas();
     }//GEN-LAST:event_btnMesasActionPerformed
 
     private void MenuCargaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCargaProductosActionPerformed
@@ -285,6 +293,12 @@ public class Principal extends javax.swing.JFrame {
         cm.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        CargaMesas cv = new CargaMesas(null,true);
+        cv.setLocationRelativeTo(Login.prin);
+        cv.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
@@ -299,6 +313,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JPanel jPanelPrincipal;
