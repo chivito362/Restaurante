@@ -122,7 +122,7 @@ public class MesaData {
             ps.setInt(1, mesa.getIdMesa());
             int end = ps.executeUpdate();
             if (end == 1) {
-                JOptionPane.showMessageDialog(null, "Mesa Abierta.");
+               // JOptionPane.showMessageDialog(null, "Mesa Abierta.");
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo abrir la Mesa.");
             }

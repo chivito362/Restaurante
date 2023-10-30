@@ -20,16 +20,18 @@ import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class MesaVista extends javax.swing.JInternalFrame {
+   
     Mesa mesa = new Mesa();
     private MesaData mesaData;
     PedidoData pd=new PedidoData();
     
     public MesaVista() {
+        
         initComponents();
         BasicInternalFrameUI ui = (BasicInternalFrameUI) getUI();
         ui.setNorthPane(null);
         jPmesas.setLayout(new GridLayout(0, 10)); // 0 filas y 3 columnas
-            
+           
         mesaData = new MesaData();
         agregarMesasConEstadoDesdeBaseDeDatos();// con este las levanto
     }
@@ -93,28 +95,35 @@ public void abrirMesa(int numeroMesa) {
     
     mesa = mesaData.buscarMesaxNRO(numeroMesa);
     //JOptionPane.showMessageDialog(null, mesita.getNroMesa());
-    if (mesa != null && !mesa.isEstado()) {
+    if (mesa.isEstado()) { //if (mesa != null && !mesa.isEstado()) { no funciona!!!!!!!!!!!!
         mesa.setEstado(true);
         mesaData.AbrirMesaxNRO(mesa);
-                JOptionPane.showMessageDialog(null, "Mesa " + numeroMesa + " abierta");
+                JOptionPane.showMessageDialog(null, "Mesa " + numeroMesa + " Abierta");
     }
+    limpiarVentana();
 }
-    public void cerrarMesa(int numeroMesa) {
+    public boolean cerrarMesa(int numeroMesa) {//devuelvo true si fue cerrada
 
         int r = JOptionPane.showConfirmDialog(null, "Desea cobrar la mesa?");
-        if (r == 0) {
+        if (r == 0) {//yes
             
             mesa = mesaData.buscarMesaxNRO(numeroMesa);
             List<DetallePedido>deta=new ArrayList<>();
-            pd.buscarPedidosxNumeroMesa(mesa.getIdMesa());
+            pd.buscarPedidosxNumeroMesa(mesa.getIdMesa()); // la mesa puede no tener pedidos
             ArrayList<Integer> pedidos=pd.buscarPedidosxIDMesa(mesa);
+            if(!pedidos.isEmpty()){
             for (Integer i : pedidos) {
                 pd.CerrarPedido(i);
             }
-            mesa.setEstado(false);
+            mesa.setEstado(false); //cierro la mesa
             mesaData.CerrarMesaxNRO(mesa);
             Detalle det=new Detalle(deta);
+            limpiarVentana();
+            return true;}else{ JOptionPane.showMessageDialog(null, "No hay pedidos en la mesa");return false;}
+            
         }
+        return false;
+        
 };
 private void agregarMesasConEstadoDesdeBaseDeDatos() {
   
@@ -133,7 +142,7 @@ for (Mesa mesita : mesasTodas) {
         mesaButton.setBackground(Color.red);
     }
 
-
+ limpiarVentana();
 
         mesaButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {//agregar el amarillo!!!!
@@ -141,8 +150,9 @@ for (Mesa mesita : mesasTodas) {
                     // Cambiar el color del botón y actualizar el estado de la mesita en la base de datos
                     if (mesaButton.getBackground().equals(Color.green)) {
                         
-                        cerrarMesa(mesita.getIdMesa());//aca habria que ver si la pude cerrar
-                        mesaButton.setBackground(Color.red);
+                        if(cerrarMesa(mesita.getIdMesa())){//aca habria que ver si la pude cerrar
+                        mesaButton.setBackground(Color.red);}
+                    
                     } else {
                         
                         abrirMesa(mesita.getIdMesa());//aca revisar si la pude abrir
@@ -158,9 +168,14 @@ for (Mesa mesita : mesasTodas) {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(mesaButton);
         jPmesas.add(buttonPanel);//agrego la mesa al panel
+        limpiarVentana(); 
     }//aca termina el foreach 
         // Vuelve a validar y repintar el panel de mesas
-    jPmesas.revalidate();
-    jPmesas.repaint();
+    limpiarVentana();
+  
 }
+
+public void limpiarVentana(){
+    jPmesas.revalidate();
+    jPmesas.repaint();}
 }
