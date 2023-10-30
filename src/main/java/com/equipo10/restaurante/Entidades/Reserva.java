@@ -70,11 +70,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        if (estado) {
-            return "|ID: " + idReserva + " | " + nombreApellido + " | " + fechaHora.toString() + " |Activo";
-        } else {
-            return "|ID: " + idReserva + " | " + nombreApellido + " | " + fechaHora.toString() + " |Inactivo";
-        }
+            return idReserva + " | " + nombreApellido;
     }
 
 }

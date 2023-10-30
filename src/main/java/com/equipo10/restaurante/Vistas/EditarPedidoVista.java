@@ -184,6 +184,7 @@ public class EditarPedidoVista extends javax.swing.JDialog {
             for (Pedido pedido : pd.listarPedidoEntregado()) {
                 PedidoVista.modelo.addRow(new Object[]{pedido.getIdPedido(), pedido.getMesa().getIdMesa(), pedido.getMesero().getNombreApellido(), pedido.isEntregado(), pedido.isPagado()});
             }
+            Login.prin.mesa.cargarMesas();
         } else {
             PedidoVista.jcFiltro.setSelectedIndex(2);
             PedidoVista.modelo.setRowCount(0);

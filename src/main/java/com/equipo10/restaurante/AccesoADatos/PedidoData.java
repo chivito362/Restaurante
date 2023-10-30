@@ -91,17 +91,14 @@ public class PedidoData {
 
     public void CerrarPedido(int id) {
         try {
-            String sql = "UPDATE pedido SET estado=0 , pagado=1 WHERE idPedido = ? ";
+            String sql = "UPDATE pedido SET estado=0 , pagado=1 WHERE idPedido = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-            int fila = ps.executeUpdate();
+            ps.executeUpdate();
 
-            if (fila == 1) {
-                JOptionPane.showMessageDialog(null, " Se eliminó pedido.");
-            }
             ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, " Error al acceder al pedido");
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }
 
@@ -323,7 +320,7 @@ public class PedidoData {
     public ArrayList<Integer> buscarPedidosxNumeroMesa(int m) {
         ArrayList<Integer> pedidos = new ArrayList<>();
         MesaData me = new MesaData();
-        Mesa mesa = me.buscarMesaxNRO(m);
+        Mesa mesa = me.buscarMesa(m);
         String sql = "SELECT pedido.idPedido FROM pedido where idMesa=? AND estado=1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

@@ -4,16 +4,9 @@ public class Mesa {
 
     private int idMesa;
     private int capacidad;
-    private boolean estado, eliminada;
-    private Reserva idReserva = new Reserva();
-
-    public boolean isEliminada() {
-        return eliminada;
-    }
-
-    public void setEliminada(boolean eliminada) {
-        this.eliminada = eliminada;
-    }
+    private boolean estado;
+    private Reserva idReserva;
+    
 
     /*                            IMPORTANTE
     *       AL CREAR UNA MESA SE PUEDE AGREGAR UNA RESERVA Y SI NO
@@ -21,6 +14,7 @@ public class Mesa {
      */
     public Mesa() {
     }
+    
 
     public Mesa(int idMesa, int capacidad, boolean estado, Reserva idReserva) {
         this.idMesa = idMesa;

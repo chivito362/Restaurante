@@ -4,24 +4,22 @@ import com.equipo10.restaurante.AccesoADatos.CategoriaData;
 import com.equipo10.restaurante.AccesoADatos.MeseroData;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Principal extends javax.swing.JFrame {
 
-    public static ReservaVista rv = new ReservaVista();
     int xMouse, yMouse;
-    MesaVista mesa = new MesaVista();
+    public static MesaVistaCOPIA mesa = new MesaVistaCOPIA();
     CategoriaData ca = new CategoriaData();
 
     public Principal() {
         initComponents();
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/patron.png")));
-        //imagenes();
+        imagenes();
         ca.CargarEnumsABD();
-        crearVentana(mesa);
+        showPanel(mesa);
         
     }
 
@@ -236,6 +234,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBreservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBreservasActionPerformed
+        ReservaVista rv = new ReservaVista();
         showPanel(rv.getFondo());
     }//GEN-LAST:event_jBreservasActionPerformed
 
@@ -245,7 +244,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPedidosActionPerformed
 
     private void btnMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesasActionPerformed
-        crearVentana(mesa);
+        showPanel(mesa);
     }//GEN-LAST:event_btnMesasActionPerformed
 
     private void MenuCargaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCargaProductosActionPerformed
@@ -323,10 +322,7 @@ public class Principal extends javax.swing.JFrame {
         Escritorio.moveToFront(fi);
     }
     
-//    private void imagenes() {
-//        jlogo.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.png")).getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH)));
-//        
-//        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/logo.png")).getScaledInstance(128, 128, Image.SCALE_SMOOTH));
-//        
-//    }
+    private void imagenes(){
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/icono.png")).getScaledInstance(128, 128, Image.SCALE_SMOOTH));
+    }
 }

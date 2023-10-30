@@ -181,15 +181,23 @@ public class Detalle extends javax.swing.JFrame implements Printable {
 
     @Override
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        if (pageIndex == 0) {
-            Graphics2D graphics2d = (Graphics2D) graphics;
-            graphics2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-            printAll(graphics2d);
-            return PAGE_EXISTS;
-        } else {
-            return NO_SUCH_PAGE;
-        }
+    if (pageIndex == 0) {
+        Graphics2D graphics2d = (Graphics2D) graphics;
+        
+        double pageWidth = pageFormat.getImageableWidth();
+        double contentWidth = getWidth(); 
+
+        double xPosition = (pageWidth - contentWidth) / 2.0;
+
+        graphics2d.translate(xPosition, pageFormat.getImageableY());
+        
+        printAll(graphics2d);
+        
+        return PAGE_EXISTS;
+    } else {
+        return NO_SUCH_PAGE;
     }
+}
 
     private void pantalla() {
         int H = 395;
@@ -361,7 +369,7 @@ public class Detalle extends javax.swing.JFrame implements Printable {
     private void fechaMeseroMesa() {
         LocalDateTime f = LocalDateTime.now(ZoneId.systemDefault());
 
-        this.fecha.setText(f.getDayOfMonth() + "-" + f.getMonthValue() + "-" + f.getYear() + " " + f.getHour() + ":" + f.getMinute() + ":" + f.getSecond());
+        this.fecha.setText(f.getDayOfMonth() + "-" + f.getMonthValue() + "-" + f.getYear() + "   " + f.getHour() + ":" + f.getMinute() + ":" + f.getSecond());
 
         MeseroData m = new MeseroData();
 

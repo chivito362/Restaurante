@@ -17,6 +17,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/icono.png")).getScaledInstance(128, 128, Image.SCALE_SMOOTH));
         Conexion.CrearBD();
         //imagenes();
     }

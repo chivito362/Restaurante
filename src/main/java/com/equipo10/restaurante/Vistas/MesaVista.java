@@ -94,7 +94,7 @@ public class MesaVista extends javax.swing.JInternalFrame {
 
 public void abrirMesa(int numeroMesa) {
     
-    mesa = mesaData.buscarMesaxNRO(numeroMesa);
+    mesa = mesaData.buscarMesa(numeroMesa);
     //JOptionPane.showMessageDialog(null, mesita.getNroMesa());
     if (mesa.isEstado()) { //if (mesa != null && !mesa.isEstado()) { no funciona!!!!!!!!!!!!
         mesa.setEstado(true);
@@ -109,7 +109,7 @@ public void abrirMesa(int numeroMesa) {
         int r = JOptionPane.showConfirmDialog(null, "Desea cobrar la mesa?");
         if (r == 0) {//yes
             
-            mesa = mesaData.buscarMesaxNRO(numeroMesa);
+            mesa = mesaData.buscarMesa(numeroMesa);
             List<DetallePedido>deta=new ArrayList<>();
             pd.buscarPedidosxNumeroMesa(mesa.getIdMesa()); // la mesa puede no tener pedidos
             ArrayList<Integer> pedidos=pd.buscarPedidosxIDMesa(mesa);

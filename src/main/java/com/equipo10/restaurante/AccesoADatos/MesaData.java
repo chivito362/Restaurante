@@ -73,23 +73,26 @@ public class MesaData {
         }
         return lista;
     }
+    
     public List<Mesa> obtenerTodasMesas() {
         List<Mesa> lista = new ArrayList<>();
-        Mesa mesa = new Mesa();
+        String sql = "SELECT * FROM mesa";
         try {
-                String sql = "SELECT * FROM mesa";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
+                    Mesa mesa;
                     mesa = buscarMesa(rs.getInt(1));
                     lista.add(mesa);
                 }
             ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al obtener las Mesas: " + ex.getMessage());
         }
         return lista;
     }
+    
     public Mesa buscarMesa(int idMesa) {
         Mesa mesa = new Mesa();
         try {
@@ -98,23 +101,25 @@ public class MesaData {
             ps.setInt(1, idMesa);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                mesa.setIdMesa(rs.getInt(1)); //2 es numero
-                //falta el numero de mesa columna 2
-                mesa.setCapacidad(rs.getInt(3));
-                mesa.setEstado(rs.getBoolean(4));
-                mesa.setEliminada(rs.getBoolean(6));
-                int idReserva = rs.getInt("idReserva");
+                mesa.setIdMesa(rs.getInt(1));
+                mesa.setCapacidad(rs.getInt(2));
+                mesa.setEstado(rs.getBoolean(3)); 
+                int idReserva = rs.getInt(4);
                 if (!rs.wasNull()) {
                     Reserva reserva = res.buscarReserva(idReserva);
                     mesa.setIdReserva(reserva);
+                }else{
+                    mesa.setIdReserva(null);
                 }
             }
             ps.close();
+            rs.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar Mesa: " + ex.getMessage());
         }
         return mesa;
     }
+    
     public void AbrirMesaxNRO(Mesa mesa) {
         try {
             String sql = "UPDATE mesa SET estado = 1 WHERE idMesa = ?";
@@ -122,7 +127,7 @@ public class MesaData {
             ps.setInt(1, mesa.getIdMesa());
             int end = ps.executeUpdate();
             if (end == 1) {
-               // JOptionPane.showMessageDialog(null, "Mesa Abierta.");
+               JOptionPane.showMessageDialog(null, "Mesa " + mesa.getIdMesa() + " Abierta.");
             } else {
                 JOptionPane.showMessageDialog(null, "No se pudo abrir la Mesa.");
             }
@@ -131,6 +136,7 @@ public class MesaData {
             JOptionPane.showMessageDialog(null, "Error al Abrir la Mesa: " + ex.getMessage());
         }
     }
+    
     public void CerrarMesaxNRO(Mesa mesa) {
         try {
             String sql = "UPDATE mesa SET estado = 0 WHERE idMesa = ?";
@@ -148,27 +154,22 @@ public class MesaData {
         }
     }
 
-    public Mesa buscarMesaxNRO(int idMesa) {
-        Mesa mesa = new Mesa();
-        try {
-            String sql = "SELECT * FROM mesa WHERE idMesa = ?";
+    public void anadirReserva(Mesa mesa){
+        String sql = "UPDATE mesa SET idReserva = ? WHERE idMesa = ?";
+        try{
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idMesa);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                mesa.setIdMesa(rs.getInt(1));
-                mesa.setCapacidad(rs.getInt(2));
-                mesa.setEstado(rs.getBoolean(3));
-                int idReserva = rs.getInt("idReserva");
-                if (!rs.wasNull()) {
-                    Reserva reserva = res.buscarReserva(idReserva);
-                    mesa.setIdReserva(reserva);
-                }
+            ps.setInt(1, mesa.getIdReserva().getIdReserva());
+            ps.setInt(2, mesa.getIdMesa());
+            int end = ps.executeUpdate();
+            
+            if(end == 1){
+                JOptionPane.showMessageDialog(null, "Reserva añadida");
             }
+            
             ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar Mesa: " + ex.getMessage());
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error" + ex.getMessage());
         }
-        return mesa;
     }
+    
 }
